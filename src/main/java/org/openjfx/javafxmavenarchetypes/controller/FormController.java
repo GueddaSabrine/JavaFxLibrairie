@@ -1,56 +1,84 @@
 package org.openjfx.javafxmavenarchetypes.controller;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import org.openjfx.javafxmavenarchetypes.model.Bibliotheque;
 
-import java.net.URL;
-import java.util.ResourceBundle;
 
-public class FormController implements Initializable {
+public class FormController  {
 
     // TextField
     @FXML
-    private TextField titre;
+    public TextField titre;
     @FXML
-    private TextField auteur;
+    public TextField auteur;
     @FXML
-    private TextField presentation;
+    public TextField presentation;
     @FXML
-    private TextField parution;
+    public TextField colonne;
     @FXML
-    private TextField colonne;
+    public TextField rangee;
     @FXML
-    private TextField rangee;
+    public DatePicker calendrier;
+    @FXML
+    public TextField image;
 
     //TableColumn
     @FXML
-    private TableColumn colAuteur;
+    public TableColumn <Bibliotheque.Livre.Auteur, String> colAuteur;
     @FXML
-    private TableColumn colPresentation;
+    public TableColumn <Bibliotheque.Livre, String> colPresentation;
     @FXML
-    private TableColumn colParution;
+    public TableColumn <Bibliotheque.Livre, DatePicker> colParution;
     @FXML
-    private TableColumn colColonne;
+    public TableColumn <Bibliotheque.Livre, Short> colColonne;
     @FXML
-    private TableColumn colRangee;
+    public TableColumn <Bibliotheque.Livre, Short>colRangee;
     @FXML
-    private TableColumn colTitre;
+    public TableColumn <Bibliotheque.Livre, String> colTitre;
 
     //Tableview
     @FXML
-    private TableView tableau;
+    public TableView <Bibliotheque.Livre> tableau;
 
     //Bouton
 
     @FXML
-    private Button btnMoins;
+    public Button btnMoins;
     @FXML
-    private Button btnValider;
+    public Button btnValider;
     @FXML
-    private Button btnPlus;
+    public Button btnPlus;
+    public ObservableList<Bibliotheque.Livre> getListData() {
+        ObservableList<Bibliotheque.Livre> listData = FXCollections.observableArrayList();
+        return listData;
+    }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    @FXML
+    public void handleNewBook(ActionEvent event){
+        Bibliotheque.Livre.Auteur auteur1 = new Bibliotheque.Livre.Auteur(auteur.getText(),auteur.getText()) ;
+        String presentationText = presentation.getText();
+        String titreText = titre.getText();
+        Short colonneText = Short.parseShort(colonne.getText());
+        Short rangeeText = Short.parseShort(rangee.getText());
+        String datapickerText = calendrier.getAccessibleText();
+
+        System.out.println(titreText);
+
+        // Affichage des données dans le tableau
+        /**ObservableList<Bibliotheque.Livre> listD = getListData();
+        colPresentation.setCellValueFactory(new PropertyValueFactory<Bibliotheque.Livre,String>("presentationText"));
+        colTitre.setCellValueFactory(new PropertyValueFactory<Bibliotheque.Livre,String>("titreText"));
+        colRangee.setCellValueFactory(new PropertyValueFactory<Bibliotheque.Livre,Integer>("rangeeText"));
+        colColonne.setCellValueFactory(new PropertyValueFactory<Bibliotheque.Livre,Short>("colonneText"));
+        colParution.setCellValueFactory(new PropertyValueFactory<Bibliotheque.Livre,DatePicker>("datapickerText"));
+        tableau.setItems(listD);**/
+        Bibliotheque.Livre livrre = new Bibliotheque.Livre(titreText,auteur1,presentationText,datapickerText,colonneText,rangeeText);
+        tableau.getItems().add(livrre);
+
 
     }
 }

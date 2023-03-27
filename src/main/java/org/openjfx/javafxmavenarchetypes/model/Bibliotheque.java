@@ -8,6 +8,9 @@
 
 package org.openjfx.javafxmavenarchetypes.model;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.control.DatePicker;
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -150,6 +153,7 @@ public class Bibliotheque {
     })
     public static class Livre {
 
+        
         @XmlElement(required = true)
         protected String titre;
         @XmlElement(required = true)
@@ -157,13 +161,30 @@ public class Bibliotheque {
         @XmlElement(required = true)
         protected String presentation;
         @XmlSchemaType(name = "unsignedShort")
-        protected int parution;
+        protected String parution;
         @XmlSchemaType(name = "unsignedByte")
         protected short colonne;
         @XmlSchemaType(name = "unsignedByte")
         protected short rangee;
         @XmlSchemaType(name = "unsignedByte")
         protected String image;
+
+        public Livre(String titre, Bibliotheque.Livre.Auteur auteur,String presentation,String parution,short colonne, short rangee){
+            this.titre =titre;
+            this.auteur =auteur;
+            this.presentation =presentation;
+            this.parution =parution;
+            this.colonne =colonne;
+            this.rangee =rangee;
+        }
+        public Livre(){
+            this.titre =null;
+            this.auteur =null;
+            this.presentation =null;
+            this.parution =null;
+            this.colonne =0;
+            this.rangee =0;
+        }
 
         /**
          * Obtient la valeur de la propri�t� titre.
@@ -250,7 +271,7 @@ public class Bibliotheque {
          * Obtient la valeur de la propri�t� parution.
          * 
          */
-        public int getParution() {
+        public String getParution() {
             return parution;
         }
 
@@ -258,7 +279,7 @@ public class Bibliotheque {
          * D�finit la valeur de la propri�t� parution.
          * 
          */
-        public void setParution(int value) {
+        public void setParution(String value) {
             this.parution = value;
         }
 
@@ -327,6 +348,15 @@ public class Bibliotheque {
             @XmlElement(required = true)
             protected String prenom;
 
+            public Auteur(String nom, String prenom){
+                this.nom = nom;
+                this.prenom = prenom;
+            }
+
+            public Auteur(){
+                this.nom = null;
+                this.prenom = null;
+            }
             /**
              * Obtient la valeur de la propri�t� nom.
              * 
