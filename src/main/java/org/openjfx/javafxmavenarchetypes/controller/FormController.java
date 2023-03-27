@@ -1,4 +1,7 @@
 package org.openjfx.javafxmavenarchetypes.controller;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -64,9 +67,9 @@ public class FormController  {
         String titreText = titre.getText();
         Integer colonneText = Integer.parseInt(colonne.getText());
         Integer rangeeText = Integer.parseInt(rangee.getText());
-        String datapickerText = calendrier.getAccessibleText();
+        String datapickerText = String.valueOf(calendrier.getValue());
 
-        System.out.println(titreText);
+        System.out.println(datapickerText);
 
         // Affichage des données dans le tableau nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
         ObservableList<Bibliotheque.Livre> listD = getListData();
@@ -74,8 +77,16 @@ public class FormController  {
         colPresentation.setCellValueFactory(cellData -> cellData.getValue().getPresentation());
         colTitre.setCellValueFactory(cellData -> cellData.getValue().titreProperty());
         colAuteur.setCellValueFactory(cellData -> cellData.getValue().getPresentation());
-        colRangee.setCellValueFactory(new PropertyValueFactory<Bibliotheque.Livre,Integer>("rangee")); // passe pas
-        colColonne.setCellValueFactory(new PropertyValueFactory<Bibliotheque.Livre,Integer>("colonne")); // passe pas
+        colRangee.setCellValueFactory(cellData -> {
+            IntegerProperty rangee = cellData.getValue().rangeeProperty();
+            ObservableValue<Integer> observableRangee = Bindings.createIntegerBinding(() -> rangee.get()).asObject();
+            return observableRangee;
+        });
+        colColonne.setCellValueFactory(cellData -> {
+            IntegerProperty colonne = cellData.getValue().getColonne();
+            ObservableValue<Integer> observableColonne = Bindings.createIntegerBinding(() -> colonne.get()).asObject();
+            return observableColonne;
+        });
         colParution.setCellValueFactory(cellData -> cellData.getValue().getParution());
 
         tableau.getColumns().setAll(colTitre,colAuteur,colPresentation,colParution,colColonne,colRangee);

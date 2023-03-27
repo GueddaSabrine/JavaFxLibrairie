@@ -163,7 +163,7 @@ public class Bibliotheque {
         protected Bibliotheque.Livre.Auteur auteur;
         @XmlElement(required = true)
         protected StringProperty presentation;
-        @XmlSchemaType(name = "unsignedShort")
+        @XmlSchemaType(name ="unsignedShort")
         protected StringProperty parution;
         @XmlSchemaType(name = "unsignedByte")
         protected IntegerProperty colonne;
