@@ -8,7 +8,10 @@
 
 package org.openjfx.javafxmavenarchetypes.model;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.scene.control.DatePicker;
 
 import java.util.ArrayList;
@@ -153,37 +156,37 @@ public class Bibliotheque {
     })
     public static class Livre {
 
-        
+
         @XmlElement(required = true)
-        protected String titre;
+        protected StringProperty titre;
         @XmlElement(required = true)
         protected Bibliotheque.Livre.Auteur auteur;
         @XmlElement(required = true)
-        protected String presentation;
+        protected StringProperty presentation;
         @XmlSchemaType(name = "unsignedShort")
-        protected String parution;
+        protected StringProperty parution;
         @XmlSchemaType(name = "unsignedByte")
-        protected short colonne;
+        protected IntegerProperty colonne;
         @XmlSchemaType(name = "unsignedByte")
-        protected short rangee;
+        protected IntegerProperty rangee;
         @XmlSchemaType(name = "unsignedByte")
-        protected String image;
+        protected StringProperty image;
 
-        public Livre(String titre, Bibliotheque.Livre.Auteur auteur,String presentation,String parution,short colonne, short rangee){
-            this.titre =titre;
+        public Livre(String titre, Bibliotheque.Livre.Auteur auteur,String presentation,String parution,Integer colonne, Integer rangee){
+            this.titre = new SimpleStringProperty(titre);
             this.auteur =auteur;
-            this.presentation =presentation;
-            this.parution =parution;
-            this.colonne =colonne;
-            this.rangee =rangee;
+            this.presentation = new SimpleStringProperty(presentation);
+            this.parution= new SimpleStringProperty(parution);
+            this.colonne= new SimpleIntegerProperty(colonne);
+            this.rangee= new SimpleIntegerProperty(rangee);
         }
         public Livre(){
-            this.titre =null;
+            this.titre= new SimpleStringProperty(null);
             this.auteur =null;
-            this.presentation =null;
-            this.parution =null;
-            this.colonne =0;
-            this.rangee =0;
+            this.presentation= new SimpleStringProperty(null);
+            this.parution= new SimpleStringProperty(null);
+            this.colonne= new SimpleIntegerProperty(0);
+            this.rangee= new SimpleIntegerProperty(0);
         }
 
         /**
@@ -191,10 +194,13 @@ public class Bibliotheque {
          * 
          * @return
          *     possible object is
-         *     {@link String }
+         *     {@link StringProperty }
          *     
          */
         public String getTitre() {
+            return titre.get();
+        }
+        public StringProperty titreProperty() {
             return titre;
         }
 
@@ -203,11 +209,11 @@ public class Bibliotheque {
          * 
          * @param value
          *     allowed object is
-         *     {@link String }
+         *     {@link StringProperty }
          *     
          */
         public void setTitre(String value) {
-            this.titre = value;
+            this.titre.set(value);
         }
 
         /**
@@ -239,10 +245,10 @@ public class Bibliotheque {
          * 
          * @return
          *     possible object is
-         *     {@link String }
+         *     {@link StringProperty }
          *     
          */
-        public String getPresentation() {
+        public StringProperty getPresentation() {
             return presentation;
         }
 
@@ -251,27 +257,27 @@ public class Bibliotheque {
          * 
          * @param value
          *     allowed object is
-         *     {@link String }
+         *     {@link StringProperty }
          *     
          */
-        public void setPresentation(String value) {
+        public void setPresentation(StringProperty value) {
             this.presentation = value;
         }
         /**
          * Obtient la valeur de l'image.
          *
          */
-        public String getImage(){
+        public StringProperty getImage(){
             return image;
         }
 
-        public void setImage(String value){this.presentation=value;}
+        public void setImage(StringProperty value){this.presentation=value;}
 
         /**
          * Obtient la valeur de la propri�t� parution.
          * 
          */
-        public String getParution() {
+        public StringProperty getParution() {
             return parution;
         }
 
@@ -279,7 +285,7 @@ public class Bibliotheque {
          * D�finit la valeur de la propri�t� parution.
          * 
          */
-        public void setParution(String value) {
+        public void setParution(StringProperty value) {
             this.parution = value;
         }
 
@@ -287,7 +293,7 @@ public class Bibliotheque {
          * Obtient la valeur de la propri�t� colonne.
          * 
          */
-        public short getColonne() {
+        public IntegerProperty getColonne() {
             return colonne;
         }
 
@@ -295,7 +301,7 @@ public class Bibliotheque {
          * D�finit la valeur de la propri�t� colonne.
          * 
          */
-        public void setColonne(short value) {
+        public void setColonne(IntegerProperty value) {
             this.colonne = value;
         }
 
@@ -303,7 +309,10 @@ public class Bibliotheque {
          * Obtient la valeur de la propri�t� rangee.
          * 
          */
-        public short getRangee() {
+        public Integer getRangee() {
+            return rangee.get();
+        }
+        public IntegerProperty rangeeProperty() {
             return rangee;
         }
 
@@ -311,8 +320,8 @@ public class Bibliotheque {
          * D�finit la valeur de la propri�t� rangee.
          * 
          */
-        public void setRangee(short value) {
-            this.rangee = value;
+        public void setRangee(Integer value) {
+            this.rangee.set(value);
         }
 
 

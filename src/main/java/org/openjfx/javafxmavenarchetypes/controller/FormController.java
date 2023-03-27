@@ -28,15 +28,15 @@ public class FormController  {
 
     //TableColumn
     @FXML
-    public TableColumn <Bibliotheque.Livre.Auteur, String> colAuteur;
+    public TableColumn <Bibliotheque.Livre, String> colAuteur;
     @FXML
     public TableColumn <Bibliotheque.Livre, String> colPresentation;
     @FXML
-    public TableColumn <Bibliotheque.Livre, DatePicker> colParution;
+    public TableColumn <Bibliotheque.Livre, String > colParution;
     @FXML
-    public TableColumn <Bibliotheque.Livre, Short> colColonne;
+    public TableColumn <Bibliotheque.Livre, Integer> colColonne;
     @FXML
-    public TableColumn <Bibliotheque.Livre, Short>colRangee;
+    public TableColumn <Bibliotheque.Livre, Integer>colRangee;
     @FXML
     public TableColumn <Bibliotheque.Livre, String> colTitre;
 
@@ -62,23 +62,26 @@ public class FormController  {
         Bibliotheque.Livre.Auteur auteur1 = new Bibliotheque.Livre.Auteur(auteur.getText(),auteur.getText()) ;
         String presentationText = presentation.getText();
         String titreText = titre.getText();
-        Short colonneText = Short.parseShort(colonne.getText());
-        Short rangeeText = Short.parseShort(rangee.getText());
+        Integer colonneText = Integer.parseInt(colonne.getText());
+        Integer rangeeText = Integer.parseInt(rangee.getText());
         String datapickerText = calendrier.getAccessibleText();
 
         System.out.println(titreText);
 
-        // Affichage des données dans le tableau
-        /**ObservableList<Bibliotheque.Livre> listD = getListData();
-        colPresentation.setCellValueFactory(new PropertyValueFactory<Bibliotheque.Livre,String>("presentationText"));
-        colTitre.setCellValueFactory(new PropertyValueFactory<Bibliotheque.Livre,String>("titreText"));
-        colRangee.setCellValueFactory(new PropertyValueFactory<Bibliotheque.Livre,Integer>("rangeeText"));
-        colColonne.setCellValueFactory(new PropertyValueFactory<Bibliotheque.Livre,Short>("colonneText"));
-        colParution.setCellValueFactory(new PropertyValueFactory<Bibliotheque.Livre,DatePicker>("datapickerText"));
-        tableau.setItems(listD);**/
+        // Affichage des données dans le tableau nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+        ObservableList<Bibliotheque.Livre> listD = getListData();
+
+        colPresentation.setCellValueFactory(cellData -> cellData.getValue().getPresentation());
+        colTitre.setCellValueFactory(cellData -> cellData.getValue().titreProperty());
+        colAuteur.setCellValueFactory(cellData -> cellData.getValue().getPresentation());
+        colRangee.setCellValueFactory(new PropertyValueFactory<Bibliotheque.Livre,Integer>("rangee")); // passe pas
+        colColonne.setCellValueFactory(new PropertyValueFactory<Bibliotheque.Livre,Integer>("colonne")); // passe pas
+        colParution.setCellValueFactory(cellData -> cellData.getValue().getParution());
+
+        tableau.getColumns().setAll(colTitre,colAuteur,colPresentation,colParution,colColonne,colRangee);
+
         Bibliotheque.Livre livrre = new Bibliotheque.Livre(titreText,auteur1,presentationText,datapickerText,colonneText,rangeeText);
         tableau.getItems().add(livrre);
-
 
     }
 }
