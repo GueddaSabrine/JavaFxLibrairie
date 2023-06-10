@@ -76,6 +76,10 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "bibliotheque")
 public class Bibliotheque {
 
+    public Bibliotheque(){
+
+        livre = new ArrayList<>();
+    }
     @XmlElement(required = true)
     protected List<Bibliotheque.Livre> livre;
 
@@ -106,6 +110,12 @@ public class Bibliotheque {
             livre = new ArrayList<Bibliotheque.Livre>();
         }
         return this.livre;
+    }
+
+    public void addLivre(String titre, Livre.Auteur auteur, String pre , String pick , int col, int rangee){
+
+        livre.add(new Livre(titre, auteur, pre, pick ,col, rangee));
+
     }
 
 
