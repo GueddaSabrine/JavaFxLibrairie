@@ -71,17 +71,19 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "livre"
+    "listlivre"
 })
 @XmlRootElement(name = "bibliotheque")
 public class Bibliotheque {
 
+
+    @XmlElement(name = "livre")
+    protected List<Bibliotheque.Livre> listlivre;
+
     public Bibliotheque(){
 
-        livre = new ArrayList<>();
+        listlivre = new ArrayList<>();
     }
-    @XmlElement(required = true)
-    protected List<Bibliotheque.Livre> livre;
 
     /**
      * Gets the value of the livre property.
@@ -106,17 +108,38 @@ public class Bibliotheque {
      * 
      */
     public List<Bibliotheque.Livre> getLivre() {
-        if (livre == null) {
-            livre = new ArrayList<Bibliotheque.Livre>();
+        if (listlivre == null) {
+            listlivre = new ArrayList<Bibliotheque.Livre>();
         }
-        return this.livre;
+        return this.listlivre;
     }
 
+    /**
+     * *
+     * @param titre
+     * @param auteur
+     * @param pre
+     * @param pick
+     * @param col
+     * @param rangee
+     */
     public void addLivre(String titre, Livre.Auteur auteur, String pre , String pick , int col, int rangee){
 
-        livre.add(new Livre(titre, auteur, pre, pick ,col, rangee));
+        listlivre.add(new Livre(titre, auteur, pre, pick ,col, rangee));
+        System.out.println("new book");
+        this.print();
+
 
     }
+
+    public void print(){
+        System.out.println(this);
+        listlivre.forEach(e->System.out.println(e.print()));
+
+
+    }
+
+
 
 
     /**
@@ -155,6 +178,7 @@ public class Bibliotheque {
      * 
      */
     @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlRootElement(name = "livre")
     @XmlType(name = "", propOrder = {
         "titre",
         "auteur",
@@ -167,11 +191,11 @@ public class Bibliotheque {
     public static class Livre {
 
 
-        @XmlElement(required = true)
+        @XmlElement(name = "titre")
         protected StringProperty titre;
-        @XmlElement(required = true)
+        @XmlElement(name = "auteur" )
         protected Bibliotheque.Livre.Auteur auteur;
-        @XmlElement(required = true)
+        @XmlElement(name = "presentation")
         protected StringProperty presentation;
         @XmlSchemaType(name ="unsignedShort")
         protected StringProperty parution;
@@ -334,27 +358,10 @@ public class Bibliotheque {
             this.rangee.set(value);
         }
 
+        public String print(){
+           return this.toString() + "\n" + this.getTitre() + "\n" + this.getAuteur().toString() ;
+        }
 
-        /**
-         * <p>Classe Java pour anonymous complex type.
-         * 
-         * <p>Le fragment de sch�ma suivant indique le contenu attendu figurant dans cette classe.
-         * 
-         * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *       &lt;sequence>
-         *         &lt;element name="nom" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *         &lt;element name="prenom" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *       &lt;/sequence>
-         *     &lt;/restriction>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
-         * </pre>
-         * 
-         * 
-         */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
             "nom",
