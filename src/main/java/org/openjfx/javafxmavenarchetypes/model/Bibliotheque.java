@@ -16,12 +16,7 @@ import javafx.scene.control.DatePicker;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.*;
 
 
 /**
@@ -191,9 +186,6 @@ Bibliotheque {
             "image"
     })
     public static class Livre {
-
-
-        @XmlElement(name = "titre")
         protected StringProperty titre;
         @XmlElement(name = "auteur" )
         protected Bibliotheque.Livre.Auteur auteur;
@@ -210,6 +202,7 @@ Bibliotheque {
 
         public Livre(String titre, Bibliotheque.Livre.Auteur auteur,String presentation,String parution,Integer colonne, Integer rangee){
             this.titre = new SimpleStringProperty(titre);
+            this.setTitre(titre);
             this.auteur =auteur;
             this.presentation = new SimpleStringProperty(presentation);
             this.parution= new SimpleStringProperty(parution);
