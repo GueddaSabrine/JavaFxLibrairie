@@ -17,6 +17,7 @@ import org.openjfx.javafxmavenarchetypes.model.Bibliotheque;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -136,6 +137,28 @@ public class FormController  {
             jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             System.out.println("ok");
             jaxbMarshaller.marshal(bibliotheque, selectedFile);
+
+        }
+
+    }
+
+    public void handleOpen(ActionEvent event) throws JAXBException {
+
+
+        /* ouverture du fichier xml */
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Ouvrir");
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Fichier XML", "*.xml"));
+        File selectedFile = fileChooser.showOpenDialog(tableau.getScene().getWindow());
+        if (selectedFile != null){
+            //unmarshalling ( xml -> java)
+            JAXBContext jaxbContext = JAXBContext.newInstance(Bibliotheque.class);
+            Unmarshaller jaxbunMarshaller = jaxbContext.createUnmarshaller();
+            bibliotheque= (Bibliotheque) jaxbunMarshaller.unmarshal(selectedFile);
+
+            /* mise a jour du tableau d'affichage */
+
+            bibliotheque.getLivre().forEach(l->tableau.getItems().add(l));
         }
 
     }
