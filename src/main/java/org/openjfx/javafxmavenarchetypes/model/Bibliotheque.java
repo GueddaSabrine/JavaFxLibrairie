@@ -71,8 +71,8 @@ import javax.xml.bind.annotation.*;
 @XmlRootElement(name = "bibliotheque")
 public class
 
-Bibliotheque {
 
+Bibliotheque {
 
     @XmlElement(name = "livre")
     protected List<Bibliotheque.Livre> listlivre;
@@ -135,7 +135,6 @@ Bibliotheque {
 
 
     }
-
 
 
 
