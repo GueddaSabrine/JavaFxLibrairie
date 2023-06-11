@@ -186,6 +186,7 @@ Bibliotheque {
             "image"
     })
     public static class Livre {
+        @XmlElement(name = "titre")
         protected StringProperty titre;
         @XmlElement(name = "auteur" )
         protected Bibliotheque.Livre.Auteur auteur;

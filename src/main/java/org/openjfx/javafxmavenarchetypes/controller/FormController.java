@@ -17,7 +17,10 @@ import org.openjfx.javafxmavenarchetypes.model.Bibliotheque;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+<<<<<<< HEAD
 import javax.xml.bind.Unmarshaller;
+=======
+>>>>>>> 83076df (Sauvegarde avant test xjc)
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -137,6 +140,7 @@ public class FormController  {
             jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             System.out.println("ok");
             jaxbMarshaller.marshal(bibliotheque, selectedFile);
+<<<<<<< HEAD
 
         }
 
@@ -159,6 +163,8 @@ public class FormController  {
             /* mise a jour du tableau d'affichage */
 
             bibliotheque.getLivre().forEach(l->tableau.getItems().add(l));
+=======
+>>>>>>> 83076df (Sauvegarde avant test xjc)
         }
 
     }
