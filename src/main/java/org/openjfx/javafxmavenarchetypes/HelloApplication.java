@@ -17,13 +17,14 @@ public class HelloApplication extends Application {
 
    /** private ObservableList<Bibliotheque.Livre> listData = FXCollections.observableArrayList();**/
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) throws Exception {
 
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Biblio.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 870, 500);
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
+
        //colTitre.setCellValueFactory(new PropertyValueFactory<Bibliotheque.Livre,String>("titreText"));
     }
 

@@ -86,27 +86,33 @@ public class FormController  {
     @FXML
     public Button btnPlus;
     public ObservableList<Bibliotheque.Livre> getListData() {
-        ObservableList<Bibliotheque.Livre> listData = FXCollections.observableArrayList();
+        ObservableList<Bibliotheque.Livre> listData = FXCollections.observableArrayList(bibliotheque.getLivre());
         return listData;
     }
 
     @FXML
-    public void handleNewBook(ActionEvent event){
+    public void initialize(){
 
-       //Recuperer les données entrees dans le texte fields.
-        Bibliotheque.Livre.Auteur auteur1 = new Bibliotheque.Livre.Auteur() ;
-        String presentationText = presentation.getText();
-        String titreText = titre.getText();
-        int colonneText = Integer.parseInt(colonne.getText());
-        int rangeeText = Integer.parseInt(rangee.getText());
-        String datapickerText = String.valueOf(calendrier.getValue());
+        inittableau();
+    }
 
-        // Affichage des données dans le tableau nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
-        ObservableList<Bibliotheque.Livre> listD = getListData();
+    public void inittableau(){
 
-       colPresentation.setCellValueFactory(cellData -> cellData.getValue().getPresentation());
-        colTitre.setCellValueFactory(cellData -> cellData.getValue().titreProperty());
-        colAuteur.setCellValueFactory(cellData -> cellData.getValue().getPresentation());
+        colTitre.setCellValueFactory(cellData -> {
+            String titre = cellData.getValue().titreProperty();
+            ObservableValue<String> observableTitre = Bindings.createStringBinding(() -> titre);
+            return observableTitre;
+        });
+        colPresentation.setCellValueFactory(cellData -> {
+            String presentation = cellData.getValue().getPresentation();
+            ObservableValue<String> observablePresentation = Bindings.createStringBinding(() -> presentation);
+            return observablePresentation;
+        });
+        colAuteur.setCellValueFactory(cellData -> {
+            String auteur = cellData.getValue().getStringAuteur();
+            ObservableValue<String> observableAuteur = Bindings.createStringBinding(() -> auteur);
+            return observableAuteur;
+        });
         colRangee.setCellValueFactory(cellData -> {
             int rangee = cellData.getValue().rangeeProperty();
             ObservableValue<Integer> observableRangee = Bindings.createIntegerBinding(() -> rangee).asObject();
@@ -117,13 +123,33 @@ public class FormController  {
             ObservableValue<Integer> observableColonne = Bindings.createIntegerBinding(() -> colonne).asObject();
             return observableColonne;
         });
-        colParution.setCellValueFactory(cellData -> cellData.getValue());
-
+        colParution.setCellValueFactory(cellData -> {
+            String parution = cellData.getValue().getParution();
+            ObservableValue<String> observableParution = Bindings.createStringBinding(() -> parution);
+            return observableParution;
+        });
         tableau.getColumns().setAll(colTitre,colAuteur,colPresentation,colParution,colColonne,colRangee);
 
-        Bibliotheque.Livre livrre = new Bibliotheque.Livre(titreText,auteur1,presentationText,datapickerText,colonneText,rangeeText);
-        tableau.getItems().add(livrre);
+    }
+    @FXML
+    public void handleNewBook(ActionEvent event){
+
+       //Recuperer les données entrees dans le texte fields.
+        Bibliotheque.Livre.Auteur auteur1 = new Bibliotheque.Livre.Auteur() ;
+        String auteurTexte = auteur.getText();
+        String presentationText = presentation.getText();
+        String titreText = titre.getText();
+        int colonneText = Integer.parseInt(colonne.getText());
+        int rangeeText = Integer.parseInt(rangee.getText());
+        String datapickerText = String.valueOf(calendrier.getValue());
+
+
+
         bibliotheque.addLivre(titreText,auteur1,presentationText,datapickerText,colonneText,rangeeText);
+
+        // Mise a jour du tableau
+        ObservableList<Bibliotheque.Livre> listD = getListData();
+        tableau.setItems(listD);
 
         String imageUrl = image.getText();
         System.out.println(imageUrl);
@@ -175,8 +201,8 @@ public class FormController  {
 
             /* mise a jour du tableau d'affichage */
 
-            bibliotheque.getLivre().forEach(l->tableau.getItems().add(l));
-
+            ObservableList<Bibliotheque.Livre> listD = getListData();
+            tableau.setItems(listD);
 
 
         }

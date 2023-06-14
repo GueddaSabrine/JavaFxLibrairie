@@ -258,6 +258,11 @@ Bibliotheque {
             return auteur;
         }
 
+        public String getStringAuteur(){
+
+            return auteur.getPrenom() + auteur.getNom();
+        }
+
         /**
          * D�finit la valeur de la propri�t� auteur.
          * 
