@@ -93,7 +93,7 @@ public class FormController  {
     @FXML
     public void handleNewBook(ActionEvent event){
 
-       /* //Recuperer les données entrees dans le texte fields.
+       //Recuperer les données entrees dans le texte fields.
         Bibliotheque.Livre.Auteur auteur1 = new Bibliotheque.Livre.Auteur() ;
         String presentationText = presentation.getText();
         String titreText = titre.getText();
@@ -104,17 +104,17 @@ public class FormController  {
         // Affichage des données dans le tableau nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
         ObservableList<Bibliotheque.Livre> listD = getListData();
 
-        colPresentation.setCellValueFactory(cellData -> cellData.getValue().getPresentation());
+       colPresentation.setCellValueFactory(cellData -> cellData.getValue().getPresentation());
         colTitre.setCellValueFactory(cellData -> cellData.getValue().titreProperty());
         colAuteur.setCellValueFactory(cellData -> cellData.getValue().getPresentation());
         colRangee.setCellValueFactory(cellData -> {
             int rangee = cellData.getValue().rangeeProperty();
-            ObservableValue<Integer> observableRangee = Bindings.createIntegerBinding(() -> rangee.get()).asObject();
+            ObservableValue<Integer> observableRangee = Bindings.createIntegerBinding(() -> rangee).asObject();
             return observableRangee;
         });
         colColonne.setCellValueFactory(cellData -> {
             int colonne = cellData.getValue().getColonne();
-            ObservableValue<Integer> observableColonne = Bindings.createIntegerBinding(() -> colonne.get()).asObject();
+            ObservableValue<Integer> observableColonne = Bindings.createIntegerBinding(() -> colonne).asObject();
             return observableColonne;
         });
         colParution.setCellValueFactory(cellData -> cellData.getValue());
@@ -129,7 +129,7 @@ public class FormController  {
         System.out.println(imageUrl);
         Image image = new Image(imageUrl);
         imageView.setImage(image);
-*/
+
 
     }
     @FXML
