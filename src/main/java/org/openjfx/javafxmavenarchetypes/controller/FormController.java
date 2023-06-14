@@ -8,10 +8,26 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 import org.openjfx.javafxmavenarchetypes.model.Bibliotheque;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 
 
 public class FormController  {
@@ -31,8 +47,8 @@ public class FormController  {
     public DatePicker calendrier;
     @FXML
     public TextField image;
-
-
+    @FXML
+    public ImageView imageView;
 
     //TableColumn
     @FXML
@@ -52,15 +68,18 @@ public class FormController  {
     @FXML
     public TableView <Bibliotheque.Livre> tableau;
 
+    //Bibliotheque
+
+    public Bibliotheque bibliotheque = new Bibliotheque();
+
     //Bouton
+
     @FXML
     public Button btnMoins;
     @FXML
     public Button btnValider;
     @FXML
     public Button btnPlus;
-
-
     public ObservableList<Bibliotheque.Livre> getListData() {
         ObservableList<Bibliotheque.Livre> listData = FXCollections.observableArrayList();
         return listData;
@@ -68,7 +87,7 @@ public class FormController  {
 
     @FXML
     public void handleNewBook(ActionEvent event){
-        Bibliotheque.Livre.Auteur auteur1 = new Bibliotheque.Livre.Auteur(auteur.getText(),auteur.getText()) ;
+        Bibliotheque.Livre.Auteur auteur1 = new Bibliotheque.Livre.Auteur() ;
         String presentationText = presentation.getText();
         String titreText = titre.getText();
         Integer colonneText = Integer.parseInt(colonne.getText());
@@ -99,5 +118,32 @@ public class FormController  {
 
         Bibliotheque.Livre livrre = new Bibliotheque.Livre(titreText,auteur1,presentationText,datapickerText,colonneText,rangeeText);
         tableau.getItems().add(livrre);
+        bibliotheque.addLivre(titreText,auteur1,presentationText,datapickerText,colonneText,rangeeText);
+
+        String imageUrl = image.getText();
+        System.out.println(imageUrl);
+        Image image = new Image(imageUrl);
+        imageView.setImage(image);
+
+
     }
+    @FXML
+    public void handleSaveAs(ActionEvent event) throws JAXBException {
+
+
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Enregistrer");
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Fichier XML", "*.xml"));
+        File selectedFile = fileChooser.showSaveDialog(tableau.getScene().getWindow());
+        if (selectedFile != null){
+            JAXBContext jaxbContext = JAXBContext.newInstance(Bibliotheque.class);
+            Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+            jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+            System.out.println("ok");
+            jaxbMarshaller.marshal(bibliotheque, selectedFile);
+        }
+
+    }
+
 }

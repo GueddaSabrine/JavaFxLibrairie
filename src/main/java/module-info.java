@@ -4,10 +4,12 @@ module org.openjfx.javafxmavenarchetypes {
     requires java.xml.bind;
 
 
-    opens org.openjfx.javafxmavenarchetypes to javafx.fxml;
+
+    opens org.openjfx.javafxmavenarchetypes to javafx.fxml, java.xml.bind;
 //    exports org.openjfx.javafxmavenarchetypes;
     exports org.openjfx.javafxmavenarchetypes.controller;
-    opens org.openjfx.javafxmavenarchetypes.controller to javafx.fxml;
+    opens org.openjfx.javafxmavenarchetypes.controller to javafx.fxml, java.xml.bind;
+    opens org.openjfx.javafxmavenarchetypes.model to javafx.fxml, java.xml.bind;
 //    exports org.openjfx.javafxmavenarchetypes.view;
 //    opens org.openjfx.javafxmavenarchetypes.view to javafx.fxml;
     exports org.openjfx.javafxmavenarchetypes;
