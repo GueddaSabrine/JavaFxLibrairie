@@ -1,14 +1,21 @@
 package org.openjfx.javafxmavenarchetypes;
-
+import javafx.fxml.FXML;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import org.openjfx.javafxmavenarchetypes.model.Bibliotheque;
+import org.openjfx.javafxmavenarchetypes.controller.FormController;
+
 import java.io.IOException;
 
 public class HelloApplication extends Application {
 
-   /** private ObservableList<Bibliotheque.Livre> listData = FXCollections.observableArrayList();**/
+    /** private ObservableList<Bibliotheque.Livre> listData = FXCollections.observableArrayList();**/
     @Override
     public void start(Stage stage) throws IOException {
 
@@ -17,13 +24,13 @@ public class HelloApplication extends Application {
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
-       //colTitre.setCellValueFactory(new PropertyValueFactory<Bibliotheque.Livre,String>("titreText"));
+        //colTitre.setCellValueFactory(new PropertyValueFactory<Bibliotheque.Livre,String>("titreText"));
     }
 
-  /**  public ObservableList<Bibliotheque.Livre> getListData() {
-        return listData;
-    }
-   **/
+    /**  public ObservableList<Bibliotheque.Livre> getListData() {
+     return listData;
+     }
+     **/
 
     public static void main(String[] args) {
         launch();
