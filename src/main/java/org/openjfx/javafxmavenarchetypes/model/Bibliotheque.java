@@ -185,38 +185,38 @@ Bibliotheque {
             "image"
     })
     public static class Livre {
-        @XmlElement(name = "titre")
+        @XmlElement(required = true)
 
-        protected StringProperty titre;
-        @XmlElement(name = "auteur" )
+        protected String titre;
+        @XmlElement(required = true)
         protected Bibliotheque.Livre.Auteur auteur;
-        @XmlElement(name = "presentation")
-        protected StringProperty presentation;
+        @XmlElement(required = true)
+        protected String presentation;
         @XmlSchemaType(name ="unsignedShort")
-        protected StringProperty parution;
+        protected String parution;
         @XmlSchemaType(name = "unsignedByte")
-        protected IntegerProperty colonne;
+        protected int colonne;
         @XmlSchemaType(name = "unsignedByte")
-        protected IntegerProperty rangee;
+        protected int rangee;
         @XmlSchemaType(name = "unsignedByte")
-        protected StringProperty image;
+        protected String image;
 
         public Livre(String titre, Bibliotheque.Livre.Auteur auteur,String presentation,String parution,Integer colonne, Integer rangee){
-            this.titre = new SimpleStringProperty(titre);
+            this.titre = titre;
             this.setTitre(titre);
             this.auteur =auteur;
-            this.presentation = new SimpleStringProperty(presentation);
-            this.parution= new SimpleStringProperty(parution);
-            this.colonne= new SimpleIntegerProperty(colonne);
-            this.rangee= new SimpleIntegerProperty(rangee);
+            this.presentation =presentation;
+            this.parution= parution;
+            this.colonne= colonne;
+            this.rangee= rangee;
         }
         public Livre(){
-            this.titre= new SimpleStringProperty(null);
+            this.titre= null;
             this.auteur =null;
-            this.presentation= new SimpleStringProperty(null);
-            this.parution= new SimpleStringProperty(null);
-            this.colonne= new SimpleIntegerProperty(0);
-            this.rangee= new SimpleIntegerProperty(0);
+            this.presentation= null;
+            this.parution= null;
+            this.colonne= 0;
+            this.rangee=0;
         }
 
         /**
@@ -228,9 +228,9 @@ Bibliotheque {
          *     
          */
         public String getTitre() {
-            return titre.get();
+            return titre;
         }
-        public StringProperty titreProperty() {
+        public String titreProperty() {
             return titre;
         }
 
@@ -243,7 +243,7 @@ Bibliotheque {
          *     
          */
         public void setTitre(String value) {
-            this.titre.set(value);
+            this.titre= value;
         }
 
         /**
@@ -278,7 +278,7 @@ Bibliotheque {
          *     {@link StringProperty }
          *     
          */
-        public StringProperty getPresentation() {
+        public String getPresentation() {
             return presentation;
         }
 
@@ -290,24 +290,24 @@ Bibliotheque {
          *     {@link StringProperty }
          *     
          */
-        public void setPresentation(StringProperty value) {
+        public void setPresentation(String value) {
             this.presentation = value;
         }
         /**
          * Obtient la valeur de l'image.
          *
          */
-        public StringProperty getImage(){
+        public String getImage(){
             return image;
         }
 
-        public void setImage(StringProperty value){this.presentation=value;}
+        public void setImage(String value){this.presentation=value;}
 
         /**
          * Obtient la valeur de la propri�t� parution.
          * 
          */
-        public StringProperty getParution() {
+        public String getParution() {
             return parution;
         }
 
@@ -315,7 +315,7 @@ Bibliotheque {
          * D�finit la valeur de la propri�t� parution.
          * 
          */
-        public void setParution(StringProperty value) {
+        public void setParution(String value) {
             this.parution = value;
         }
 
@@ -323,7 +323,7 @@ Bibliotheque {
          * Obtient la valeur de la propri�t� colonne.
          * 
          */
-        public IntegerProperty getColonne() {
+        public int getColonne() {
             return colonne;
         }
 
@@ -331,7 +331,7 @@ Bibliotheque {
          * D�finit la valeur de la propri�t� colonne.
          * 
          */
-        public void setColonne(IntegerProperty value) {
+        public void setColonne(int value) {
             this.colonne = value;
         }
 
@@ -339,10 +339,10 @@ Bibliotheque {
          * Obtient la valeur de la propri�t� rangee.
          * 
          */
-        public Integer getRangee() {
-            return rangee.get();
+        public int getRangee() {
+            return rangee;
         }
-        public IntegerProperty rangeeProperty() {
+        public int rangeeProperty() {
             return rangee;
         }
 
@@ -350,8 +350,8 @@ Bibliotheque {
          * D�finit la valeur de la propri�t� rangee.
          * 
          */
-        public void setRangee(Integer value) {
-            this.rangee.set(value);
+        public void setRangee(int value) {
+            this.rangee= value;
         }
 
         public String print(){

@@ -13,7 +13,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import org.openjfx.javafxmavenarchetypes.model.Bibliotheque;
+import org.xml.sax.SAXException;
 
+import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -21,6 +23,8 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 import javax.xml.bind.Unmarshaller;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -64,6 +68,7 @@ public class FormController  {
     @FXML
     public TableColumn <Bibliotheque.Livre, String> colTitre;
 
+
     //Tableview
     @FXML
     public TableView <Bibliotheque.Livre> tableau;
@@ -87,11 +92,13 @@ public class FormController  {
 
     @FXML
     public void handleNewBook(ActionEvent event){
+
+       /* //Recuperer les données entrees dans le texte fields.
         Bibliotheque.Livre.Auteur auteur1 = new Bibliotheque.Livre.Auteur() ;
         String presentationText = presentation.getText();
         String titreText = titre.getText();
-        Integer colonneText = Integer.parseInt(colonne.getText());
-        Integer rangeeText = Integer.parseInt(rangee.getText());
+        int colonneText = Integer.parseInt(colonne.getText());
+        int rangeeText = Integer.parseInt(rangee.getText());
         String datapickerText = String.valueOf(calendrier.getValue());
 
         // Affichage des données dans le tableau nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
@@ -101,16 +108,16 @@ public class FormController  {
         colTitre.setCellValueFactory(cellData -> cellData.getValue().titreProperty());
         colAuteur.setCellValueFactory(cellData -> cellData.getValue().getPresentation());
         colRangee.setCellValueFactory(cellData -> {
-            IntegerProperty rangee = cellData.getValue().rangeeProperty();
+            int rangee = cellData.getValue().rangeeProperty();
             ObservableValue<Integer> observableRangee = Bindings.createIntegerBinding(() -> rangee.get()).asObject();
             return observableRangee;
         });
         colColonne.setCellValueFactory(cellData -> {
-            IntegerProperty colonne = cellData.getValue().getColonne();
+            int colonne = cellData.getValue().getColonne();
             ObservableValue<Integer> observableColonne = Bindings.createIntegerBinding(() -> colonne.get()).asObject();
             return observableColonne;
         });
-        colParution.setCellValueFactory(cellData -> cellData.getValue().getParution());
+        colParution.setCellValueFactory(cellData -> cellData.getValue());
 
         tableau.getColumns().setAll(colTitre,colAuteur,colPresentation,colParution,colColonne,colRangee);
 
@@ -122,7 +129,7 @@ public class FormController  {
         System.out.println(imageUrl);
         Image image = new Image(imageUrl);
         imageView.setImage(image);
-
+*/
 
     }
     @FXML
@@ -146,8 +153,8 @@ public class FormController  {
 
     }
 
-    public void handleOpen(ActionEvent event) throws JAXBException {
-
+    public void handleOpen(ActionEvent event) throws JAXBException, SAXException {
+        File xsdf = new File("src/main/xsd/Biblio.xsd");
 
         /* ouverture du fichier xml */
         FileChooser fileChooser = new FileChooser();
@@ -158,11 +165,19 @@ public class FormController  {
             //unmarshalling ( xml -> java)
             JAXBContext jaxbContext = JAXBContext.newInstance(Bibliotheque.class);
             Unmarshaller jaxbunMarshaller = jaxbContext.createUnmarshaller();
+            SchemaFactory schemafactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+
+            //try
+            Schema sch  = schemafactory.newSchema(xsdf);
+            jaxbunMarshaller.setSchema(sch);
             bibliotheque= (Bibliotheque) jaxbunMarshaller.unmarshal(selectedFile);
+            bibliotheque.print();
 
             /* mise a jour du tableau d'affichage */
 
             bibliotheque.getLivre().forEach(l->tableau.getItems().add(l));
+
+
 
         }
 
