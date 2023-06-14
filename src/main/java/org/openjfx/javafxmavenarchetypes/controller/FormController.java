@@ -7,8 +7,11 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import org.openjfx.javafxmavenarchetypes.model.Bibliotheque;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
 
 
 public class FormController  {
@@ -29,6 +32,8 @@ public class FormController  {
     @FXML
     public TextField image;
 
+
+
     //TableColumn
     @FXML
     public TableColumn <Bibliotheque.Livre, String> colAuteur;
@@ -48,13 +53,14 @@ public class FormController  {
     public TableView <Bibliotheque.Livre> tableau;
 
     //Bouton
-
     @FXML
     public Button btnMoins;
     @FXML
     public Button btnValider;
     @FXML
     public Button btnPlus;
+
+
     public ObservableList<Bibliotheque.Livre> getListData() {
         ObservableList<Bibliotheque.Livre> listData = FXCollections.observableArrayList();
         return listData;
@@ -93,6 +99,5 @@ public class FormController  {
 
         Bibliotheque.Livre livrre = new Bibliotheque.Livre(titreText,auteur1,presentationText,datapickerText,colonneText,rangeeText);
         tableau.getItems().add(livrre);
-
     }
 }
