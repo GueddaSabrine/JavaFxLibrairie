@@ -7,7 +7,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -16,11 +15,12 @@ import javafx.stage.Stage;
 import org.openjfx.javafxmavenarchetypes.model.Bibliotheque;
 
 import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
-
-import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+
+import javax.xml.bind.Unmarshaller;
+
+import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -94,8 +94,6 @@ public class FormController  {
         Integer rangeeText = Integer.parseInt(rangee.getText());
         String datapickerText = String.valueOf(calendrier.getValue());
 
-        System.out.println(datapickerText);
-
         // Affichage des données dans le tableau nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
         ObservableList<Bibliotheque.Livre> listD = getListData();
 
@@ -124,14 +122,10 @@ public class FormController  {
         System.out.println(imageUrl);
         Image image = new Image(imageUrl);
         imageView.setImage(image);
-
-
     }
+
     @FXML
     public void handleSaveAs(ActionEvent event) throws JAXBException {
-
-
-
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Enregistrer");
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Fichier XML", "*.xml"));
@@ -143,7 +137,24 @@ public class FormController  {
             System.out.println("ok");
             jaxbMarshaller.marshal(bibliotheque, selectedFile);
         }
-
     }
 
+    public void handleOpen(ActionEvent event) throws JAXBException {
+        /* ouverture du fichier xml */
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Ouvrir");
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Fichier XML", "*.xml"));
+        File selectedFile = fileChooser.showOpenDialog(tableau.getScene().getWindow());
+        if (selectedFile != null){
+            //unmarshalling ( xml -> java)
+            JAXBContext jaxbContext = JAXBContext.newInstance(Bibliotheque.class);
+            Unmarshaller jaxbunMarshaller = jaxbContext.createUnmarshaller();
+            bibliotheque= (Bibliotheque) jaxbunMarshaller.unmarshal(selectedFile);
+
+            /* mise a jour du tableau d'affichage */
+
+            bibliotheque.getLivre().forEach(l->tableau.getItems().add(l));
+
+        }
+    }
 }
