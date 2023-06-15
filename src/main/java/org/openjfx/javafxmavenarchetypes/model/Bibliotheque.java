@@ -16,12 +16,7 @@ import javafx.scene.control.DatePicker;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.*;
 
 
 /**
@@ -71,17 +66,21 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "livre"
+    "listlivre"
 })
 @XmlRootElement(name = "bibliotheque")
-public class Bibliotheque {
+public class
+
+
+Bibliotheque {
+
+    @XmlElement(name = "livre")
+    protected List<Bibliotheque.Livre> listlivre;
 
     public Bibliotheque(){
 
-        livre = new ArrayList<>();
+        listlivre = new ArrayList<>();
     }
-    @XmlElement(required = true)
-    protected List<Bibliotheque.Livre> livre;
 
     /**
      * Gets the value of the livre property.
@@ -106,17 +105,34 @@ public class Bibliotheque {
      * 
      */
     public List<Bibliotheque.Livre> getLivre() {
-        if (livre == null) {
-            livre = new ArrayList<Bibliotheque.Livre>();
+        if (listlivre == null) {
+            listlivre = new ArrayList<Bibliotheque.Livre>();
         }
-        return this.livre;
+        return this.listlivre;
+    }
+    //used by jaxb to create/write book
+    /**
+     * *
+     * @param titre
+     * @param auteur
+     * @param pre
+     * @param pick
+     * @param col
+     * @param rangee
+     */
+    public void addLivre(String titre, Livre.Auteur auteur, String pre , String pick , int col, int rangee ,String image){
+
+        listlivre.add(new Livre(titre, auteur, pre, pick ,col, rangee, image));
+
     }
 
-    public void addLivre(String titre, Livre.Auteur auteur, String pre , String pick , int col, int rangee){
+    public void print(){
+        System.out.println(this);
+        listlivre.forEach(e->System.out.println(e.print()));
 
-        livre.add(new Livre(titre, auteur, pre, pick ,col, rangee));
 
     }
+
 
 
     /**
@@ -155,6 +171,7 @@ public class Bibliotheque {
      * 
      */
     @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlRootElement(name = "livre")
     @XmlType(name = "", propOrder = {
         "titre",
         "auteur",
@@ -165,38 +182,39 @@ public class Bibliotheque {
             "image"
     })
     public static class Livre {
-
-
         @XmlElement(required = true)
-        protected StringProperty titre;
+
+        protected String titre;
         @XmlElement(required = true)
         protected Bibliotheque.Livre.Auteur auteur;
         @XmlElement(required = true)
-        protected StringProperty presentation;
+        protected String presentation;
         @XmlSchemaType(name ="unsignedShort")
-        protected StringProperty parution;
+        protected String parution;
         @XmlSchemaType(name = "unsignedByte")
-        protected IntegerProperty colonne;
+        protected int colonne;
         @XmlSchemaType(name = "unsignedByte")
-        protected IntegerProperty rangee;
+        protected int rangee;
         @XmlSchemaType(name = "unsignedByte")
-        protected StringProperty image;
+        protected String image;
 
-        public Livre(String titre, Bibliotheque.Livre.Auteur auteur,String presentation,String parution,Integer colonne, Integer rangee){
-            this.titre = new SimpleStringProperty(titre);
+        public Livre(String titre, Bibliotheque.Livre.Auteur auteur,String presentation,String parution,Integer colonne, Integer rangee , String image){
+            this.titre = titre;
+            this.setTitre(titre);
             this.auteur =auteur;
-            this.presentation = new SimpleStringProperty(presentation);
-            this.parution= new SimpleStringProperty(parution);
-            this.colonne= new SimpleIntegerProperty(colonne);
-            this.rangee= new SimpleIntegerProperty(rangee);
+            this.presentation =presentation;
+            this.parution= parution;
+            this.colonne= colonne;
+            this.rangee= rangee;
+            this.image = image;
         }
         public Livre(){
-            this.titre= new SimpleStringProperty(null);
+            this.titre= null;
             this.auteur =null;
-            this.presentation= new SimpleStringProperty(null);
-            this.parution= new SimpleStringProperty(null);
-            this.colonne= new SimpleIntegerProperty(0);
-            this.rangee= new SimpleIntegerProperty(0);
+            this.presentation= null;
+            this.parution= null;
+            this.colonne= 0;
+            this.rangee=0;
         }
 
         /**
@@ -208,9 +226,9 @@ public class Bibliotheque {
          *     
          */
         public String getTitre() {
-            return titre.get();
+            return titre;
         }
-        public StringProperty titreProperty() {
+        public String titreProperty() {
             return titre;
         }
 
@@ -223,7 +241,7 @@ public class Bibliotheque {
          *     
          */
         public void setTitre(String value) {
-            this.titre.set(value);
+            this.titre= value;
         }
 
         /**
@@ -236,6 +254,11 @@ public class Bibliotheque {
          */
         public Bibliotheque.Livre.Auteur getAuteur() {
             return auteur;
+        }
+
+        public String getStringAuteur(){
+
+            return auteur.getPrenom()+ " " + auteur.getNom();
         }
 
         /**
@@ -258,7 +281,7 @@ public class Bibliotheque {
          *     {@link StringProperty }
          *     
          */
-        public StringProperty getPresentation() {
+        public String getPresentation() {
             return presentation;
         }
 
@@ -270,24 +293,24 @@ public class Bibliotheque {
          *     {@link StringProperty }
          *     
          */
-        public void setPresentation(StringProperty value) {
+        public void setPresentation(String value) {
             this.presentation = value;
         }
         /**
          * Obtient la valeur de l'image.
          *
          */
-        public StringProperty getImage(){
+        public String getImage(){
             return image;
         }
 
-        public void setImage(StringProperty value){this.presentation=value;}
+        public void setImage(String value){this.presentation=value;}
 
         /**
          * Obtient la valeur de la propri�t� parution.
          * 
          */
-        public StringProperty getParution() {
+        public String getParution() {
             return parution;
         }
 
@@ -295,7 +318,7 @@ public class Bibliotheque {
          * D�finit la valeur de la propri�t� parution.
          * 
          */
-        public void setParution(StringProperty value) {
+        public void setParution(String value) {
             this.parution = value;
         }
 
@@ -303,7 +326,7 @@ public class Bibliotheque {
          * Obtient la valeur de la propri�t� colonne.
          * 
          */
-        public IntegerProperty getColonne() {
+        public int getColonne() {
             return colonne;
         }
 
@@ -311,7 +334,7 @@ public class Bibliotheque {
          * D�finit la valeur de la propri�t� colonne.
          * 
          */
-        public void setColonne(IntegerProperty value) {
+        public void setColonne(int value) {
             this.colonne = value;
         }
 
@@ -319,10 +342,10 @@ public class Bibliotheque {
          * Obtient la valeur de la propri�t� rangee.
          * 
          */
-        public Integer getRangee() {
-            return rangee.get();
+        public int getRangee() {
+            return rangee;
         }
-        public IntegerProperty rangeeProperty() {
+        public int rangeeProperty() {
             return rangee;
         }
 
@@ -330,31 +353,14 @@ public class Bibliotheque {
          * D�finit la valeur de la propri�t� rangee.
          * 
          */
-        public void setRangee(Integer value) {
-            this.rangee.set(value);
+        public void setRangee(int value) {
+            this.rangee= value;
         }
 
+        public String print(){
+           return this.toString() + "\n" + this.getTitre() + "\n" + this.getAuteur().toString() ;
+        }
 
-        /**
-         * <p>Classe Java pour anonymous complex type.
-         * 
-         * <p>Le fragment de sch�ma suivant indique le contenu attendu figurant dans cette classe.
-         * 
-         * <pre>
-         * &lt;complexType>
-         *   &lt;complexContent>
-         *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-         *       &lt;sequence>
-         *         &lt;element name="nom" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *         &lt;element name="prenom" type="{http://www.w3.org/2001/XMLSchema}string"/>
-         *       &lt;/sequence>
-         *     &lt;/restriction>
-         *   &lt;/complexContent>
-         * &lt;/complexType>
-         * </pre>
-         * 
-         * 
-         */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
             "nom",

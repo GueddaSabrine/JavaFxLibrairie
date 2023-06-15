@@ -11,6 +11,7 @@
   <parution>2000</parution>
   <colonne>5</colonne>
   <rangee>2</rangee>
+  <image>https://t3.ftcdn.net/jpg/05/57/44/16/360_F_557441658_4zZ0chOrNLsA6EAu6pD50Tj3qqpQEKcN.jpg</image>
 </livre>
 <livre>
   <titre>HarryPotter</titre>
@@ -22,6 +23,8 @@
   <parution>1996</parution>
   <colonne>5</colonne>
   <rangee>2</rangee>
+  <image>https://t3.ftcdn.net/jpg/05/57/44/16/360_F_557441658_4zZ0chOrNLsA6EAu6pD50Tj3qqpQEKcN.jpg</image>
+
 </livre>
 <livre>
   <titre>Eragon</titre>
@@ -33,5 +36,7 @@
   <parution>2001</parution>
   <colonne>5</colonne>
   <rangee>2</rangee>
+  <image>https://t3.ftcdn.net/jpg/05/57/44/16/360_F_557441658_4zZ0chOrNLsA6EAu6pD50Tj3qqpQEKcN.jpg</image>
+
 </livre>
 </bibliotheque>
