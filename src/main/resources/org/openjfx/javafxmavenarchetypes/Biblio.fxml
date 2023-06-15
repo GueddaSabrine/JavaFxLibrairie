@@ -32,9 +32,9 @@
                         <Font size="18.0" />
                     </font>
                 </Label>
-                <TableView fx:id="tableau" layoutX="14.0" layoutY="63.0" prefHeight="328.0" prefWidth="570.0">
+                <TableView fx:id="tableau" layoutX="14.0" layoutY="63.0" prefHeight="328.0" prefWidth="570.0" onMouseClicked="#handleSelectionTableView">
                     <columns>
-                        <TableColumn fx:id="colTitre" prefWidth="95.0" text="Titre" />
+                        <TableColumn fx:id="colTitre"  prefWidth="95.0" text="Titre" />
                         <TableColumn fx:id="colAuteur" prefWidth="120.0" text="Auteur" />
                         <TableColumn fx:id="colPresentation" prefWidth="100.0" text="Présentation" />
                         <TableColumn fx:id="colParution" prefWidth="85.0" text="Parution" />

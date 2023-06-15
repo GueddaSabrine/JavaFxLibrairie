@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -32,6 +33,8 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 
 public class FormController  {
@@ -90,10 +93,13 @@ public class FormController  {
         return listData;
     }
 
+    //mmh ...
+    Bibliotheque.Livre selectedbook = null ;
     @FXML
     public void initialize(){
 
         inittableau();
+        btnMoins.setDisable(true);
     }
 
     public void inittableau(){
@@ -131,6 +137,27 @@ public class FormController  {
         tableau.getColumns().setAll(colTitre,colAuteur,colPresentation,colParution,colColonne,colRangee);
 
     }
+
+    @FXML
+    public void handleSelectionTableView(MouseEvent event){
+
+       System.out.println(event.getTarget().getClass().toString());
+       selectedbook = tableau.getSelectionModel().getSelectedItem();
+       titre.setText(selectedbook.getTitre());
+       auteur.setText(selectedbook.getStringAuteur());
+       presentation.setText(selectedbook.getPresentation());
+       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+       LocalDate localDate = LocalDate.parse("01-01-"+selectedbook.getParution(), formatter);
+       calendrier.setValue(localDate);
+       colonne.setText(Integer.toString(selectedbook.getColonne()));
+       rangee.setText(Integer.toString(selectedbook.getRangee()));
+       image.setText(selectedbook.getImage());
+
+       //boutoins moins active
+
+        btnMoins.setDisable(false);
+
+    }
     @FXML
     public void handleNewBook(ActionEvent event){
 
@@ -143,18 +170,24 @@ public class FormController  {
         int rangeeText = Integer.parseInt(rangee.getText());
         String datapickerText = String.valueOf(calendrier.getValue());
 
-
-
-        bibliotheque.addLivre(titreText,auteur1,presentationText,datapickerText,colonneText,rangeeText);
-
-        // Mise a jour du tableau
-        ObservableList<Bibliotheque.Livre> listD = getListData();
-        tableau.setItems(listD);
-
+        //Affichage de l'image
         String imageUrl = image.getText();
         System.out.println(imageUrl);
         Image image = new Image(imageUrl);
         imageView.setImage(image);
+
+        if(selectedbook == null) {
+            bibliotheque.addLivre(titreText, auteur1, presentationText, datapickerText, colonneText, rangeeText);
+        }
+        else {
+
+
+        }
+        // Mise a jour du tableau
+        ObservableList<Bibliotheque.Livre> listD = getListData();
+        tableau.setItems(listD);
+
+
 
 
     }

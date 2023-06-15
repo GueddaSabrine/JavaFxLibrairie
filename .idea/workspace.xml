@@ -6,9 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="c82454b3-4db9-4949-87af-ecd042e3a214" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/openjfx/javafxmavenarchetypes/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/openjfx/javafxmavenarchetypes/HelloApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/openjfx/javafxmavenarchetypes/controller/FormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/openjfx/javafxmavenarchetypes/controller/FormController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/openjfx/javafxmavenarchetypes/model/Bibliotheque.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/openjfx/javafxmavenarchetypes/model/Bibliotheque.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/openjfx/javafxmavenarchetypes/Biblio.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/openjfx/javafxmavenarchetypes/Biblio.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,8 +50,10 @@
   </component>
   <component name="RunManager">
     <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="19" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="org.openjfx.javafxmavenarchetypes.HelloApplication" />
-      <module name="javafx-maven-archetypes" />
+      <module name="JavaFxLibrairie" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
