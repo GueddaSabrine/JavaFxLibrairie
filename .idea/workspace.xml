@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c82454b3-4db9-4949-87af-ecd042e3a214" name="Changes" comment="test">
+    <list default="true" id="c4277d93-3c1c-4d98-8b8c-8c0d96e5bba3" name="Changes" comment="maj">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/openjfx/javafxmavenarchetypes/controller/FormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/openjfx/javafxmavenarchetypes/controller/FormController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/org/openjfx/javafxmavenarchetypes/Biblio.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/openjfx/javafxmavenarchetypes/Biblio.fxml" afterDir="false" />

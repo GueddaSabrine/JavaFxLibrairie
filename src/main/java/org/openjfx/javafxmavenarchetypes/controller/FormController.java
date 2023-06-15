@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -96,6 +97,19 @@ public class FormController  {
         return listData;
     }
 
+    //error text
+
+    @FXML
+    public Text msgErrorTitre;
+    @FXML
+    public Text msgErrorAuteur ;
+    @FXML
+    public Text msgErrorColonne ;
+    @FXML
+    public Text msgErrorRangee ;
+    @FXML
+    public Text msgErrorUrl ;
+
     //mmh ...
     Bibliotheque.Livre selectedbook = null ;
     File selectedFile = null;
@@ -109,6 +123,16 @@ public class FormController  {
         setDefaultTextField();
         fileSaved = true;
         calendrier.getEditor().setDisable(true);
+        hideErrorMsg();
+    }
+
+    public void hideErrorMsg(){
+
+        msgErrorTitre.setVisible(false);
+        msgErrorAuteur.setVisible(false);
+        msgErrorColonne.setVisible(false);
+        msgErrorRangee.setVisible(false);
+        msgErrorUrl.setVisible(false);
     }
 
     public void inittableau(){
@@ -172,6 +196,8 @@ public class FormController  {
 
 
         if(checkData()) {
+
+            hideErrorMsg();
             //Recuperer les données entrees dans le texte fields.
             Bibliotheque.Livre.Auteur auteur1 = new Bibliotheque.Livre.Auteur() ;
             String auteurTexte = auteur.getText();
@@ -231,17 +257,16 @@ public class FormController  {
         else{
 
             ti = false;
-            System.out.println("pb titre");
+            msgErrorTitre.setVisible(true);
 
         }
-        if(auteur.getText().matches("[a-z]*\s[a-z]*")){
+        if(auteur.getText().matches("[A-Za-z]*\s[A-Za-z]*")){
             aut = true;
         }
         else{
 
             aut = false;
-            System.out.println("pb auteur");
-
+            msgErrorAuteur.setVisible(true);
 
         }
         if(colonne.getText().matches("[0-9]*") && Integer.parseInt(rangee.getText()) <= 12 && Integer.parseInt(rangee.getText()) >= 1){
@@ -250,8 +275,7 @@ public class FormController  {
         else{
 
             col = false;
-            System.out.println("pb colonne");
-
+            msgErrorColonne.setVisible(true);
 
         }
         if(rangee.getText().matches("[1-7]")){
@@ -260,7 +284,7 @@ public class FormController  {
         else{
 
             rg = false;
-            System.out.println("pb rangee");
+            msgErrorRangee.setVisible(true);
 
 
         }
@@ -273,6 +297,7 @@ public class FormController  {
 
            img = false ;
             System.out.println( e.getMessage());
+            msgErrorUrl.setVisible(true);
 
 
         }
@@ -353,6 +378,7 @@ public class FormController  {
        setDefaultTextField();
        selectedbook = null;
        btnMoins.setDisable(true);
+       hideErrorMsg();
 
     }
 

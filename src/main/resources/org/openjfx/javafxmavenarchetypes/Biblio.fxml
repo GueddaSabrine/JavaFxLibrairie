@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -13,6 +14,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <!--<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"-->
 <!--      fx:controller="org.openjfx.javafxmavenarchetypes.controller.HelloController">-->
@@ -23,18 +25,18 @@
 <!--    <Button text="Hello!" onAction="#onHelloButtonClick"/>-->
 <!--</VBox>-->
 
-<VBox prefHeight="500.0" prefWidth="870.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.javafxmavenarchetypes.controller.FormController">
+<VBox prefHeight="565.0" prefWidth="877.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.javafxmavenarchetypes.controller.FormController">
     <children>
-        <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="507.0" prefWidth="871.0" onMouseClicked="#handleOutsideCLick" VBox.vgrow="ALWAYS">
+        <AnchorPane maxHeight="-1.0" maxWidth="-1.0" onMouseClicked="#handleOutsideCLick" prefHeight="507.0" prefWidth="871.0" VBox.vgrow="ALWAYS">
             <children>
                 <Label alignment="CENTER" layoutX="155.0" layoutY="177.0" style="&#10;" text="Drag components from Library here…" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
                     <font>
                         <Font size="18.0" />
                     </font>
                 </Label>
-                <TableView fx:id="tableau" layoutX="14.0" layoutY="63.0" prefHeight="328.0" prefWidth="570.0" onMouseClicked="#handleSelectionTableView">
+                <TableView fx:id="tableau" layoutX="14.0" layoutY="63.0" onMouseClicked="#handleSelectionTableView" prefHeight="328.0" prefWidth="570.0">
                     <columns>
-                        <TableColumn fx:id="colTitre"  prefWidth="95.0" text="Titre" />
+                        <TableColumn fx:id="colTitre" prefWidth="95.0" text="Titre" />
                         <TableColumn fx:id="colAuteur" prefWidth="120.0" text="Auteur" />
                         <TableColumn fx:id="colPresentation" prefWidth="100.0" text="Présentation" />
                         <TableColumn fx:id="colParution" prefWidth="85.0" text="Parution" />
@@ -51,6 +53,16 @@
                             <items>
                                 <MenuItem fx:id="ouvrir" mnemonicParsing="false" onAction="#handleOpen" text="Ouvrir" />
                                 <MenuItem fx:id="quitter" mnemonicParsing="false" onAction="#handleExit" text="Quitter" />
+                        <MenuItem mnemonicParsing="false" text=" Exporter As">
+                           <graphic>
+                              <SplitMenuButton mnemonicParsing="false" text="Export">
+                                <items>
+                                  <MenuItem mnemonicParsing="false" text="PDF (.pdf)" />
+                                  <MenuItem mnemonicParsing="false" text="Word (.word)" />
+                                </items>
+                              </SplitMenuButton>
+                           </graphic>
+                        </MenuItem>
                             </items>
                         </Menu>
                         <Menu fx:id="edition" mnemonicParsing="false" text="Edition">
@@ -66,28 +78,53 @@
                         </Menu>
                     </menus>
                 </MenuBar>
-                <TextField fx:id="titre" layoutX="694.0" layoutY="67.0" />
-                <TextField fx:id="auteur" layoutX="694.0" layoutY="112.0" />
-                <TextField fx:id="presentation" layoutX="694.0" layoutY="159.0" />
-                <TextField fx:id="colonne" layoutX="694.0" layoutY="256.0" />
-                <TextField fx:id="rangee" layoutX="694.0" layoutY="298.0" />
-                <Label layoutX="642.0" layoutY="71.0" prefHeight="17.0" prefWidth="43.0" text="Titre" textAlignment="CENTER" />
-                <Label layoutX="641.0" layoutY="117.0" prefHeight="17.0" prefWidth="43.0" text="Auteur" textAlignment="CENTER" />
-                <Label layoutX="612.0" layoutY="163.0" prefHeight="17.0" prefWidth="72.0" text="Présentation" textAlignment="CENTER" />
-                <Label layoutX="630.0" layoutY="214.0" prefHeight="17.0" prefWidth="46.0" text="Parution" textAlignment="CENTER" />
-                <Label layoutX="630.0" layoutY="261.0" prefHeight="17.0" prefWidth="46.0" text="Colonne" textAlignment="CENTER" />
-                <Label layoutX="630.0" layoutY="302.0" prefHeight="17.0" prefWidth="46.0" text="Rangée" textAlignment="CENTER" />
-                <TextField fx:id="image" layoutX="694.0" layoutY="341.0" />
-                <Label layoutX="634.0" layoutY="346.0" prefHeight="17.0" prefWidth="38.0" text="Image" textAlignment="CENTER" />
-                <Button fx:id="btnValider" layoutX="784.0" layoutY="378.0" mnemonicParsing="false" onAction="#handleNewBook" style="-fx-background-color: #409a13;" text="Valider" textFill="WHITE">
+                <TextField fx:id="titre" layoutX="680.0" layoutY="35.0" />
+                <TextField fx:id="auteur" layoutX="680.0" layoutY="80.0" />
+                <TextField fx:id="presentation" layoutX="680.0" layoutY="127.0" />
+                <TextField fx:id="colonne" layoutX="680.0" layoutY="224.0" />
+                <TextField fx:id="rangee" layoutX="680.0" layoutY="270.0" />
+                <Label layoutX="638.0" layoutY="39.0" prefHeight="17.0" prefWidth="43.0" text="Titre" textAlignment="CENTER" />
+                <Label layoutX="637.0" layoutY="85.0" prefHeight="17.0" prefWidth="43.0" text="Auteur" textAlignment="CENTER" />
+                <Label layoutX="608.0" layoutY="131.0" prefHeight="17.0" prefWidth="72.0" text="Présentation" textAlignment="CENTER" />
+                <Label layoutX="626.0" layoutY="182.0" prefHeight="17.0" prefWidth="46.0" text="Parution" textAlignment="CENTER" />
+                <Label layoutX="626.0" layoutY="229.0" prefHeight="17.0" prefWidth="46.0" text="Colonne" textAlignment="CENTER" />
+                <Label layoutX="623.0" layoutY="274.0" prefHeight="17.0" prefWidth="46.0" text="Rangée" textAlignment="CENTER" />
+                <TextField fx:id="image" layoutX="680.0" layoutY="341.0" />
+                <Label layoutX="625.0" layoutY="346.0" prefHeight="17.0" prefWidth="38.0" text="Image" textAlignment="CENTER" />
+                <Button fx:id="btnValider" layoutX="765.0" layoutY="477.0" mnemonicParsing="false" onAction="#handleNewBook" style="-fx-background-color: #409a13;" text="Valider" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="16.0" />
                     </font>
                 </Button>
-                <Button fx:id="btnPlus" layoutX="369.0" layoutY="427.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="36.0" style="-fx-background-color: #409a13;" text="+" textFill="WHITE" onAction="#handlePlusBouton" />
-                <Button fx:id="btnMoins" layoutX="421.0" layoutY="427.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="34.0" text="-" onAction="#handleMoinsBouton"/>
-            <DatePicker fx:id="calendrier" layoutX="694.0" layoutY="210.0" prefHeight="23.0" prefWidth="160.0" />
-            <ImageView fx:id="imageView" fitHeight="121.0" fitWidth="134.0" layoutX="586.0" layoutY="373.0" pickOnBounds="true" preserveRatio="true" />
+                <Button fx:id="btnPlus" layoutX="369.0" layoutY="427.0" mnemonicParsing="false" onAction="#handlePlusBouton" prefHeight="28.0" prefWidth="36.0" style="-fx-background-color: #409a13;" text="+" textFill="WHITE" />
+                <Button fx:id="btnMoins" layoutX="421.0" layoutY="427.0" mnemonicParsing="false" onAction="#handleMoinsBouton" prefHeight="28.0" prefWidth="34.0" text="-" />
+            <DatePicker fx:id="calendrier" layoutX="680.0" layoutY="178.0" prefHeight="25.0" prefWidth="149.0" />
+            <ImageView fx:id="imageView" fitHeight="107.0" fitWidth="113.0" layoutX="616.0" layoutY="415.0" pickOnBounds="true" preserveRatio="true" />
+            <Text fx:id="msgErrorTitre" fill="RED" layoutX="636.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Le titre doit cotenir des chiffre, lettres ou caractère spéciaux">
+               <font>
+                  <Font size="8.0" />
+               </font>
+            </Text>
+            <Text fx:id="msgErrorAuteur" fill="RED" layoutX="636.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="L' auteur doit contenir un nom prenom separer par un espace et uniquement des lettres" wrappingWidth="210.1953125">
+               <font>
+                  <Font size="8.0" />
+               </font>
+            </Text>
+            <Text fx:id="msgErrorColonne" fill="RED" layoutX="636.0" layoutY="255.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Colonne compris entre 1 et 12" wrappingWidth="210.1953125">
+               <font>
+                  <Font size="8.0" />
+               </font>
+            </Text>
+            <Text fx:id="msgErrorRangee" fill="RED" layoutX="636.0" layoutY="306.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rangee compris entre 1 et 7" wrappingWidth="210.1953125">
+               <font>
+                  <Font size="8.0" />
+               </font>
+            </Text>
+            <Text fx:id="msgErrorUrl" fill="RED" layoutX="636.0" layoutY="378.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Url non valide" wrappingWidth="210.1953125">
+               <font>
+                  <Font size="8.0" />
+               </font>
+            </Text>
             </children>
         </AnchorPane>
     </children>
