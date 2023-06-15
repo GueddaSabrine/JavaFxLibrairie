@@ -110,7 +110,7 @@ Bibliotheque {
         }
         return this.listlivre;
     }
-
+    //used by jaxb to create/write book
     /**
      * *
      * @param titre
@@ -120,12 +120,9 @@ Bibliotheque {
      * @param col
      * @param rangee
      */
-    public void addLivre(String titre, Livre.Auteur auteur, String pre , String pick , int col, int rangee){
+    public void addLivre(String titre, Livre.Auteur auteur, String pre , String pick , int col, int rangee ,String image){
 
-        listlivre.add(new Livre(titre, auteur, pre, pick ,col, rangee));
-        System.out.println("new book");
-        this.print();
-
+        listlivre.add(new Livre(titre, auteur, pre, pick ,col, rangee, image));
 
     }
 
@@ -201,7 +198,7 @@ Bibliotheque {
         @XmlSchemaType(name = "unsignedByte")
         protected String image;
 
-        public Livre(String titre, Bibliotheque.Livre.Auteur auteur,String presentation,String parution,Integer colonne, Integer rangee){
+        public Livre(String titre, Bibliotheque.Livre.Auteur auteur,String presentation,String parution,Integer colonne, Integer rangee , String image){
             this.titre = titre;
             this.setTitre(titre);
             this.auteur =auteur;
@@ -209,6 +206,7 @@ Bibliotheque {
             this.parution= parution;
             this.colonne= colonne;
             this.rangee= rangee;
+            this.image = image;
         }
         public Livre(){
             this.titre= null;
@@ -260,7 +258,7 @@ Bibliotheque {
 
         public String getStringAuteur(){
 
-            return auteur.getPrenom() + auteur.getNom();
+            return auteur.getPrenom()+ " " + auteur.getNom();
         }
 
         /**

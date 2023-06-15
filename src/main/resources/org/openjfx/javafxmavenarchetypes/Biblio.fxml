@@ -25,7 +25,7 @@
 
 <VBox prefHeight="500.0" prefWidth="870.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.javafxmavenarchetypes.controller.FormController">
     <children>
-        <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="507.0" prefWidth="871.0" VBox.vgrow="ALWAYS">
+        <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="507.0" prefWidth="871.0" onMouseClicked="#handleOutsideCLick" VBox.vgrow="ALWAYS">
             <children>
                 <Label alignment="CENTER" layoutX="155.0" layoutY="177.0" style="&#10;" text="Drag components from Library here…" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
                     <font>
@@ -55,7 +55,7 @@
                         </Menu>
                         <Menu fx:id="edition" mnemonicParsing="false" text="Edition">
                             <items>
-                                <MenuItem fx:id="sauv" mnemonicParsing="false" text="Sauvegarder" />
+                                <MenuItem fx:id="sauv" mnemonicParsing="false" onAction="#handleSave" text="Sauvegarder" />
                                 <MenuItem fx:id="sauvSous" mnemonicParsing="false" onAction="#handleSaveAs" text="Sauvegarder sous ..." />
                             </items>
                         </Menu>
@@ -84,8 +84,8 @@
                         <Font name="System Bold" size="16.0" />
                     </font>
                 </Button>
-                <Button fx:id="btnPlus" layoutX="369.0" layoutY="427.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="36.0" style="-fx-background-color: #409a13;" text="+" textFill="WHITE" />
-                <Button fx:id="btnMoins" layoutX="421.0" layoutY="427.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="34.0" text="-" />
+                <Button fx:id="btnPlus" layoutX="369.0" layoutY="427.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="36.0" style="-fx-background-color: #409a13;" text="+" textFill="WHITE" onAction="#handlePlusBouton" />
+                <Button fx:id="btnMoins" layoutX="421.0" layoutY="427.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="34.0" text="-" onAction="#handleMoinsBouton"/>
             <DatePicker fx:id="calendrier" layoutX="694.0" layoutY="210.0" prefHeight="23.0" prefWidth="160.0" />
             <ImageView fx:id="imageView" fitHeight="121.0" fitWidth="134.0" layoutX="586.0" layoutY="373.0" pickOnBounds="true" preserveRatio="true" />
             </children>

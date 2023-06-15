@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
@@ -95,11 +96,13 @@ public class FormController  {
 
     //mmh ...
     Bibliotheque.Livre selectedbook = null ;
+    File selectedFile = null;
     @FXML
     public void initialize(){
 
         inittableau();
         btnMoins.setDisable(true);
+        setDefaultTextField();
     }
 
     public void inittableau(){
@@ -141,22 +144,22 @@ public class FormController  {
     @FXML
     public void handleSelectionTableView(MouseEvent event){
 
-       System.out.println(event.getTarget().getClass().toString());
        selectedbook = tableau.getSelectionModel().getSelectedItem();
-       titre.setText(selectedbook.getTitre());
-       auteur.setText(selectedbook.getStringAuteur());
-       presentation.setText(selectedbook.getPresentation());
-       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-       LocalDate localDate = LocalDate.parse("01-01-"+selectedbook.getParution(), formatter);
-       calendrier.setValue(localDate);
-       colonne.setText(Integer.toString(selectedbook.getColonne()));
-       rangee.setText(Integer.toString(selectedbook.getRangee()));
-       image.setText(selectedbook.getImage());
+        if(selectedbook != null){
+            titre.setText(selectedbook.getTitre());
+            auteur.setText(selectedbook.getStringAuteur());
+            presentation.setText(selectedbook.getPresentation());
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            LocalDate localDate = LocalDate.parse("01-01-" + selectedbook.getParution(), formatter);
+            calendrier.setValue(localDate);
+            colonne.setText(Integer.toString(selectedbook.getColonne()));
+            rangee.setText(Integer.toString(selectedbook.getRangee()));
+            image.setText(selectedbook.getImage());
 
-       //boutoins moins active
+            //boutoins moins active
 
-        btnMoins.setDisable(false);
-
+            btnMoins.setDisable(false);
+        }
     }
     @FXML
     public void handleNewBook(ActionEvent event){
@@ -164,29 +167,43 @@ public class FormController  {
        //Recuperer les données entrees dans le texte fields.
         Bibliotheque.Livre.Auteur auteur1 = new Bibliotheque.Livre.Auteur() ;
         String auteurTexte = auteur.getText();
+        String[] PrenomNom = auteurTexte.split(" ", 2);
+        if(PrenomNom.length == 2){
+            auteur1.setPrenom(PrenomNom[0]);
+            auteur1.setNom(PrenomNom[1]);
+        }
+        else{
+            auteur1.setPrenom("");
+            auteur1.setNom(PrenomNom[0]);
+        }
         String presentationText = presentation.getText();
         String titreText = titre.getText();
         int colonneText = Integer.parseInt(colonne.getText());
         int rangeeText = Integer.parseInt(rangee.getText());
-        String datapickerText = String.valueOf(calendrier.getValue());
+        String datapickerText = String.valueOf(calendrier.getValue().getYear());
+        String imageUrl = image.getText();
 
         //Affichage de l'image
-        String imageUrl = image.getText();
-        System.out.println(imageUrl);
         Image image = new Image(imageUrl);
         imageView.setImage(image);
 
         if(selectedbook == null) {
-            bibliotheque.addLivre(titreText, auteur1, presentationText, datapickerText, colonneText, rangeeText);
+            bibliotheque.addLivre(titreText, auteur1, presentationText, datapickerText, colonneText, rangeeText, imageUrl);
         }
         else {
 
+                selectedbook.setTitre(titreText);
+                selectedbook.setPresentation(presentationText);
+                selectedbook.setParution(datapickerText);
+                selectedbook.setRangee(rangeeText);
+                selectedbook.setColonne(colonneText);
+                selectedbook.setImage(imageUrl);
 
         }
         // Mise a jour du tableau
         ObservableList<Bibliotheque.Livre> listD = getListData();
         tableau.setItems(listD);
-
+        tableau.refresh();
 
 
 
@@ -199,7 +216,7 @@ public class FormController  {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Enregistrer");
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Fichier XML", "*.xml"));
-        File selectedFile = fileChooser.showSaveDialog(tableau.getScene().getWindow());
+        selectedFile = fileChooser.showSaveDialog(tableau.getScene().getWindow());
         if (selectedFile != null){
             JAXBContext jaxbContext = JAXBContext.newInstance(Bibliotheque.class);
             Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
@@ -212,6 +229,23 @@ public class FormController  {
 
     }
 
+    public void handleSave(ActionEvent event) throws JAXBException {
+
+        if (selectedFile != null){
+            JAXBContext jaxbContext = JAXBContext.newInstance(Bibliotheque.class);
+            Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+            jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+            System.out.println("ok");
+            jaxbMarshaller.marshal(bibliotheque, selectedFile);
+
+
+        }
+        else{
+
+            handleSaveAs(event);
+        }
+    }
+
     public void handleOpen(ActionEvent event) throws JAXBException, SAXException {
         File xsdf = new File("src/main/xsd/Biblio.xsd");
 
@@ -219,7 +253,7 @@ public class FormController  {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Ouvrir");
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Fichier XML", "*.xml"));
-        File selectedFile = fileChooser.showOpenDialog(tableau.getScene().getWindow());
+        selectedFile = fileChooser.showOpenDialog(tableau.getScene().getWindow());
         if (selectedFile != null){
             //unmarshalling ( xml -> java)
             JAXBContext jaxbContext = JAXBContext.newInstance(Bibliotheque.class);
@@ -238,6 +272,47 @@ public class FormController  {
             tableau.setItems(listD);
 
 
+        }
+
+    }
+
+    public void handleOutsideCLick(){
+
+       tableau.getSelectionModel().clearSelection();
+       setDefaultTextField();
+       btnMoins.setDisable(true);
+
+    }
+
+    public void setDefaultTextField(){
+
+        titre.setText("Titre");
+        auteur.setText("Prenom Nom");
+        presentation.setText("Un court resume");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate localDate = LocalDate.parse("01-01-2000", formatter);
+        calendrier.setValue(localDate);
+        colonne.setText("000");
+        rangee.setText("000");
+        image.setText("https://birkhauser.com/product-not-found.png");
+    }
+
+    public void handlePlusBouton(){
+
+        tableau.getSelectionModel().clearSelection();
+        setDefaultTextField();
+        btnMoins.setDisable(true);
+        titre.requestFocus();
+    }
+
+    public void handleMoinsBouton(){
+
+        if(selectedbook != null){
+
+            bibliotheque.getLivre().remove(selectedbook);
+            ObservableList<Bibliotheque.Livre> listD = getListData();
+            tableau.setItems(listD);
+            tableau.refresh();
         }
 
     }
