@@ -82,7 +82,7 @@
                         </goals>
                         <configuration>
                             <failOnError>false</failOnError>
-                            <failOnWarning>false</failOnWarning>
+<!--                            <failOnWarning>false</failOnWarning>-->
                             <doclint>none</doclint>
                         </configuration>
                     </execution>
