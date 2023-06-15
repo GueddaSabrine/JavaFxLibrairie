@@ -81,6 +81,8 @@
                             <goal>jar</goal>
                         </goals>
                         <configuration>
+                            <failOnError>false</failOnError>
+                            <failOnWarning>false</failOnWarning>
                             <doclint>none</doclint>
                         </configuration>
                     </execution>
