@@ -21,7 +21,7 @@ jobs:
       - name: Test with Maven
         run: mvn test
       - name: Generate Javadoc
-        run: mvn javadoc:javadoc -Dadditionalparam=-Xdoclint:none
+        run: mvn javadoc:javadoc -Darugments="-Dmaven.javadoc.skip=true"
       - name: Analyze with SonarCloud
         run: mvn -B verify sonar:sonar -Dsonar.projectKey=GueddaSabrine_JavaFxLibrairie -Dsonar.organization=gueddasabrine -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }}
       - name: Génération SBOM
