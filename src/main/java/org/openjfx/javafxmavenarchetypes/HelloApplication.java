@@ -15,7 +15,7 @@ import java.io.IOException;
 
 public class HelloApplication extends Application {
 
-   /** private ObservableList<Bibliotheque.Livre> listData = FXCollections.observableArrayList();**/
+    /** private ObservableList<Bibliotheque.Livre> listData = FXCollections.observableArrayList();**/
     @Override
     public void start(Stage stage) throws Exception {
 
@@ -26,12 +26,13 @@ public class HelloApplication extends Application {
         stage.show();
 
        //colTitre.setCellValueFactory(new PropertyValueFactory<Bibliotheque.Livre,String>("titreText"));
+        //colTitre.setCellValueFactory(new PropertyValueFactory<Bibliotheque.Livre,String>("titreText"));
     }
 
-  /**  public ObservableList<Bibliotheque.Livre> getListData() {
-        return listData;
-    }
-   **/
+    /**  public ObservableList<Bibliotheque.Livre> getListData() {
+     return listData;
+     }
+     **/
 
     public static void main(String[] args) {
         launch();

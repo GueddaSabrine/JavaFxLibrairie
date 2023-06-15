@@ -27,6 +27,10 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
+
+import javax.xml.bind.Unmarshaller;
+
+import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -71,7 +75,6 @@ public class FormController  {
     public TableColumn <Bibliotheque.Livre, Integer>colRangee;
     @FXML
     public TableColumn <Bibliotheque.Livre, String> colTitre;
-
 
     //Tableview
     @FXML
@@ -206,13 +209,10 @@ public class FormController  {
         tableau.refresh();
 
 
-
     }
+
     @FXML
     public void handleSaveAs(ActionEvent event) throws JAXBException {
-
-
-
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Enregistrer");
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Fichier XML", "*.xml"));
@@ -314,7 +314,35 @@ public class FormController  {
             tableau.setItems(listD);
             tableau.refresh();
         }
-
     }
 
+    public void handleOpen(ActionEvent event) throws JAXBException, SAXException {
+        File xsdf = new File("src/main/xsd/Biblio.xsd");
+
+        /* ouverture du fichier xml */
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Ouvrir");
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Fichier XML", "*.xml"));
+        selectedFile = fileChooser.showOpenDialog(tableau.getScene().getWindow());
+        if (selectedFile != null){
+            //unmarshalling ( xml -> java)
+            JAXBContext jaxbContext = JAXBContext.newInstance(Bibliotheque.class);
+            Unmarshaller jaxbunMarshaller = jaxbContext.createUnmarshaller();
+            SchemaFactory schemafactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+
+            //try
+            Schema sch  = schemafactory.newSchema(xsdf);
+            jaxbunMarshaller.setSchema(sch);
+            bibliotheque= (Bibliotheque) jaxbunMarshaller.unmarshal(selectedFile);
+            bibliotheque.print();
+
+            /* mise a jour du tableau d'affichage */
+
+            ObservableList<Bibliotheque.Livre> listD = getListData();
+            tableau.setItems(listD);
+
+
+        }
+
+    }
 }
