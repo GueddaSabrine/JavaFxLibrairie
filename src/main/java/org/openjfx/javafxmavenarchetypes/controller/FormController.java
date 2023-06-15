@@ -1,4 +1,5 @@
 package org.openjfx.javafxmavenarchetypes.controller;
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.value.ObservableValue;
@@ -106,7 +107,8 @@ public class FormController  {
         inittableau();
         btnMoins.setDisable(true);
         setDefaultTextField();
-        fileSaved = false;
+        fileSaved = true;
+        calendrier.getEditor().setDisable(true);
     }
 
     public void inittableau(){
@@ -168,33 +170,35 @@ public class FormController  {
     @FXML
     public void handleNewBook(ActionEvent event){
 
-       //Recuperer les données entrees dans le texte fields.
-        Bibliotheque.Livre.Auteur auteur1 = new Bibliotheque.Livre.Auteur() ;
-        String auteurTexte = auteur.getText();
-        String[] PrenomNom = auteurTexte.split(" ", 2);
-        if(PrenomNom.length == 2){
-            auteur1.setPrenom(PrenomNom[0]);
-            auteur1.setNom(PrenomNom[1]);
-        }
-        else{
-            auteur1.setPrenom("");
-            auteur1.setNom(PrenomNom[0]);
-        }
-        String presentationText = presentation.getText();
-        String titreText = titre.getText();
-        int colonneText = Integer.parseInt(colonne.getText());
-        int rangeeText = Integer.parseInt(rangee.getText());
-        String datapickerText = String.valueOf(calendrier.getValue().getYear());
-        String imageUrl = image.getText();
 
-        //Affichage de l'image
-        Image image = new Image(imageUrl);
-        imageView.setImage(image);
+        if(checkData()) {
+            //Recuperer les données entrees dans le texte fields.
+            Bibliotheque.Livre.Auteur auteur1 = new Bibliotheque.Livre.Auteur() ;
+            String auteurTexte = auteur.getText();
+            String[] PrenomNom = auteurTexte.split(" ", 2);
+            auteur1.setPrenom(PrenomNom[0].substring(0,1).toUpperCase() + PrenomNom[0].substring(1));
+            auteur1.setNom(PrenomNom[1].substring(0,1).toUpperCase() + PrenomNom[1].substring(1));
+            String presentationText = presentation.getText();
+            String titreText = titre.getText();
+            int colonneText = Integer.parseInt(colonne.getText());
+            int rangeeText = Integer.parseInt(rangee.getText());
+            String datapickerText = String.valueOf(calendrier.getValue().getYear());
+            String imageUrl = image.getText();
 
-        if(selectedbook == null) {
-            bibliotheque.addLivre(titreText, auteur1, presentationText, datapickerText, colonneText, rangeeText, imageUrl);
-        }
-        else {
+            //Affichage de l'image
+            Image image = new Image(imageUrl);
+            imageView.setImage(image);
+            if (selectedbook == null) {
+                bibliotheque.addLivre(titreText, auteur1, presentationText, datapickerText, colonneText, rangeeText, imageUrl);
+                // Mise a jour du tableau
+
+                ObservableList<Bibliotheque.Livre> listD = getListData();
+                tableau.setItems(listD);
+                tableau.refresh();
+                fileSaved = false;
+                AlerteAddModifyBookDone();
+
+            } else {
 
                 selectedbook.setTitre(titreText);
                 selectedbook.setPresentation(presentationText);
@@ -203,14 +207,77 @@ public class FormController  {
                 selectedbook.setColonne(colonneText);
                 selectedbook.setImage(imageUrl);
 
+
+                // Mise a jour du tableau
+                if (AlerteModifyBook()) {
+                    ObservableList<Bibliotheque.Livre> listD = getListData();
+                    tableau.setItems(listD);
+                    tableau.refresh();
+                    fileSaved = false;
+                    AlerteAddModifyBookDone();
+                }
+            }
         }
-        // Mise a jour du tableau
-        ObservableList<Bibliotheque.Livre> listD = getListData();
-        tableau.setItems(listD);
-        tableau.refresh();
 
 
 
+    }
+
+    public boolean checkData(){
+        boolean ti , aut, col , rg , img;
+        if(titre.getText().matches("[A-Za-z0-9 _]*")){
+            ti = true;
+        }
+        else{
+
+            ti = false;
+            System.out.println("pb titre");
+
+        }
+        if(auteur.getText().matches("[a-z]*\s[a-z]*")){
+            aut = true;
+        }
+        else{
+
+            aut = false;
+            System.out.println("pb auteur");
+
+
+        }
+        if(colonne.getText().matches("[0-9]*") && Integer.parseInt(rangee.getText()) <= 12 && Integer.parseInt(rangee.getText()) >= 1){
+            col = true;
+        }
+        else{
+
+            col = false;
+            System.out.println("pb colonne");
+
+
+        }
+        if(rangee.getText().matches("[1-7]")){
+            rg = true;
+        }
+        else{
+
+            rg = false;
+            System.out.println("pb rangee");
+
+
+        }
+        img = true;
+        try{
+            new Image(image.getText());
+
+        }
+        catch(Exception e){
+
+           img = false ;
+            System.out.println( e.getMessage());
+
+
+        }
+
+        return ti && aut && col && rg && img ;
     }
     @FXML
     public void handleSaveAs(ActionEvent event) throws JAXBException {
@@ -284,6 +351,7 @@ public class FormController  {
 
        tableau.getSelectionModel().clearSelection();
        setDefaultTextField();
+       selectedbook = null;
        btnMoins.setDisable(true);
 
     }
@@ -296,8 +364,8 @@ public class FormController  {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         LocalDate localDate = LocalDate.parse("01-01-2000", formatter);
         calendrier.setValue(localDate);
-        colonne.setText("000");
-        rangee.setText("000");
+        colonne.setText("1");
+        rangee.setText("1");
         image.setText("https://birkhauser.com/product-not-found.png");
     }
 
@@ -306,57 +374,92 @@ public class FormController  {
         tableau.getSelectionModel().clearSelection();
         setDefaultTextField();
         btnMoins.setDisable(true);
+        selectedbook = null;
         titre.requestFocus();
     }
 
     public void handleMoinsBouton(){
 
         if(selectedbook != null){
-
-            bibliotheque.getLivre().remove(selectedbook);
-            ObservableList<Bibliotheque.Livre> listD = getListData();
-            tableau.setItems(listD);
-            tableau.refresh();
-            fileSaved = false;
+            if (AlerteSuppBook()) {
+                bibliotheque.getLivre().remove(selectedbook);
+                ObservableList<Bibliotheque.Livre> listD = getListData();
+                tableau.setItems(listD);
+                tableau.refresh();
+                fileSaved = false;
+            }
         }
 
     }
 
-    public void handleExit(){
+    public void handleExit() throws JAXBException {
 
         if(!fileSaved){
-
+            if(AlerteSauvegarde()){
+                handleSave(new ActionEvent());
+            }
 
         }
+        Platform.exit();
     }
 
-    public boolean AlerteSAuvegarde(){
-
+    public boolean AlerteSauvegarde(){
+        String name = "no file";
+        if(selectedFile != null){name = selectedFile.getName(); }
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Exit");
-        alert.setHeaderText("Look, a Confirmation Dialog");
-        alert.setContentText("Are you ok with this?");
+        alert.setHeaderText("You're going to exist without saving");
+        alert.setContentText("Toute les modifications apportées au fichier " + name + "seront perdu. Cliquez sur" +
+                " OK pour sauvegarder votre fichier" );
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
-            // ... user chose OK
+            return true;
         } else {
-            // ... user chose CANCEL or closed the dialog
+            return false ;
         }
-        return true;
     }
 
     public void AlerteAddModifyBookDone(){
 
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Done");
+        alert.setHeaderText(null);
+        alert.setContentText("Bibliotheque mise a jour");
+
+        alert.showAndWait();
     }
 
     public boolean AlerteModifyBook(){
-        return true;
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Modification Livre");
+        alert.setHeaderText("Voulez vous modifier " + selectedbook.getTitre());
+        alert.setContentText("Les modifications apportées au livre " + selectedbook.getTitre() + "vont etre validée. Cliquez sur" +
+                " OK pour continuer" );
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            return true;
+        } else {
+            return false ;
+        }
 
     }
 
     public boolean AlerteSuppBook(){
-        return true;
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Suppression Livre");
+        alert.setHeaderText("Voulez vous supprimer " + selectedbook.getTitre());
+        alert.setContentText("Voulez vous supprimer " + selectedbook.getTitre() + "  de la liste? Cliquez sur" +
+                " OK pour supprimer" );
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            return true;
+        } else {
+            return false ;
+        }
 
     }
 
