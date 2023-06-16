@@ -174,6 +174,7 @@ public class FormController  {
     @FXML
     public void handleSelectionTableView(MouseEvent event){
 
+       System.out.println(event.getTarget().getClass().toString());
        selectedbook = tableau.getSelectionModel().getSelectedItem();
         if(selectedbook != null){
             titre.setText(selectedbook.getTitre());
@@ -349,7 +350,7 @@ public class FormController  {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Ouvrir");
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Fichier XML", "*.xml"));
-        selectedFile = fileChooser.showOpenDialog(tableau.getScene().getWindow());
+        File selectedFile = fileChooser.showOpenDialog(tableau.getScene().getWindow());
         if (selectedFile != null){
             //unmarshalling ( xml -> java)
             JAXBContext jaxbContext = JAXBContext.newInstance(Bibliotheque.class);

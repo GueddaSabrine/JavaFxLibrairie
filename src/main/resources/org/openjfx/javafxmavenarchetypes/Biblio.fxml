@@ -6,7 +6,6 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -25,7 +24,7 @@
 <!--    <Button text="Hello!" onAction="#onHelloButtonClick"/>-->
 <!--</VBox>-->
 
-<VBox prefHeight="565.0" prefWidth="877.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.javafxmavenarchetypes.controller.FormController">
+<VBox prefHeight="565.0" prefWidth="877.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.javafxmavenarchetypes.controller.FormController">
     <children>
         <AnchorPane maxHeight="-1.0" maxWidth="-1.0" onMouseClicked="#handleOutsideCLick" prefHeight="507.0" prefWidth="871.0" VBox.vgrow="ALWAYS">
             <children>
@@ -52,17 +51,13 @@
                         <Menu fx:id="fichier" mnemonicParsing="false" text="Fichier">
                             <items>
                                 <MenuItem fx:id="ouvrir" mnemonicParsing="false" onAction="#handleOpen" text="Ouvrir" />
+                        <Menu mnemonicParsing="false" text="Export as ....">
+                          <items>
+                              <MenuItem mnemonicParsing="false" text="Word (.doc)" />
+                            <MenuItem mnemonicParsing="false" text="PDF (.pdf)" />
+                          </items>
+                        </Menu>
                                 <MenuItem fx:id="quitter" mnemonicParsing="false" onAction="#handleExit" text="Quitter" />
-                        <MenuItem mnemonicParsing="false" text=" Exporter As">
-                           <graphic>
-                              <SplitMenuButton mnemonicParsing="false" text="Export">
-                                <items>
-                                  <MenuItem mnemonicParsing="false" text="PDF (.pdf)" />
-                                  <MenuItem mnemonicParsing="false" text="Word (.word)" />
-                                </items>
-                              </SplitMenuButton>
-                           </graphic>
-                        </MenuItem>
                             </items>
                         </Menu>
                         <Menu fx:id="edition" mnemonicParsing="false" text="Edition">
@@ -91,7 +86,7 @@
                 <Label layoutX="623.0" layoutY="274.0" prefHeight="17.0" prefWidth="46.0" text="Rangée" textAlignment="CENTER" />
                 <TextField fx:id="image" layoutX="680.0" layoutY="341.0" />
                 <Label layoutX="625.0" layoutY="346.0" prefHeight="17.0" prefWidth="38.0" text="Image" textAlignment="CENTER" />
-                <Button fx:id="btnValider" layoutX="765.0" layoutY="477.0" mnemonicParsing="false" onAction="#handleNewBook" style="-fx-background-color: #409a13;" text="Valider" textFill="WHITE">
+                <Button fx:id="btnValider" layoutX="764.0" layoutY="450.0" mnemonicParsing="false" onAction="#handleNewBook" style="-fx-background-color: #409a13;" text="Valider" textFill="WHITE">
                     <font>
                         <Font name="System Bold" size="16.0" />
                     </font>

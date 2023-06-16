@@ -55,7 +55,7 @@
       <option name="ALTERNATIVE_JRE_PATH" value="19" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="org.openjfx.javafxmavenarchetypes.HelloApplication" />
-      <module name="javafx-maven-archetypes" />
+      <module name="JavaFxLibrairie" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
