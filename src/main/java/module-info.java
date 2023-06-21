@@ -2,7 +2,9 @@ module org.openjfx.javafxmavenarchetypes {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.xml.bind;
-
+    requires org.apache.pdfbox;
+    requires boxable;
+    requires java.desktop;
 
 
     opens org.openjfx.javafxmavenarchetypes to javafx.fxml, java.xml.bind;

@@ -67,7 +67,7 @@
         <dependency>
             <groupId>org.apache.pdfbox</groupId>
             <artifactId>pdfbox</artifactId>
-            <version>3.0.0-alpha3</version>
+            <version> 2.0.24</version>
         </dependency>
 
         <!-- tuto additional dependencies!-->
@@ -101,6 +101,13 @@
             <version>2.0.0</version>
         </dependency>
         <!-- end tuto additional dependencies!-->
+        <!-- boxable pour faire tableau dans pdf sous forme de html !-->
+        <dependency>
+            <groupId>com.github.dhorions</groupId>
+            <artifactId>boxable</artifactId>
+            <version>1.7.0</version>
+        </dependency>
+        <!-- end lot 2 pdf !-->
     </dependencies>
 
     <build>

@@ -1,4 +1,6 @@
 package org.openjfx.javafxmavenarchetypes.controller;
+import be.quodlibet.boxable.Cell;
+import be.quodlibet.boxable.utils.ImageUtils;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
@@ -7,15 +9,21 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.print.*;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import javafx.scene.transform.Scale;
 import javafx.stage.FileChooser;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+//import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
 import org.openjfx.javafxmavenarchetypes.model.Bibliotheque;
 import org.xml.sax.SAXException;
 
@@ -29,6 +37,7 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,7 +47,20 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Optional;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.common.PDRectangle;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDFont;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import be.quodlibet.boxable.*;
+import be.quodlibet.boxable.line.LineStyle;
+
+import static org.apache.pdfbox.pdmodel.font.PDType1Font.*;
+//import static org.apache.pdfbox.pdmodel.font.Standard14Fonts.FontName.COURIER;
+//import static org.apache.pdfbox.pdmodel.font.Standard14Fonts.FontName.HELVETICA_BOLD;
 
 
 public class FormController  {
@@ -487,6 +509,66 @@ public class FormController  {
         } else {
             return false ;
         }
+
+    }
+    @FXML
+    public void testpdf() throws IOException {
+
+       // Standard14Fonts.FontName font_name_3v= Standard14Fonts.getMappedFontName("HELVETICA_BOLD");
+        //PDFont pdfFont=  new PDType1Font(font_name_3v.HELVETICA_BOLD);
+
+        PDDocument document = new PDDocument();
+        PDPage page = new PDPage(PDRectangle.A4);
+        // PDRectangle.LETTER and others are also possible
+        PDRectangle rect = page.getMediaBox();
+        // rect can be used to get the page width and height
+        document.addPage(page);
+
+        //ajout element
+        float margin = 50;
+        // starting y position is whole page height subtracted by top and bottom margin
+        float yStartNewPage = page.getMediaBox().getHeight() - (2 * margin);
+        // we want table across whole page width (subtracted by left and right margin ofcourse)
+        float tableWidth = page.getMediaBox().getWidth() - (2 * margin);
+
+        boolean drawContent = true;
+        float yStart = yStartNewPage;
+        float bottomMargin = 70;
+        // y position is your coordinate of top left corner of the table
+        float yPosition = 550;
+        //PDPageContentStream cos = new PDPageContentStream(document, page);
+        BaseTable table = new BaseTable(yStart, yStartNewPage, bottomMargin, tableWidth, margin, document, page, true,
+                drawContent);
+//Create Header row
+        Row<PDPage> headerRow = table.createRow(15f);
+        Cell<PDPage> cell = headerRow.createCell(100, "Bibliotheque collection");
+        cell.setFillColor(Color.BLACK);
+        cell.setTextColor(Color.WHITE);
+
+        table.addHeaderRow(headerRow);
+        List<Bibliotheque.Livre> facts = bibliotheque.getLivre();
+        for (Bibliotheque.Livre fact : facts) {
+            Row<PDPage> row = table.createRow(10f);
+            InputStream in = new URL(fact.getImage()).openStream();
+            Files.copy(in, Path.of("./imagetemp"));
+            File imagefile = new File("./imagetemp");
+            cell = row.createImageCell((100 / 9f), ImageUtils.readImage(imagefile));
+            cell = row.createCell((35 / 3.0f), fact.getTitre() );
+            cell.setFont(HELVETICA);
+            cell = row.createCell((35 / 3.0f), fact.getStringAuteur() );
+            cell.setFont(HELVETICA);
+            cell = row.createCell((100 / 3.0f) *2, fact.getPresentation() );
+            cell.setFont(HELVETICA);
+
+            imagefile.delete();
+        }
+        table.draw();
+
+
+
+        //sauvegarder
+        document.save("./test.pdf");
+        document.close();
 
     }
 
