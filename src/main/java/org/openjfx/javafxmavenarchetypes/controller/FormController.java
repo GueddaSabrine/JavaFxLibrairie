@@ -83,6 +83,9 @@ public class FormController  {
     @FXML
     public ImageView imageView;
 
+    @FXML
+    public CheckBox checkbox;
+
     //TableColumn
     @FXML
     public TableColumn <Bibliotheque.Livre, String> colAuteur;
@@ -208,6 +211,7 @@ public class FormController  {
             colonne.setText(Integer.toString(selectedbook.getColonne()));
             rangee.setText(Integer.toString(selectedbook.getRangee()));
             image.setText(selectedbook.getImage());
+            checkbox.setSelected(selectedbook.getDisponibilite());
 
             //boutoins moins active
 
@@ -233,12 +237,13 @@ public class FormController  {
             int rangeeText = Integer.parseInt(rangee.getText());
             String datapickerText = String.valueOf(calendrier.getValue().getYear());
             String imageUrl = image.getText();
+            boolean disponibilite = checkbox.isSelected();
 
             //Affichage de l'image
             Image image = new Image(imageUrl);
             imageView.setImage(image);
             if (selectedbook == null) {
-                bibliotheque.addLivre(titreText, auteur1, presentationText, datapickerText, colonneText, rangeeText, imageUrl);
+                bibliotheque.addLivre(titreText, auteur1, presentationText, datapickerText, colonneText, rangeeText, imageUrl, disponibilite);
                 // Mise a jour du tableau
 
                 ObservableList<Bibliotheque.Livre> listD = getListData();
@@ -416,6 +421,7 @@ public class FormController  {
         colonne.setText("1");
         rangee.setText("1");
         image.setText("https://birkhauser.com/product-not-found.png");
+        checkbox.setSelected(true);
     }
 
     public void handlePlusBouton(){

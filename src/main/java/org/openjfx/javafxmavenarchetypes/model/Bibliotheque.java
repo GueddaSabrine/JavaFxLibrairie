@@ -120,9 +120,9 @@ Bibliotheque {
      * @param col
      * @param rangee
      */
-    public void addLivre(String titre, Livre.Auteur auteur, String pre , String pick , int col, int rangee ,String image){
+    public void addLivre(String titre, Livre.Auteur auteur, String pre , String pick , int col, int rangee ,String image, boolean disp){
 
-        listlivre.add(new Livre(titre, auteur, pre, pick ,col, rangee, image));
+        listlivre.add(new Livre(titre, auteur, pre, pick ,col, rangee, image, disp));
 
     }
 
@@ -179,7 +179,8 @@ Bibliotheque {
         "parution",
         "colonne",
         "rangee",
-            "image"
+            "image",
+            "disponible"
     })
     public static class Livre {
         @XmlElement(required = true)
@@ -198,7 +199,9 @@ Bibliotheque {
         @XmlSchemaType(name = "unsignedByte")
         protected String image;
 
-        public Livre(String titre, Bibliotheque.Livre.Auteur auteur,String presentation,String parution,Integer colonne, Integer rangee , String image){
+        protected boolean disponible; //true = non emprunte false = emprunte
+
+        public Livre(String titre, Bibliotheque.Livre.Auteur auteur,String presentation,String parution,Integer colonne, Integer rangee , String image , boolean disp){
             this.titre = titre;
             this.setTitre(titre);
             this.auteur =auteur;
@@ -207,6 +210,8 @@ Bibliotheque {
             this.colonne= colonne;
             this.rangee= rangee;
             this.image = image;
+            this.disponible = disp;
+
         }
         public Livre(){
             this.titre= null;
@@ -215,6 +220,7 @@ Bibliotheque {
             this.parution= null;
             this.colonne= 0;
             this.rangee=0;
+            this.disponible = true ;
         }
 
         /**
@@ -356,6 +362,10 @@ Bibliotheque {
         public void setRangee(int value) {
             this.rangee= value;
         }
+
+        public boolean getDisponibilite(){return disponible;}
+
+        public void setDisponibilite(boolean b){ disponible = b;}
 
         public String print(){
            return this.toString() + "\n" + this.getTitre() + "\n" + this.getAuteur().toString() ;
