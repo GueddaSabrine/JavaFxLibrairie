@@ -11,6 +11,8 @@ package org.openjfx.javafxmavenarchetypes.model;
 
 import javafx.beans.property.StringProperty;
 
+import lombok.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.*;
@@ -175,6 +177,13 @@ public class Bibliotheque {
         "rangee",
             "image"
     })
+
+    @EqualsAndHashCode
+    @Getter
+    @Setter
+    @Builder
+    @AllArgsConstructor
+//    @NoArgsConstructor
     public static class Livre {
         @XmlElement(required = true)
 
@@ -210,6 +219,8 @@ public class Bibliotheque {
             this.colonne= 0;
             this.rangee=0;
         }
+
+
 
         /**
          * Obtient la valeur de la propri�t� titre.

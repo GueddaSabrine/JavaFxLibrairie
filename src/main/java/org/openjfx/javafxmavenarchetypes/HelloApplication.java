@@ -24,9 +24,6 @@ public class HelloApplication extends Application {
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
-
-       //colTitre.setCellValueFactory(new PropertyValueFactory<Bibliotheque.Livre,String>("titreText"));
-        //colTitre.setCellValueFactory(new PropertyValueFactory<Bibliotheque.Livre,String>("titreText"));
     }
 
     /**  public ObservableList<Bibliotheque.Livre> getListData() {

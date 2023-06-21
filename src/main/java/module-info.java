@@ -5,6 +5,7 @@ module org.openjfx.javafxmavenarchetypes {
 
     requires mysql.connector.java;
     requires java.sql;
+    requires lombok;
 //    requires javafx.embed.swing.JFXPanel;
 
 
