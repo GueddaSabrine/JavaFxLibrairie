@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -94,6 +95,19 @@ public class FormController extends HelloApplication {
         return listData;
     }
 
+    //error text
+
+    @FXML
+    public Text msgErrorTitre;
+    @FXML
+    public Text msgErrorAuteur ;
+    @FXML
+    public Text msgErrorColonne ;
+    @FXML
+    public Text msgErrorRangee ;
+    @FXML
+    public Text msgErrorUrl ;
+
     //mmh ...
     Bibliotheque.Livre selectedbook = null ;
     File selectedFile = null;
@@ -107,6 +121,16 @@ public class FormController extends HelloApplication {
         setDefaultTextField();
         fileSaved = true;
         calendrier.getEditor().setDisable(true);
+        hideErrorMsg();
+    }
+
+    public void hideErrorMsg(){
+
+        msgErrorTitre.setVisible(false);
+        msgErrorAuteur.setVisible(false);
+        msgErrorColonne.setVisible(false);
+        msgErrorRangee.setVisible(false);
+        msgErrorUrl.setVisible(false);
     }
 
     public void inittableau(){
@@ -148,6 +172,7 @@ public class FormController extends HelloApplication {
     @FXML
     public void handleSelectionTableView(MouseEvent event){
 
+       System.out.println(event.getTarget().getClass().toString());
        selectedbook = tableau.getSelectionModel().getSelectedItem();
         if(selectedbook != null){
             titre.setText(selectedbook.getTitre());
@@ -169,6 +194,8 @@ public class FormController extends HelloApplication {
 
 
         if(checkData()) {
+
+            hideErrorMsg();
             //Recuperer les données entrees dans le texte fields.
             Bibliotheque.Livre.Auteur auteur1 = new Bibliotheque.Livre.Auteur() ;
             String auteurTexte = auteur.getText();
@@ -225,17 +252,16 @@ public class FormController extends HelloApplication {
         else{
 
             ti = false;
-            System.out.println("pb titre");
+            msgErrorTitre.setVisible(true);
 
         }
-        if(auteur.getText().matches("[a-z]*\s[a-z]*")){
+        if(auteur.getText().matches("[A-Za-z]*\s[A-Za-z]*")){
             aut = true;
         }
         else{
 
             aut = false;
-            System.out.println("pb auteur");
-
+            msgErrorAuteur.setVisible(true);
 
         }
         if(colonne.getText().matches("[0-9]*") && Integer.parseInt(rangee.getText()) <= 12 && Integer.parseInt(rangee.getText()) >= 1){
@@ -244,8 +270,7 @@ public class FormController extends HelloApplication {
         else{
 
             col = false;
-            System.out.println("pb colonne");
-
+            msgErrorColonne.setVisible(true);
 
         }
         if(rangee.getText().matches("[1-7]")){
@@ -254,7 +279,7 @@ public class FormController extends HelloApplication {
         else{
 
             rg = false;
-            System.out.println("pb rangee");
+            msgErrorRangee.setVisible(true);
 
 
         }
@@ -267,6 +292,7 @@ public class FormController extends HelloApplication {
 
            img = false ;
             System.out.println( e.getMessage());
+            msgErrorUrl.setVisible(true);
 
 
         }
@@ -313,7 +339,7 @@ public class FormController extends HelloApplication {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Ouvrir");
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Fichier XML", "*.xml"));
-        selectedFile = fileChooser.showOpenDialog(tableau.getScene().getWindow());
+        File selectedFile = fileChooser.showOpenDialog(tableau.getScene().getWindow());
         if (selectedFile != null){
             //unmarshalling ( xml -> java)
             JAXBContext jaxbContext = JAXBContext.newInstance(Bibliotheque.class);
@@ -342,6 +368,7 @@ public class FormController extends HelloApplication {
        setDefaultTextField();
        selectedbook = null;
        btnMoins.setDisable(true);
+       hideErrorMsg();
 
     }
 
