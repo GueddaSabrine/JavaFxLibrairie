@@ -5,18 +5,17 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.openjfx.javafxmavenarchetypes.fixture.LivreFixture.leLivre;
 
 class BibliothequeTest extends Bibliotheque {
 
     private Livre livre;
 
 //    Fixture
-//    @BeforeEach
-//    void setUp() {
-//        livre = leLivre().build();
-//    }
-
-
+    @BeforeEach
+    void setUp() {
+        livre = leLivre().build();
+    }
 
 
     @Test
@@ -44,7 +43,35 @@ class BibliothequeTest extends Bibliotheque {
     void testGetPresentation() {
 
         livre.setPresentation("testPresentation");
-        Assertions.assertEquals("testDescription", livre.getPresentation());
+        Assertions.assertEquals("testPresentation", livre.getPresentation());
+    }
+
+    @Test
+    void testGetParution() {
+
+        livre.setParution("2012");
+        Assertions.assertEquals("2012", livre.getParution());
+    }
+
+    @Test
+    void testGetImage() {
+
+        livre.setImage("url image");
+        Assertions.assertEquals("url image", livre.getImage());
+    }
+
+    @Test
+    void testGetRangee() {
+
+        livre.setRangee(5);
+        Assertions.assertEquals(5, livre.getRangee());
+    }
+
+    @Test
+    void testGetColonne() {
+
+        livre.setColonne(5);
+        Assertions.assertEquals(5, livre.getColonne());
     }
 
 //    @Test

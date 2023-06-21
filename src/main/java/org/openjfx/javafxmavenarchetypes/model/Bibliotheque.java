@@ -14,6 +14,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.DatePicker;
 
+import lombok.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.*;
@@ -179,6 +181,13 @@ public class Bibliotheque {
             "image",
             "disponible"
     })
+
+    @EqualsAndHashCode
+    @Getter
+    @Setter
+    @Builder
+    @AllArgsConstructor
+//    @NoArgsConstructor
     public static class Livre {
         @XmlElement(required = true)
 
@@ -222,6 +231,8 @@ public class Bibliotheque {
 
         public Livre(String string) {
         }
+
+
 
         /**
          * Obtient la valeur de la propri�t� titre.
