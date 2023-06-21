@@ -136,7 +136,9 @@ public class FormController  {
     public Text msgErrorUrl ;
 
     //mmh ...
+    //Livre from the current global Bibliotheque object bibliotheque 's Livre list that's currently selected in the table view
     Bibliotheque.Livre selectedbook = null ;
+    //Working Xml file (the one currently openened
     File selectedFile = null;
 
     boolean fileSaved ;
@@ -151,6 +153,10 @@ public class FormController  {
         hideErrorMsg();
     }
 
+    /**
+     * Hide all the error message below the textfields in the form
+     * Set all Visible  attribute of textviewers to false
+     */
     public void hideErrorMsg(){
 
         msgErrorTitre.setVisible(false);
@@ -160,6 +166,9 @@ public class FormController  {
         msgErrorUrl.setVisible(false);
     }
 
+    /**
+     * Bind cell of table view to getter in order to retrieve attribute from Bibliotheque class
+     */
     public void inittableau(){
 
         colTitre.setCellValueFactory(cellData -> {
@@ -197,9 +206,13 @@ public class FormController  {
     }
 
     @FXML
+    /**
+     * Set selectedbook to the Livre object binded to the row selected
+     * Put attribute of the Livre object from the selected row into the textfield of the form
+     * Unable btnMoins (minus button)
+     */
     public void handleSelectionTableView(MouseEvent event){
 
-       System.out.println(event.getTarget().getClass().toString());
        selectedbook = tableau.getSelectionModel().getSelectedItem();
         if(selectedbook != null){
             titre.setText(selectedbook.getTitre());
@@ -218,6 +231,7 @@ public class FormController  {
             btnMoins.setDisable(false);
         }
     }
+
     @FXML
     public void handleNewBook(ActionEvent event){
 

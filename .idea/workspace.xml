@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c4277d93-3c1c-4d98-8b8c-8c0d96e5bba3" name="Changes" comment="second tableau dans pdf avec les livres indisponible">
+    <list default="true" id="c4277d93-3c1c-4d98-8b8c-8c0d96e5bba3" name="Changes" comment="fix variable selectedfile to handle saving on openingfile">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/openjfx/javafxmavenarchetypes/controller/FormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/openjfx/javafxmavenarchetypes/controller/FormController.java" afterDir="false" />
     </list>
@@ -104,7 +104,14 @@
       <option name="project" value="LOCAL" />
       <updated>1687354886606</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="fix variable selectedfile to handle saving on openingfile">
+      <created>1687360845527</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1687360845527</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -125,14 +132,15 @@
     <MESSAGE value="testpdf() generé pdf avec tableau livre (image + titre + auteur +presentation)" />
     <MESSAGE value="ajout disponibilité" />
     <MESSAGE value="second tableau dans pdf avec les livres indisponible" />
-    <option name="LAST_COMMIT_MESSAGE" value="second tableau dans pdf avec les livres indisponible" />
+    <MESSAGE value="fix variable selectedfile to handle saving on openingfile" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix variable selectedfile to handle saving on openingfile" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/org/openjfx/javafxmavenarchetypes/controller/FormController.java</url>
-          <line>557</line>
+          <line>571</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
