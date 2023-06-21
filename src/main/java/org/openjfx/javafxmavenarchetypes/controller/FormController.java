@@ -377,8 +377,8 @@ public class FormController  {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Ouvrir");
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Fichier XML", "*.xml"));
-        File selectedFile = fileChooser.showOpenDialog(tableau.getScene().getWindow());
-        if (selectedFile != null){
+        File openFile = fileChooser.showOpenDialog(tableau.getScene().getWindow());
+        if (openFile != null){
             //unmarshalling ( xml -> java)
             JAXBContext jaxbContext = JAXBContext.newInstance(Bibliotheque.class);
             Unmarshaller jaxbunMarshaller = jaxbContext.createUnmarshaller();
@@ -388,13 +388,15 @@ public class FormController  {
             Schema sch  = schemafactory.newSchema(xsdf);
             jaxbunMarshaller.setSchema(sch);
             bibliotheque= (Bibliotheque) jaxbunMarshaller.unmarshal(selectedFile);
-            bibliotheque.print();
+            //bibliotheque.print();
 
             /* mise a jour du tableau d'affichage */
 
             ObservableList<Bibliotheque.Livre> listD = getListData();
             tableau.setItems(listD);
             fileSaved = true;
+            selectedFile = openFile ;
+
 
         }
 
@@ -525,33 +527,48 @@ public class FormController  {
 
         PDDocument document = new PDDocument();
         PDPage page = new PDPage(PDRectangle.A4);
-        // PDRectangle.LETTER and others are also possible
-        PDRectangle rect = page.getMediaBox();
+        PDPage page2 = new PDPage(PDRectangle.A4);
         // rect can be used to get the page width and height
         document.addPage(page);
+
 
         //ajout element
         float margin = 50;
         // starting y position is whole page height subtracted by top and bottom margin
         float yStartNewPage = page.getMediaBox().getHeight() - (2 * margin);
+        float yStartNewPage2 = page2.getMediaBox().getHeight() - (2 * margin);
+
         // we want table across whole page width (subtracted by left and right margin ofcourse)
         float tableWidth = page.getMediaBox().getWidth() - (2 * margin);
 
         boolean drawContent = true;
         float yStart = yStartNewPage;
+        float yStart2 = yStartNewPage2;
         float bottomMargin = 70;
         // y position is your coordinate of top left corner of the table
         float yPosition = 550;
-        //PDPageContentStream cos = new PDPageContentStream(document, page);
+
+        //Premier tableau
         BaseTable table = new BaseTable(yStart, yStartNewPage, bottomMargin, tableWidth, margin, document, page, true,
                 drawContent);
-//Create Header row
+
         Row<PDPage> headerRow = table.createRow(15f);
         Cell<PDPage> cell = headerRow.createCell(100, "Bibliotheque collection");
         cell.setFillColor(Color.BLACK);
         cell.setTextColor(Color.WHITE);
-
         table.addHeaderRow(headerRow);
+
+        // deuxieme tableau
+        BaseTable tableind = new BaseTable(yStart, yStartNewPage, bottomMargin, tableWidth, margin, document, page2, true,
+                drawContent);
+
+        Row<PDPage> headerRowind = tableind.createRow(15f);
+        Cell<PDPage> cellind = headerRowind.createCell(100, "Livrre non disponible");
+        cellind.setFillColor(Color.GRAY);
+        cellind.setTextColor(Color.WHITE);
+        tableind.addHeaderRow(headerRowind);
+
+        //creation des lignes
         List<Bibliotheque.Livre> facts = bibliotheque.getLivre();
         for (Bibliotheque.Livre fact : facts) {
             Row<PDPage> row = table.createRow(10f);
@@ -565,12 +582,23 @@ public class FormController  {
             cell.setFont(HELVETICA);
             cell = row.createCell((100 / 3.0f) *2, fact.getPresentation() );
             cell.setFont(HELVETICA);
+            if(!fact.getDisponibilite()){
+                Row<PDPage> rowind = tableind.createRow(10f);
+                cellind = rowind.createImageCell((100 / 9f), ImageUtils.readImage(imagefile));
+                cellind = rowind.createCell((35 / 3.0f), fact.getTitre() );
+                cellind.setFont(HELVETICA);
+                cellind = rowind.createCell((35 / 3.0f), fact.getStringAuteur() );
+                cellind.setFont(HELVETICA);
+                cellind = rowind.createCell((100 / 3.0f) *2, fact.getPresentation() );
+                cellind.setFont(HELVETICA);
+            }
 
             imagefile.delete();
         }
+
         table.draw();
-
-
+        document.addPage(page2);
+        tableind.draw();
 
         //sauvegarder
         document.save("./test.pdf");

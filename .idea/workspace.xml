@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c4277d93-3c1c-4d98-8b8c-8c0d96e5bba3" name="Changes" comment="testpdf() generé pdf avec tableau livre (image + titre + auteur +presentation)">
+    <list default="true" id="c4277d93-3c1c-4d98-8b8c-8c0d96e5bba3" name="Changes" comment="second tableau dans pdf avec les livres indisponible">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/openjfx/javafxmavenarchetypes/controller/FormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/openjfx/javafxmavenarchetypes/controller/FormController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/openjfx/javafxmavenarchetypes/model/Bibliotheque.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/openjfx/javafxmavenarchetypes/model/Bibliotheque.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/openjfx/javafxmavenarchetypes/Biblio.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/openjfx/javafxmavenarchetypes/Biblio.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/xsd/Biblio.xsd" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/xsd/Biblio.xsd" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,7 +97,14 @@
       <option name="project" value="LOCAL" />
       <updated>1687352207540</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="ajout disponibilité">
+      <created>1687354886606</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1687354886606</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -119,14 +123,16 @@
     <MESSAGE value="test" />
     <MESSAGE value="merge marionbis" />
     <MESSAGE value="testpdf() generé pdf avec tableau livre (image + titre + auteur +presentation)" />
-    <option name="LAST_COMMIT_MESSAGE" value="testpdf() generé pdf avec tableau livre (image + titre + auteur +presentation)" />
+    <MESSAGE value="ajout disponibilité" />
+    <MESSAGE value="second tableau dans pdf avec les livres indisponible" />
+    <option name="LAST_COMMIT_MESSAGE" value="second tableau dans pdf avec les livres indisponible" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/org/openjfx/javafxmavenarchetypes/controller/FormController.java</url>
-          <line>553</line>
+          <line>557</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
