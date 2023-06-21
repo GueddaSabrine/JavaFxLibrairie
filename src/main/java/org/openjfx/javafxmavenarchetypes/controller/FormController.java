@@ -1,20 +1,17 @@
 package org.openjfx.javafxmavenarchetypes.controller;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.IntegerProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
+import org.openjfx.javafxmavenarchetypes.HelloApplication;
 import org.openjfx.javafxmavenarchetypes.model.Bibliotheque;
 import org.xml.sax.SAXException;
 
@@ -38,9 +35,10 @@ import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 
-public class FormController  {
+public class FormController extends HelloApplication {
 
     // TextField
     @FXML
@@ -163,7 +161,6 @@ public class FormController  {
             image.setText(selectedbook.getImage());
 
             //boutoins moins active
-
             btnMoins.setDisable(false);
         }
     }
@@ -218,9 +215,6 @@ public class FormController  {
                 }
             }
         }
-
-
-
     }
 
     public boolean checkData(){
@@ -281,9 +275,6 @@ public class FormController  {
     }
     @FXML
     public void handleSaveAs(ActionEvent event) throws JAXBException {
-
-
-
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Enregistrer");
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Fichier XML", "*.xml"));
@@ -295,9 +286,7 @@ public class FormController  {
             System.out.println("ok");
             jaxbMarshaller.marshal(bibliotheque, selectedFile);
             fileSaved = true;
-
         }
-
     }
 
     public void handleSave(ActionEvent event) throws JAXBException {

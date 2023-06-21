@@ -8,11 +8,8 @@
 
 package org.openjfx.javafxmavenarchetypes.model;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
+
 import javafx.beans.property.StringProperty;
-import javafx.scene.control.DatePicker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,10 +66,7 @@ import javax.xml.bind.annotation.*;
     "listlivre"
 })
 @XmlRootElement(name = "bibliotheque")
-public class
-
-
-Bibliotheque {
+public class Bibliotheque {
 
     @XmlElement(name = "livre")
     protected List<Bibliotheque.Livre> listlivre;
