@@ -2,10 +2,14 @@ module org.openjfx.javafxmavenarchetypes {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.xml.bind;
+
+    requires mysql.connector.java;
+    requires java.sql;
+//    requires javafx.embed.swing.JFXPanel;
+
     requires org.apache.pdfbox;
     requires boxable;
     requires java.desktop;
-    requires java.sql;
 
 
     opens org.openjfx.javafxmavenarchetypes to javafx.fxml, java.xml.bind;
@@ -21,4 +25,5 @@ module org.openjfx.javafxmavenarchetypes {
 //    exports org.openjfx.javafxmavenarchetypes.controller;
 //    opens org.openjfx.javafxmavenarchetypes.controller to javafx.fxml;
 //    exports org.openjfx.javafxmavenarchetypes;
+
 }

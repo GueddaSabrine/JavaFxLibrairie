@@ -50,10 +50,12 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import be.quodlibet.boxable.*;
+import java.util.ResourceBundle;
 
 import static org.apache.pdfbox.pdmodel.font.PDType1Font.*;
 //import static org.apache.pdfbox.pdmodel.font.Standard14Fonts.FontName.COURIER;
 //import static org.apache.pdfbox.pdmodel.font.Standard14Fonts.FontName.HELVETICA_BOLD;
+
 
 
 
@@ -225,7 +227,6 @@ public class FormController<DatabaseConnection> {
             checkbox.setSelected(selectedbook.getDisponibilite());
 
             //boutoins moins active
-
             btnMoins.setDisable(false);
         }
     }
@@ -276,7 +277,7 @@ public class FormController<DatabaseConnection> {
 
 
                 // Mise a jour du tableau
-                
+
                 if (Alerte(Alert.AlertType.INFORMATION,
                         "Modification Livre",
                         "modifier  + selectedbook.getTitre()",
@@ -292,9 +293,6 @@ public class FormController<DatabaseConnection> {
                 }
             }
         }
-
-
-
     }
 
     /**
