@@ -13,6 +13,7 @@ public class DatabaseConnexion {
             String dbName ="biblioDB";
             String dbUser ="root";
             String dbPassword="";
+            //MARION CHANGE LE LOCALHOST
             String url = "jdbc:mysql://localhost:3306/"+dbName;
             try {
                 Class.forName("com.mysql.cj.jdbc.Driver");
