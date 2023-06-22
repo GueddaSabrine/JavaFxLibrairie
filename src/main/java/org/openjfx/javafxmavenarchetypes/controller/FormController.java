@@ -131,16 +131,13 @@ public class FormController<DatabaseConnection> {
     //Livre from the current global Bibliotheque object bibliotheque 's Livre list that's currently selected in the table view
     Bibliotheque.Livre selectedbook = null ;
     //Working Xml file (the one currently openened
-    File selectedFile = null;
 
-    boolean fileSaved ;
     @FXML
     public void initialize(){
 
         inittableau();
         btnMoins.setDisable(true);
         setDefaultTextField();
-        fileSaved = true;
         calendrier.getEditor().setDisable(true);
         hideErrorMsg();
     }
@@ -262,8 +259,12 @@ public class FormController<DatabaseConnection> {
                 bibliotheque.addLivre(titreText, auteur1, presentationText, datapickerText, colonneText, rangeeText, imageUrl, disponibilite);
                 // Mise a jour du tableau
                 tableau.refresh();
-                fileSaved = false;
-                //AlerteAddModifyBookDone();
+                xmlfile.setFileSaved(false);
+                Alerte(Alert.AlertType.INFORMATION,
+                        "Done",
+                        null,
+                        "Bibliotheque mise a jour"
+                );
 
             } else {
 
@@ -283,7 +284,7 @@ public class FormController<DatabaseConnection> {
                         "Les modifications apportées au livre " + selectedbook.getTitre() + "vont etre validée. Cliquez sur" +
                                 " OK pour continuer")) {
 
-                    fileSaved = false;
+                    xmlfile.setFileSaved(false);
                     Alerte(Alert.AlertType.INFORMATION,
                             "Done",
                             null,
@@ -377,19 +378,7 @@ public class FormController<DatabaseConnection> {
      */
     public void handleSave(ActionEvent event) throws JAXBException {
 
-        if (selectedFile != null){
-            JAXBContext jaxbContext = JAXBContext.newInstance(Bibliotheque.class);
-            Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-            jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            System.out.println("ok");
-            jaxbMarshaller.marshal(bibliotheque, selectedFile);
-            fileSaved = true;
-
-        }
-        else{
-
-            handleSaveAs(event);
-        }
+        xmlfile.Save(tableau.getScene().getWindow(), bibliotheque);
     }
 
     /**
@@ -399,34 +388,7 @@ public class FormController<DatabaseConnection> {
      * @throws SAXException
      */
     public void handleOpen(ActionEvent event) throws JAXBException, SAXException {
-        File xsdf = new File("src/main/xsd/Biblio.xsd");
-
-        /* ouverture du fichier xml */
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Ouvrir");
-        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Fichier XML", "*.xml"));
-        File openFile = fileChooser.showOpenDialog(tableau.getScene().getWindow());
-        if (openFile != null){
-            //unmarshalling ( xml -> java)
-            JAXBContext jaxbContext = JAXBContext.newInstance(Bibliotheque.class);
-            Unmarshaller jaxbunMarshaller = jaxbContext.createUnmarshaller();
-            SchemaFactory schemafactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-
-            //try
-            Schema sch  = schemafactory.newSchema(xsdf);
-            jaxbunMarshaller.setSchema(sch);
-            bibliotheque= (Bibliotheque) jaxbunMarshaller.unmarshal(openFile);
-            //bibliotheque.print();
-
-            /* mise a jour du tableau d'affichage */
-
-
-            fileSaved = true;
-            selectedFile = openFile ;
-
-
-        }
-
+        bibliotheque = xmlfile.Open(tableau.getScene().getWindow());
     }
 
     /**
@@ -484,7 +446,7 @@ public class FormController<DatabaseConnection> {
                             " OK pour supprimer")
                          ) {
                 bibliotheque.getLivre().remove(selectedbook);
-                fileSaved = false;
+                xmlfile.setFileSaved(false);
             }
         }
 
@@ -496,8 +458,8 @@ public class FormController<DatabaseConnection> {
      */
     public void handleExit() throws JAXBException {
         String name = "no file";
-        if(!fileSaved){
-            if(selectedFile != null)name = selectedFile.getName();
+        if(!xmlfile.isFileSaved()){
+            if(xmlfile.getSelectedFile() != null)name = xmlfile.getSelectedFile().getName();
             if(Alerte(Alert.AlertType.CONFIRMATION ,
                     "Exit",
                     "You're going to exist without saving",
@@ -646,7 +608,7 @@ public class FormController<DatabaseConnection> {
                         queryOutput.getInt("colonne"),
                         queryOutput.getInt("rangee"),
                         queryOutput.getString("image"),true);
-                        fileSaved = false;
+                        xmlfile.setFileSaved(false);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
