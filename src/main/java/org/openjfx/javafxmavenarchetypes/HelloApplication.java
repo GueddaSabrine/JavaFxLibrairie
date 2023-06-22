@@ -16,6 +16,12 @@ import java.io.IOException;
 public class HelloApplication extends Application {
 
     /** private ObservableList<Bibliotheque.Livre> listData = FXCollections.observableArrayList();**/
+    /**
+     *Permet d'avoir un executable
+     *
+     * @param stage
+     * @throws Exception
+     */
     @Override
     public void start(Stage stage) throws Exception {
 
@@ -31,6 +37,10 @@ public class HelloApplication extends Application {
      }
      **/
 
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         launch();
     }

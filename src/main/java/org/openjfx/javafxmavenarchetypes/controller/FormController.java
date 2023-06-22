@@ -65,7 +65,7 @@ public class FormController extends HelloApplication {
     @FXML
     public TableColumn <Bibliotheque.Livre, String> colPresentation;
     @FXML
-    public TableColumn <Bibliotheque.Livre, String > colParution;
+    public TableColumn <Bibliotheque.Livre, Integer > colParution;
     @FXML
     public TableColumn <Bibliotheque.Livre, Integer> colColonne;
     @FXML
@@ -79,23 +79,29 @@ public class FormController extends HelloApplication {
     public TableView <Bibliotheque.Livre> tableau;
 
     //Bibliotheque
-
+    /**
+     * Il s'agit du model de la bibliotheque.java
+     */
     public Bibliotheque bibliotheque = new Bibliotheque();
 
     //Bouton
-
     @FXML
     public Button btnMoins;
     @FXML
     public Button btnValider;
     @FXML
     public Button btnPlus;
+
+    /**
+     * Cette fonction permet d'afficher le livre dans le tableau
+     *
+     * @return
+     */
     public ObservableList<Bibliotheque.Livre> getListData() {
         ObservableList<Bibliotheque.Livre> listData = FXCollections.observableArrayList(bibliotheque.getLivre());
         return listData;
     }
 
-    //error text
 
     @FXML
     public Text msgErrorTitre;
@@ -113,6 +119,10 @@ public class FormController extends HelloApplication {
     File selectedFile = null;
 
     boolean fileSaved ;
+
+    /**
+     *Permet d'initialiser
+     */
     @FXML
     public void initialize(){
 
@@ -124,6 +134,9 @@ public class FormController extends HelloApplication {
         hideErrorMsg();
     }
 
+    /**
+     *Permet
+     */
     public void hideErrorMsg(){
 
         msgErrorTitre.setVisible(false);
@@ -133,6 +146,9 @@ public class FormController extends HelloApplication {
         msgErrorUrl.setVisible(false);
     }
 
+    /**
+     *
+     */
     public void inittableau(){
 
         colTitre.setCellValueFactory(cellData -> {
@@ -161,14 +177,18 @@ public class FormController extends HelloApplication {
             return observableColonne;
         });
         colParution.setCellValueFactory(cellData -> {
-            String parution = cellData.getValue().getParution();
-            ObservableValue<String> observableParution = Bindings.createStringBinding(() -> parution);
+            int parution = cellData.getValue().getParution();
+            ObservableValue<Integer> observableParution = Bindings.createIntegerBinding(() -> parution).asObject();
             return observableParution;
         });
         tableau.getColumns().setAll(colTitre,colAuteur,colPresentation,colParution,colColonne,colRangee);
 
     }
 
+    /**
+     *
+     * @param event
+     */
     @FXML
     public void handleSelectionTableView(MouseEvent event){
 
@@ -189,6 +209,11 @@ public class FormController extends HelloApplication {
             btnMoins.setDisable(false);
         }
     }
+
+    /**
+     *
+     * @param event
+     */
     @FXML
     public void handleNewBook(ActionEvent event){
 
@@ -206,7 +231,7 @@ public class FormController extends HelloApplication {
             String titreText = titre.getText();
             int colonneText = Integer.parseInt(colonne.getText());
             int rangeeText = Integer.parseInt(rangee.getText());
-            String datapickerText = String.valueOf(calendrier.getValue().getYear());
+            int datapickerText = calendrier.getValue().getYear();
             String imageUrl = image.getText();
 
             //Affichage de l'image
@@ -244,6 +269,10 @@ public class FormController extends HelloApplication {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean checkData(){
         boolean ti , aut, col , rg , img;
         if(titre.getText().matches("[A-Za-z0-9 _]*")){
@@ -264,7 +293,7 @@ public class FormController extends HelloApplication {
             msgErrorAuteur.setVisible(true);
 
         }
-        if(colonne.getText().matches("[0-9]*") && Integer.parseInt(rangee.getText()) <= 12 && Integer.parseInt(rangee.getText()) >= 1){
+        if(colonne.getText().matches("[0-9]*") && Integer.parseInt(colonne.getText()) <= 12 && Integer.parseInt(colonne.getText()) >= 1){
             col = true;
         }
         else{
@@ -299,6 +328,12 @@ public class FormController extends HelloApplication {
 
         return ti && aut && col && rg && img ;
     }
+
+    /**
+     *
+     * @param event
+     * @throws JAXBException
+     */
     @FXML
     public void handleSaveAs(ActionEvent event) throws JAXBException {
         FileChooser fileChooser = new FileChooser();
@@ -315,6 +350,11 @@ public class FormController extends HelloApplication {
         }
     }
 
+    /**
+     *
+     * @param event
+     * @throws JAXBException
+     */
     public void handleSave(ActionEvent event) throws JAXBException {
 
         if (selectedFile != null){
@@ -332,6 +372,12 @@ public class FormController extends HelloApplication {
         }
     }
 
+    /**
+     *
+     * @param event
+     * @throws JAXBException
+     * @throws SAXException
+     */
     public void handleOpen(ActionEvent event) throws JAXBException, SAXException {
         File xsdf = new File("src/main/xsd/Biblio.xsd");
 
@@ -362,6 +408,9 @@ public class FormController extends HelloApplication {
 
     }
 
+    /**
+     *
+     */
     public void handleOutsideCLick(){
 
        tableau.getSelectionModel().clearSelection();
@@ -372,6 +421,9 @@ public class FormController extends HelloApplication {
 
     }
 
+    /**
+     *
+     */
     public void setDefaultTextField(){
 
         titre.setText("Titre");
@@ -385,6 +437,9 @@ public class FormController extends HelloApplication {
         image.setText("https://birkhauser.com/product-not-found.png");
     }
 
+    /**
+     *
+     */
     public void handlePlusBouton(){
 
         tableau.getSelectionModel().clearSelection();
@@ -394,6 +449,9 @@ public class FormController extends HelloApplication {
         titre.requestFocus();
     }
 
+    /**
+     *
+     */
     public void handleMoinsBouton(){
 
         if(selectedbook != null){
@@ -403,11 +461,16 @@ public class FormController extends HelloApplication {
                 tableau.setItems(listD);
                 tableau.refresh();
                 fileSaved = false;
+                handleOutsideCLick();
             }
         }
 
     }
 
+    /**
+     *
+     * @throws JAXBException
+     */
     public void handleExit() throws JAXBException {
 
         if(!fileSaved){
@@ -419,6 +482,10 @@ public class FormController extends HelloApplication {
         Platform.exit();
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean AlerteSauvegarde(){
         String name = "no file";
         if(selectedFile != null){name = selectedFile.getName(); }
@@ -436,6 +503,9 @@ public class FormController extends HelloApplication {
         }
     }
 
+    /**
+     *
+     */
     public void AlerteAddModifyBookDone(){
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -446,6 +516,10 @@ public class FormController extends HelloApplication {
         alert.showAndWait();
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean AlerteModifyBook(){
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -463,6 +537,10 @@ public class FormController extends HelloApplication {
 
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean AlerteSuppBook(){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Suppression Livre");

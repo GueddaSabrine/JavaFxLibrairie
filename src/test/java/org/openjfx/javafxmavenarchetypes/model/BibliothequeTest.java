@@ -26,7 +26,7 @@ class BibliothequeTest extends Bibliotheque {
     }
 
     @Test
-    void testGetAuteur_Nok() {
+    void testGetAuteur_NotOk() {
         Assertions.assertNotEquals(new Livre.Auteur("Marion", "Aimée"), livre.getAuteur());
     }
 
@@ -49,8 +49,8 @@ class BibliothequeTest extends Bibliotheque {
     @Test
     void testGetParution() {
 
-        livre.setParution("2012");
-        Assertions.assertEquals("2012", livre.getParution());
+        livre.setParution(2012);
+        Assertions.assertEquals(2012, livre.getParution());
     }
 
     @Test
@@ -73,16 +73,4 @@ class BibliothequeTest extends Bibliotheque {
         livre.setColonne(5);
         Assertions.assertEquals(5, livre.getColonne());
     }
-
-//    @Test
-//    void getLivre() {
-//    }
-//
-//    @Test
-//    void addLivre() {
-//    }
-//
-//    @Test
-//    void print() {
-//    }
 }
