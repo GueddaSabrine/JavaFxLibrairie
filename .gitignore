@@ -35,4 +35,4 @@ build/
 ### Mac OS ###
 .DS_Store
 
-JavaFxLibrairie\src\main\java\org\openjfx\javafxmavenarchetypes\controller.DatabaseConnexion.java
+JavaFxLibrairie/src/main/java/org/openjfx/javafxmavenarchetypes/controller.DatabaseConnexion.java
