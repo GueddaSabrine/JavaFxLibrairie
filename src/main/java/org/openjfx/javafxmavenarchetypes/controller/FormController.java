@@ -196,6 +196,10 @@ public class FormController  {
 
     }
 
+    /**
+     *
+     * @param event
+     */
     @FXML
     /**
      * Set selectedbook to the Livre object binded to the row selected
@@ -223,6 +227,10 @@ public class FormController  {
         }
     }
 
+    /**
+     *
+     * @param event
+     */
     @FXML
     public void handleNewBook(ActionEvent event){
 
@@ -294,6 +302,10 @@ public class FormController  {
 
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean checkData(){
         boolean ti , aut, col , rg , img;
         if(titre.getText().matches("[A-Za-z0-9 _]*")){
@@ -349,6 +361,12 @@ public class FormController  {
 
         return ti && aut && col && rg && img ;
     }
+
+    /**
+     *
+     * @param event
+     * @throws JAXBException
+     */
     @FXML
     public void handleSaveAs(ActionEvent event) throws JAXBException {
 
@@ -357,6 +375,11 @@ public class FormController  {
 
     }
 
+    /**
+     *
+     * @param event
+     * @throws JAXBException
+     */
     public void handleSave(ActionEvent event) throws JAXBException {
 
         if (selectedFile != null){
@@ -374,6 +397,12 @@ public class FormController  {
         }
     }
 
+    /**
+     *
+     * @param event
+     * @throws JAXBException
+     * @throws SAXException
+     */
     public void handleOpen(ActionEvent event) throws JAXBException, SAXException {
         File xsdf = new File("src/main/xsd/Biblio.xsd");
 
@@ -406,6 +435,9 @@ public class FormController  {
 
     }
 
+    /**
+     *
+     */
     public void handleOutsideCLick(){
 
        tableau.getSelectionModel().clearSelection();
@@ -416,6 +448,9 @@ public class FormController  {
 
     }
 
+    /**
+     *
+     */
     public void setDefaultTextField(){
 
         titre.setText("Titre");
@@ -430,6 +465,9 @@ public class FormController  {
         checkbox.setSelected(true);
     }
 
+    /**
+     *
+     */
     public void handlePlusBouton(){
 
         tableau.getSelectionModel().clearSelection();
@@ -439,6 +477,9 @@ public class FormController  {
         titre.requestFocus();
     }
 
+    /**
+     *
+     */
     public void handleMoinsBouton(){
 
         if(selectedbook != null){
@@ -458,6 +499,10 @@ public class FormController  {
 
     }
 
+    /**
+     *
+     * @throws JAXBException
+     */
     public void handleExit() throws JAXBException {
         String name = "no file";
         if(!fileSaved){
@@ -475,6 +520,14 @@ public class FormController  {
     }
 
 
+    /**
+     *
+     * @param myType
+     * @param title
+     * @param headerText
+     * @param content
+     * @return
+     */
     public boolean Alerte(Alert.AlertType myType, String title , String headerText, String content){
 
         Alert alert = new Alert(myType);
@@ -491,6 +544,10 @@ public class FormController  {
 
     }
 
+    /**
+     *
+     * @throws IOException
+     */
     @FXML
     public void testpdf() throws IOException {
 
