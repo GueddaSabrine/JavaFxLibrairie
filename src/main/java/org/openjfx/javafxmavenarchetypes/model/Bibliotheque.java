@@ -72,12 +72,20 @@ import javax.xml.bind.annotation.*;
 })
 
 /**
- *
+ * Liste des livres dans la bibliothèque.
  */
 @XmlRootElement(name = "bibliotheque")
 public class Bibliotheque {
+    /**
+     * Liste des livres dans la bibliothèque.
+     */
     @XmlElement(name = "livre")
     protected ObservableList<Livre> listlivre;
+
+    /**
+     * Constructeur par défaut de la bibliothèque.
+     * Initialise la liste des livres.
+     */
     public Bibliotheque(){
 
         listlivre = FXCollections.observableArrayList();
@@ -102,7 +110,11 @@ public class Bibliotheque {
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link Bibliotheque.Livre }
-     * 
+     *
+     * Obtient la valeur de la propriété "livre".
+     * Cette méthode retourne une référence à la liste en direct,
+     * et non une copie. Toute modification apportée à la liste retournée
+     * sera présente dans l'objet JAXB.
      * 
      */
     public ObservableList<Bibliotheque.Livre> getLivre() {
@@ -113,13 +125,16 @@ public class Bibliotheque {
     }
     //used by jaxb to create/write book
     /**
-     * *
-     * @param titre
-     * @param auteur
-     * @param pre
-     * @param pick
-     * @param col
-     * @param rangee
+     * Ajoute un livre à la bibliothèque.
+     *
+     * @param titre   Le titre du livre.
+     * @param auteur  L'auteur du livre.
+     * @param pre     La présentation du livre.
+     * @param pick    L'année de parution du livre.
+     * @param col     La colonne où le livre est rangé.
+     * @param rangee  La rangée où le livre est rangé.
+     * @param image   L'image du livre.
+     * @param disp    Indique si le livre est disponible.
      */
     public void addLivre(String titre, Livre.Auteur auteur, String pre , int pick , int col, int rangee ,String image, boolean disp){
 
@@ -128,7 +143,7 @@ public class Bibliotheque {
     }
 
     /**
-     *
+     * Affiche la bibliothèque et ses livres.
      */
     public void print(){
         System.out.println(this);
@@ -136,8 +151,6 @@ public class Bibliotheque {
 
 
     }
-
-
 
     /**
      * <p>Classe Java pour anonymous complex type.
@@ -188,7 +201,7 @@ public class Bibliotheque {
     })
 
     /**
-     *
+     * Représente un livre.
      */
     @EqualsAndHashCode
     @Getter
@@ -196,37 +209,57 @@ public class Bibliotheque {
     @Builder
     @AllArgsConstructor
     public static class Livre {
-        @XmlElement(required = true)
-
         /**
-         *
+         * Représente un livre.
          */
+        @XmlElement(required = true)
         protected String titre;
+        /**
+         * Auteur du livre.
+         */
         @XmlElement(required = true)
         protected Bibliotheque.Livre.Auteur auteur;
         /**
-         *
+         * Présentation du livre
          */
         @XmlElement(required = true)
         protected String presentation;
+        /**
+         * Année de parution du livre
+         */
         @XmlSchemaType(name = "unsignedShort")
         protected int parution;
+        /**
+         * Colonne où le livre est rangé.
+         */
         @XmlSchemaType(name = "unsignedByte")
         protected int colonne;
+        /**
+         * Rangée où le livre est rangé.
+         */
         @XmlSchemaType(name = "unsignedByte")
         protected int rangee;
+        /**
+         * Image du livre.
+         */
         @XmlSchemaType(name = "unsignedByte")
         protected String image;
+        /**
+         * Disponibilité du livre (true = non emprunté, false = emprunté).
+         */
         protected boolean disponible; //true = non emprunte false = emprunte
 
         /**
-         * @param titre
-         * @param auteur
-         * @param presentation
-         * @param parution
-         * @param colonne
-         * @param rangee
-         * @param image
+         * Constructeur de la classe Livre.
+         *
+         * @param titre         Le titre du livre.
+         * @param auteur        L'auteur du livre.
+         * @param presentation  La présentation du livre.
+         * @param parution      L'année de parution du livre.
+         * @param colonne       La colonne où le livre est rangé.
+         * @param rangee        La rangée où le livre est rangé.
+         * @param image         L'image du livre.
+         * @param disp          Indique si le livre est disponible.
          */
         public Livre(String titre, Bibliotheque.Livre.Auteur auteur, String presentation, Integer parution, Integer colonne, Integer rangee, String image,
             boolean disp){
@@ -241,9 +274,10 @@ public class Bibliotheque {
 
             }
 
-            /**
-             *
-             */
+        /**
+         * Constructeur par défaut de la classe Livre.
+         * Initialise les valeurs par défaut.
+         */
         public Livre() {
                 this.titre = null;
                 this.auteur = null;
@@ -265,7 +299,12 @@ public class Bibliotheque {
             public String getTitre () {
                 return titre;
             }
-            public String titreProperty () {
+
+        /**
+         *
+         * @return
+         */
+        public String titreProperty () {
                 return titre;
             }
 
@@ -293,10 +332,11 @@ public class Bibliotheque {
                 return auteur;
             }
 
-            /**
-             *
-             * @return
-             */
+        /**
+         * Obtient une représentation sous forme de chaîne de caractères de l'auteur du livre.
+         *
+         * @return La représentation de l'auteur sous forme de chaîne de caractères.
+         */
             public String getStringAuteur () {
 
                 return auteur.getPrenom() + " " + auteur.getNom();
@@ -345,7 +385,11 @@ public class Bibliotheque {
                 return image;
             }
 
-            public void setImage (String value){
+        /**
+         *
+         * @param value
+         */
+        public void setImage (String value){
                 this.presentation = value;
             }
 
@@ -388,7 +432,12 @@ public class Bibliotheque {
             public int getRangee () {
                 return rangee;
             }
-            public int rangeeProperty () {
+
+        /**
+         *
+         * @return
+         */
+        public int rangeeProperty () {
                 return rangee;
             }
 
@@ -416,7 +465,11 @@ public class Bibliotheque {
                 disponible = b;
             }
 
-            public String print () {
+        /**
+         *
+         * @return
+         */
+        public String print () {
                 return this.toString() + "\n" + this.getTitre() + "\n" + this.getAuteur().toString();
             }
 
@@ -436,6 +489,9 @@ public class Bibliotheque {
                  */
                 @XmlElement(required = true)
                 protected String nom;
+                /**
+                 *
+                 */
                 @XmlElement(required = true)
                 protected String prenom;
 

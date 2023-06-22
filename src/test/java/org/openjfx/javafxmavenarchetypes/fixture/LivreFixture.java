@@ -10,6 +10,7 @@ public class LivreFixture {
     private int colonne = '0';
     private int rangee = '0';
     private String image = "url image";
+    private Boolean disponible = true;
 
     public static LivreFixture leLivre() {
         return new LivreFixture();
@@ -24,6 +25,7 @@ public class LivreFixture {
                 .rangee(rangee)
                 .presentation(presentation)
                 .parution(parution)
+                .disponible(disponible)
                 .build();
     }
 }

@@ -73,4 +73,11 @@ class BibliothequeTest extends Bibliotheque {
         livre.setColonne(5);
         Assertions.assertEquals(5, livre.getColonne());
     }
+
+    @Test
+    void testGetDisponible() {
+
+        livre.setDisponible(true);
+        Assertions.assertEquals(true, livre.getDisponibilite());
+    }
 }
