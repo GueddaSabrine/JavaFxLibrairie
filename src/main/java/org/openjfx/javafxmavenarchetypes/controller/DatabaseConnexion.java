@@ -3,10 +3,19 @@ package org.openjfx.javafxmavenarchetypes.controller;
 import java.sql.*;
 
 /**
- * Connexion à la base de donnée
+ * Classe pour gérer la connexion à la base de données.
  */
 public class DatabaseConnexion {
+    /**
+     * Lien vers la base de données.
+     */
     public Connection databaseLink;
+
+    /**
+     * Obtient la connexion à la base de données.
+     *
+     * @return La connexion à la base de données.
+     */
     public Connection getConnection(){
         if(databaseLink == null){
 
@@ -29,9 +38,11 @@ public class DatabaseConnexion {
     }
 
     /**
+     * Exécute une requête de sélection sur la base de données.
      *
-     * @param req
-     * @return
+     * @param req La requête de sélection à exécuter.
+     * @return Le résultat de la requête de sélection sous forme de ResultSet.
+     * @throws RuntimeException Si une exception SQL se produit lors de l'exécution de la requête.
      */
     public ResultSet selectBook(String req){
         try {

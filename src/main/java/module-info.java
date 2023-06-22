@@ -13,6 +13,7 @@ module org.openjfx.javafxmavenarchetypes {
     requires java.desktop;
 
 
+
     opens org.openjfx.javafxmavenarchetypes to javafx.fxml, java.xml.bind;
 //    exports org.openjfx.javafxmavenarchetypes;
     exports org.openjfx.javafxmavenarchetypes.controller;

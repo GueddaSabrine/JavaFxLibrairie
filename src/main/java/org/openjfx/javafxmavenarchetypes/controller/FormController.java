@@ -385,9 +385,10 @@ public class FormController<DatabaseConnection> {
     }
 
     /**
+     * Gère l'action de sauvegarde du fichier.
      *
-     * @param event
-     * @throws JAXBException
+     * @param event L'événement déclencheur de l'action.
+     * @throws JAXBException Si une exception se produit lors de la sauvegarde du fichier en utilisant JAXB.
      */
     public void handleSave(ActionEvent event) throws JAXBException {
 
@@ -406,10 +407,11 @@ public class FormController<DatabaseConnection> {
     }
 
     /**
+     * Gère l'événement de l'ouverture d'un fichier.
      *
-     * @param event
-     * @throws JAXBException
-     * @throws SAXException
+     * @param event L'événement de l'ouverture.
+     * @throws JAXBException Si une exception JAXB se produit lors de la manipulation des fichiers XML.
+     * @throws SAXException Si une exception SAX se produit lors de la validation du fichier XML par le schéma.
      */
     public void handleOpen(ActionEvent event) throws JAXBException, SAXException {
         File xsdf = new File("src/main/xsd/Biblio.xsd");
@@ -443,7 +445,7 @@ public class FormController<DatabaseConnection> {
     }
 
     /**
-     *
+     * Gère le clic à l'extérieur d'une zone spécifique.
      */
     public void handleOutsideCLick(){
 
@@ -456,7 +458,7 @@ public class FormController<DatabaseConnection> {
     }
 
     /**
-     *
+     * Rétablit les valeurs par défaut des champs de texte.
      */
     public void setDefaultTextField(){
 
@@ -473,7 +475,7 @@ public class FormController<DatabaseConnection> {
     }
 
     /**
-     *
+     * Gère le clic sur le bouton Plus.
      */
     public void handlePlusBouton(){
 
@@ -485,7 +487,7 @@ public class FormController<DatabaseConnection> {
     }
 
     /**
-     *
+     * Gère le clic sur le bouton Moins.
      */
     public void handleMoinsBouton(){
 
@@ -505,8 +507,9 @@ public class FormController<DatabaseConnection> {
     }
 
     /**
+     * Gère l'événement de sortie de l'application.
      *
-     * @throws JAXBException
+     * @throws JAXBException Si une exception JAXB se produit lors de la manipulation des fichiers XML.
      */
     public void handleExit() throws JAXBException {
         String name = "no file";
@@ -526,12 +529,13 @@ public class FormController<DatabaseConnection> {
 
 
     /**
+     * Affiche une boîte de dialogue avec les options OK et Annuler.
      *
-     * @param myType
-     * @param title
-     * @param headerText
-     * @param content
-     * @return
+     * @param myType Le type d'alerte.
+     * @param title Le titre de l'alerte.
+     * @param headerText Le texte d'en-tête de l'alerte.
+     * @param content Le contenu de l'alerte.
+     * @return {@code true} si l'utilisateur a cliqué sur OK, {@code false} sinon.
      */
     public boolean Alerte(Alert.AlertType myType, String title , String headerText, String content){
 
@@ -550,8 +554,9 @@ public class FormController<DatabaseConnection> {
     }
 
     /**
+     * Teste la génération d'un fichier PDF.
      *
-     * @throws IOException
+     * @throws IOException Si une exception d'entrée/sortie se produit lors de la manipulation des fichiers.
      */
     @FXML
     public void testpdf() throws IOException {
@@ -648,11 +653,17 @@ public class FormController<DatabaseConnection> {
      * les observateurs enregistrés sont notifiés des modifications.
      * Cela facilite la mise à jour de l'interface utilisateur en fonction des changements de données.
      * Retourne une collection.
+     * Collection observable contenant les éléments de la liste.
      *
      * @return data
      */
     public ObservableList<Bibliotheque.Livre> data = FXCollections.observableArrayList();
 
+    /**
+     * Gère l'événement de connexion.
+     *
+     * @param event L'événement de connexion.
+     */
     public void handleConnexion(ActionEvent event) {
         tableau.getItems().clear();
         DatabaseConnexion connectNow = new DatabaseConnexion();

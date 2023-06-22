@@ -13,14 +13,19 @@ import org.openjfx.javafxmavenarchetypes.controller.FormController;
 
 import java.io.IOException;
 
+/**
+ * Classe principale de l'application.
+ * Gère le démarrage de l'application et l'affichage de la fenêtre principale.
+ */
 public class HelloApplication extends Application {
 
     /** private ObservableList<Bibliotheque.Livre> listData = FXCollections.observableArrayList();**/
     /**
-     *Permet d'avoir un executable
+     * Méthode de démarrage de l'application.
+     * Crée la fenêtre principale et charge le fichier FXML pour l'affichage.
      *
-     * @param stage
-     * @throws Exception
+     * @param stage L'étage sur lequel afficher la scène.
+     * @throws Exception Si une erreur se produit lors du chargement du fichier FXML.
      */
     @Override
     public void start(Stage stage) throws Exception {
@@ -32,14 +37,11 @@ public class HelloApplication extends Application {
         stage.show();
     }
 
-    /**  public ObservableList<Bibliotheque.Livre> getListData() {
-     return listData;
-     }
-     **/
-
     /**
+     * Méthode principale de l'application.
+     * Lance l'application JavaFX.
      *
-     * @param args
+     * @param args Les arguments de ligne de commande (non utilisés dans cette méthode).
      */
     public static void main(String[] args) {
         launch();
