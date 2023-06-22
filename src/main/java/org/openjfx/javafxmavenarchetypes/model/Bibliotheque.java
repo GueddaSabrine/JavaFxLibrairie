@@ -12,6 +12,8 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.DatePicker;
 
 import java.util.ArrayList;
@@ -72,11 +74,11 @@ import javax.xml.bind.annotation.*;
 public class Bibliotheque {
 
     @XmlElement(name = "livre")
-    protected List<Bibliotheque.Livre> listlivre;
+    protected ObservableList<Livre> listlivre;
 
     public Bibliotheque(){
 
-        listlivre = new ArrayList<>();
+        listlivre = FXCollections.observableArrayList();
     }
 
     /**
@@ -101,9 +103,9 @@ public class Bibliotheque {
      * 
      * 
      */
-    public List<Bibliotheque.Livre> getLivre() {
+    public ObservableList<Bibliotheque.Livre> getLivre() {
         if (listlivre == null) {
-            listlivre = new ArrayList<Bibliotheque.Livre>();
+            listlivre = FXCollections.observableArrayList();
         }
         return this.listlivre;
     }
@@ -218,6 +220,9 @@ public class Bibliotheque {
             this.colonne= 0;
             this.rangee=0;
             this.disponible = true ;
+        }
+
+        public Livre(String string) {
         }
 
         /**

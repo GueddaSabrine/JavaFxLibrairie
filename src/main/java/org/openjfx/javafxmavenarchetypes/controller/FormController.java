@@ -2,6 +2,11 @@ package org.openjfx.javafxmavenarchetypes.controller;
 import be.quodlibet.boxable.Cell;
 import be.quodlibet.boxable.utils.ImageUtils;
 import javafx.application.Platform;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -51,8 +56,8 @@ import static org.apache.pdfbox.pdmodel.font.PDType1Font.*;
 
 
 
-public class FormController  {
-
+public class FormController<DatabaseConnection> {
+    private Connection connectDB;
     // TextField
     @FXML
     public TextField titre;
@@ -105,10 +110,7 @@ public class FormController  {
     public Button btnValider;
     @FXML
     public Button btnPlus;
-    public ObservableList<Bibliotheque.Livre> getListData() {
-        ObservableList<Bibliotheque.Livre> listData = FXCollections.observableArrayList(bibliotheque.getLivre());
-        return listData;
-    }
+
 
     //error text
 
@@ -191,6 +193,7 @@ public class FormController  {
             return observableParution;
         });
         tableau.getColumns().setAll(colTitre,colAuteur,colPresentation,colParution,colColonne,colRangee);
+        tableau.setItems(bibliotheque.getLivre());
 
     }
 
@@ -256,16 +259,9 @@ public class FormController  {
             if (selectedbook == null) {
                 bibliotheque.addLivre(titreText, auteur1, presentationText, datapickerText, colonneText, rangeeText, imageUrl, disponibilite);
                 // Mise a jour du tableau
-
-                ObservableList<Bibliotheque.Livre> listD = getListData();
-                tableau.setItems(listD);
                 tableau.refresh();
                 fileSaved = false;
-                Alerte(Alert.AlertType.INFORMATION,
-                        "Done",
-                        null,
-                        "Bibliotheque mise a jour"
-                );
+                AlerteAddModifyBookDone();
 
             } else {
 
@@ -278,6 +274,7 @@ public class FormController  {
 
 
                 // Mise a jour du tableau
+                
                 if (Alerte(Alert.AlertType.INFORMATION,
                         "Modification Livre",
                         "modifier  + selectedbook.getTitre()",
@@ -436,8 +433,7 @@ public class FormController  {
 
             /* mise a jour du tableau d'affichage */
 
-            ObservableList<Bibliotheque.Livre> listD = getListData();
-            tableau.setItems(listD);
+
             fileSaved = true;
             selectedFile = openFile ;
 
@@ -501,9 +497,6 @@ public class FormController  {
                             " OK pour supprimer")
                          ) {
                 bibliotheque.getLivre().remove(selectedbook);
-                ObservableList<Bibliotheque.Livre> listD = getListData();
-                tableau.setItems(listD);
-                tableau.refresh();
                 fileSaved = false;
             }
         }
@@ -646,4 +639,30 @@ public class FormController  {
 
     }
 
+    //public ObservableList<Bibliotheque.Livre> data = FXCollections.observableArrayList();
+    public ObservableList<Bibliotheque.Livre> data = FXCollections.observableArrayList();
+    public void handleConnexion(ActionEvent event) {
+        tableau.getItems().clear();
+        DatabaseConnexion connectNow = new DatabaseConnexion();
+        connectDB = connectNow.getConnection();
+        String selectAllBook = "SELECT * FROM livre";
+        try {
+            ResultSet queryOutput = connectNow.selectBook(selectAllBook);
+            while (queryOutput.next()){
+                Bibliotheque.Livre.Auteur auteur9 = new Bibliotheque.Livre.Auteur();
+                auteur9.setNom(queryOutput.getString("nom"));
+                auteur9.setPrenom(queryOutput.getString("prenom"));
+                bibliotheque.addLivre(queryOutput.getString("titre"),
+                        auteur9,
+                        queryOutput.getString("presentation"),
+                        String.valueOf(queryOutput.getInt("parution")),
+                        queryOutput.getInt("colonne"),
+                        queryOutput.getInt("rangee"),
+                        queryOutput.getString("image"));
+                        fileSaved = false;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
