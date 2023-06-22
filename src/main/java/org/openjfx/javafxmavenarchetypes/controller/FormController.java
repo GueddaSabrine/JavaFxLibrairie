@@ -293,9 +293,10 @@ public class FormController<DatabaseConnection> {
             String imageUrl = image.getText();
             boolean disponibilite = checkbox.isSelected();
 
+            // Si le User est connecté, le bouton valider ajoute le livre dans la base de données
             if (isConnected){
                 try {
-                    String reqInsertBook = "INSERT INTO `livre`(`nom`, `prenom`, `presentation`, `parution`, `colonne`, `rangee`, `image`,`titre`) VALUES (?,?,?,?,?,?,?,?)";
+                    String reqInsertBook = "INSERT INTO `livre`(`nom`, `prenom`, `presentation`, `parution`, `colonne`, `rangee`, `image`,`titre`,`disponibilite`) VALUES (?,?,?,?,?,?,?,?,?)";
                     PreparedStatement preparedStatement = connectNow.insert(reqInsertBook);
                     preparedStatement.setString(1,auteur1.getNom());
                     preparedStatement.setString(2,auteur1.getPrenom());
@@ -305,6 +306,7 @@ public class FormController<DatabaseConnection> {
                     preparedStatement.setInt(6,rangeeText);
                     preparedStatement.setString(7,imageUrl);
                     preparedStatement.setString(8,titreText);
+                    preparedStatement.setBoolean(9,disponibilite);
                     preparedStatement.executeUpdate();
                     System.out.println("Ajout des éléments : ok");
 
@@ -589,7 +591,7 @@ public class FormController<DatabaseConnection> {
      * @param event L'événement de connexion.
      */
     public void handleConnexion(ActionEvent event) {
-        tableau.refresh();
+        tableau.getItems().clear();
         connectDB = connectNow.getConnection();
         if (connectDB != null){
             isConnected = true;
