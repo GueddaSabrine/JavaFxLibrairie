@@ -4,6 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="c72fcec5-180d-4823-899b-009f6ec7fd96" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
@@ -11,18 +12,25 @@
       <change beforePath="$PROJECT_DIR$/src/test/java/org/openjfx/javafxmavenarchetypes/fixture/LivreFixture.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/openjfx/javafxmavenarchetypes/fixture/LivreFixture.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/org/openjfx/javafxmavenarchetypes/model/BibliothequeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/openjfx/javafxmavenarchetypes/model/BibliothequeTest.java" afterDir="false" />
     </list>
+=======
+    <list default="true" id="e81baea1-b7ce-4d7d-8c11-a086e79a7ce0" name="Changes" comment="" />
+>>>>>>> 61e34aa5f22dd98ff94b4721df1f79f78b9c0efa
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings">
-    <execution />
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="marionbis" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -47,26 +55,20 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/ESIEE-IT/Desktop/JAVA/JavaFxLibrairie&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;vcs.Git&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;vcs.Git&quot;
   }
 }</component>
   <component name="RunAnythingCache">
     <option name="myCommands">
       <command value="mvn compile -e" />
       <command value="mvn clean install" />
-      <command value="mvn javadoc:javadoc" />
     </option>
   </component>
+<<<<<<< HEAD
   <component name="RunManager" selected="JUnit.BibliothequeTest.testGetDisponible">
     <configuration name="FormControllerTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.openjfx.javafxmavenarchetypes.controller.FormControllerTest" />
@@ -81,6 +83,9 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+=======
+  <component name="RunManager">
+>>>>>>> 61e34aa5f22dd98ff94b4721df1f79f78b9c0efa
     <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="ALTERNATIVE_JRE_PATH" value="19" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
@@ -90,6 +95,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+<<<<<<< HEAD
     <configuration name="BibliothequeTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="javafx-maven-archetypes" />
       <extension name="coverage">
@@ -130,16 +136,17 @@
         <item itemvalue="Application.FormControllerTest" />
       </list>
     </recent_temporary>
+=======
+>>>>>>> 61e34aa5f22dd98ff94b4721df1f79f78b9c0efa
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="c72fcec5-180d-4823-899b-009f6ec7fd96" name="Changes" comment="" />
+      <changelist id="c4277d93-3c1c-4d98-8b8c-8c0d96e5bba3" name="Changes" comment="debut commentaire + enelever print out non necessaire" />
       <created>1686731338297</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1686731338297</updated>
-      <workItem from="1687420125565" duration="6584000" />
     </task>
     <task id="LOCAL-00001" summary="Bouton plus, bouton moins, Sauvegarder, default field dans textfield">
       <created>1686821807522</created>
@@ -155,11 +162,64 @@
       <option name="project" value="LOCAL" />
       <updated>1686824502849</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="merge marionbis">
+      <created>1687337410560</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1687337410560</updated>
+    </task>
+    <task id="LOCAL-00004" summary="testpdf() generé pdf avec tableau livre (image + titre + auteur +presentation)">
+      <created>1687352207540</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1687352207540</updated>
+    </task>
+    <task id="LOCAL-00005" summary="ajout disponibilité">
+      <created>1687354886606</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1687354886606</updated>
+    </task>
+    <task id="LOCAL-00006" summary="fix variable selectedfile to handle saving on openingfile">
+      <created>1687360845527</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1687360845527</updated>
+    </task>
+    <task id="LOCAL-00007" summary="debut commentaire + enelever print out non necessaire">
+      <created>1687362487486</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1687362487486</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Correction OpenFile + Suppression fonction alerte redondantes">
+      <created>1687426980079</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1687426980079</updated>
+    </task>
+    <task id="LOCAL-00009" summary="XML handler class">
+      <created>1687439216890</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1687439216890</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Export handler class">
+      <created>1687440761738</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1687440761738</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
-  </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -175,6 +235,26 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Bouton plus, bouton moins, Sauvegarder, default field dans textfield" />
     <MESSAGE value="test" />
-    <option name="LAST_COMMIT_MESSAGE" value="test" />
+    <MESSAGE value="merge marionbis" />
+    <MESSAGE value="testpdf() generé pdf avec tableau livre (image + titre + auteur +presentation)" />
+    <MESSAGE value="ajout disponibilité" />
+    <MESSAGE value="second tableau dans pdf avec les livres indisponible" />
+    <MESSAGE value="fix variable selectedfile to handle saving on openingfile" />
+    <MESSAGE value="debut commentaire + enelever print out non necessaire" />
+    <MESSAGE value="Correction OpenFile + Suppression fonction alerte redondantes" />
+    <MESSAGE value="XML handler class" />
+    <MESSAGE value="Export handler class" />
+    <option name="LAST_COMMIT_MESSAGE" value="Export handler class" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/openjfx/javafxmavenarchetypes/controller/FormController.java</url>
+          <line>511</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
