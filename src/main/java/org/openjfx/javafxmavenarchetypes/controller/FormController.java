@@ -261,7 +261,7 @@ public class FormController<DatabaseConnection> {
                 // Mise a jour du tableau
                 tableau.refresh();
                 fileSaved = false;
-                AlerteAddModifyBookDone();
+                //AlerteAddModifyBookDone();
 
             } else {
 
@@ -280,9 +280,7 @@ public class FormController<DatabaseConnection> {
                         "modifier  + selectedbook.getTitre()",
                         "Les modifications apportées au livre " + selectedbook.getTitre() + "vont etre validée. Cliquez sur" +
                                 " OK pour continuer")) {
-                    ObservableList<Bibliotheque.Livre> listD = getListData();
-                    tableau.setItems(listD);
-                    tableau.refresh();
+
                     fileSaved = false;
                     Alerte(Alert.AlertType.INFORMATION,
                             "Done",
@@ -658,7 +656,7 @@ public class FormController<DatabaseConnection> {
                         String.valueOf(queryOutput.getInt("parution")),
                         queryOutput.getInt("colonne"),
                         queryOutput.getInt("rangee"),
-                        queryOutput.getString("image"));
+                        queryOutput.getString("image"),true);
                         fileSaved = false;
             }
         } catch (SQLException e) {

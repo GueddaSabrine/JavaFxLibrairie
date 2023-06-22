@@ -5,6 +5,7 @@ module org.openjfx.javafxmavenarchetypes {
     requires org.apache.pdfbox;
     requires boxable;
     requires java.desktop;
+    requires java.sql;
 
 
     opens org.openjfx.javafxmavenarchetypes to javafx.fxml, java.xml.bind;
