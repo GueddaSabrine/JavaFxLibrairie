@@ -71,6 +71,9 @@ import javax.xml.bind.annotation.*;
     "listlivre"
 })
 
+/**
+ *
+ */
 @XmlRootElement(name = "bibliotheque")
 public class Bibliotheque {
     @XmlElement(name = "livre")
