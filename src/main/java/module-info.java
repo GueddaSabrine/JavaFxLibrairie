@@ -11,6 +11,7 @@ module org.openjfx.javafxmavenarchetypes {
     requires org.apache.pdfbox;
     requires boxable;
     requires java.desktop;
+    requires poi.ooxml;
 
 
 
@@ -27,5 +28,4 @@ module org.openjfx.javafxmavenarchetypes {
 //    exports org.openjfx.javafxmavenarchetypes.controller;
 //    opens org.openjfx.javafxmavenarchetypes.controller to javafx.fxml;
 //    exports org.openjfx.javafxmavenarchetypes;
-
 }

@@ -2,6 +2,7 @@ package org.openjfx.javafxmavenarchetypes.controller;
 import be.quodlibet.boxable.Cell;
 import be.quodlibet.boxable.utils.ImageUtils;
 import javafx.application.Platform;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,6 +16,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
@@ -24,6 +26,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 //import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
 import org.openjfx.javafxmavenarchetypes.model.Bibliotheque;
+import org.openjfx.javafxmavenarchetypes.model.User;
 import org.openjfx.javafxmavenarchetypes.model.XMLhandler;
 import org.xml.sax.SAXException;
 
@@ -126,6 +129,12 @@ public class FormController<DatabaseConnection> {
 
     public XMLhandler xmlfile = new XMLhandler();
 
+    public User user = new User();
+
+    public Exporthandler exporter = new Exporthandler();
+
+    //Bouton
+
     /**
      * Déclaration des différents boutons de l'application.
      */
@@ -150,30 +159,38 @@ public class FormController<DatabaseConnection> {
     @FXML
     public Text msgErrorUrl ;
 
+    public MenuItem edition;
+
     //mmh ...
     //Livre from the current global Bibliotheque object bibliotheque 's Livre list that's currently selected in the table view
     Bibliotheque.Livre selectedbook = null ;
-    //Working Xml file (the one currently openened
-    File selectedFile = null;
 
-    /**
-     *
-     */
-    boolean fileSaved ;
 
     /**
      * Cette méthode est appelée lors de l'initialisation de l'executable.
      * Elle configure l'état initial des éléments
      * graphiques tels que les boutons, les champs de texte, le calendrier.
      */
+
     @FXML
     public void initialize(){
+
+        user.Userlogin();
         inittableau();
         btnMoins.setDisable(true);
         setDefaultTextField();
-        fileSaved = true;
         calendrier.getEditor().setDisable(true);
         hideErrorMsg();
+    }
+
+
+    private void setUserProfile(){
+
+        btnMoins.setVisible(false);
+        btnPlus.setVisible(false);
+        btnValider.setVisible(false);
+        edition.setDisable(false);
+
     }
 
     /**
@@ -282,8 +299,12 @@ public class FormController<DatabaseConnection> {
                 bibliotheque.addLivre(titreText, auteur1, presentationText, datapickerText, colonneText, rangeeText, imageUrl, disponibilite);
                 // Mise a jour du tableau
                 tableau.refresh();
-                fileSaved = false;
-                //AlerteAddModifyBookDone();
+                xmlfile.setFileSaved(false);
+                Alerte(Alert.AlertType.INFORMATION,
+                        "Done",
+                        null,
+                        "Bibliotheque mise a jour"
+                );
 
             } else {
 
@@ -301,7 +322,7 @@ public class FormController<DatabaseConnection> {
                         "Les modifications apportées au livre " + selectedbook.getTitre() + "vont etre validée. Cliquez sur" +
                                 " OK pour continuer")) {
 
-                    fileSaved = false;
+                    xmlfile.setFileSaved(false);
                     Alerte(Alert.AlertType.INFORMATION,
                             "Done",
                             null,
@@ -392,18 +413,7 @@ public class FormController<DatabaseConnection> {
      */
     public void handleSave(ActionEvent event) throws JAXBException {
 
-        if (selectedFile != null){
-            JAXBContext jaxbContext = JAXBContext.newInstance(Bibliotheque.class);
-            Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-            jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            System.out.println("ok");
-            jaxbMarshaller.marshal(bibliotheque, selectedFile);
-            fileSaved = true;
-        }
-        else{
-
-            handleSaveAs(event);
-        }
+        xmlfile.Save(tableau.getScene().getWindow(), bibliotheque);
     }
 
     /**
@@ -414,34 +424,7 @@ public class FormController<DatabaseConnection> {
      * @throws SAXException Si une exception SAX se produit lors de la validation du fichier XML par le schéma.
      */
     public void handleOpen(ActionEvent event) throws JAXBException, SAXException {
-        File xsdf = new File("src/main/xsd/Biblio.xsd");
-
-        /* ouverture du fichier xml */
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Ouvrir");
-        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Fichier XML", "*.xml"));
-        File openFile = fileChooser.showOpenDialog(tableau.getScene().getWindow());
-        if (openFile != null){
-            //unmarshalling ( xml -> java)
-            JAXBContext jaxbContext = JAXBContext.newInstance(Bibliotheque.class);
-            Unmarshaller jaxbunMarshaller = jaxbContext.createUnmarshaller();
-            SchemaFactory schemafactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-
-            //try
-            Schema sch  = schemafactory.newSchema(xsdf);
-            jaxbunMarshaller.setSchema(sch);
-            bibliotheque= (Bibliotheque) jaxbunMarshaller.unmarshal(openFile);
-            //bibliotheque.print();
-
-            /* mise a jour du tableau d'affichage */
-
-
-            fileSaved = true;
-            selectedFile = openFile ;
-
-
-        }
-
+        bibliotheque = xmlfile.Open(tableau.getScene().getWindow());
     }
 
     /**
@@ -499,7 +482,7 @@ public class FormController<DatabaseConnection> {
                             " OK pour supprimer")
                          ) {
                 bibliotheque.getLivre().remove(selectedbook);
-                fileSaved = false;
+                xmlfile.setFileSaved(false);
                 handleOutsideCLick();
             }
         }
@@ -513,8 +496,8 @@ public class FormController<DatabaseConnection> {
      */
     public void handleExit() throws JAXBException {
         String name = "no file";
-        if(!fileSaved){
-            if(selectedFile != null)name = selectedFile.getName();
+        if(!xmlfile.isFileSaved()){
+            if(xmlfile.getSelectedFile() != null)name = xmlfile.getSelectedFile().getName();
             if(Alerte(Alert.AlertType.CONFIRMATION ,
                     "Exit",
                     "You're going to exist without saving",
@@ -561,87 +544,7 @@ public class FormController<DatabaseConnection> {
     @FXML
     public void testpdf() throws IOException {
 
-       // Standard14Fonts.FontName font_name_3v= Standard14Fonts.getMappedFontName("HELVETICA_BOLD");
-        //PDFont pdfFont=  new PDType1Font(font_name_3v.HELVETICA_BOLD);
-
-        PDDocument document = new PDDocument();
-        PDPage page = new PDPage(PDRectangle.A4);
-        PDPage page2 = new PDPage(PDRectangle.A4);
-        // rect can be used to get the page width and height
-        document.addPage(page);
-
-
-        //ajout element
-        float margin = 50;
-        // starting y position is whole page height subtracted by top and bottom margin
-        float yStartNewPage = page.getMediaBox().getHeight() - (2 * margin);
-        float yStartNewPage2 = page2.getMediaBox().getHeight() - (2 * margin);
-
-        // we want table across whole page width (subtracted by left and right margin ofcourse)
-        float tableWidth = page.getMediaBox().getWidth() - (2 * margin);
-
-        boolean drawContent = true;
-        float yStart = yStartNewPage;
-        float yStart2 = yStartNewPage2;
-        float bottomMargin = 70;
-        // y position is your coordinate of top left corner of the table
-        float yPosition = 550;
-
-        //Premier tableau
-        BaseTable table = new BaseTable(yStart, yStartNewPage, bottomMargin, tableWidth, margin, document, page, true,
-                drawContent);
-
-        Row<PDPage> headerRow = table.createRow(15f);
-        Cell<PDPage> cell = headerRow.createCell(100, "Bibliotheque collection");
-        cell.setFillColor(Color.BLACK);
-        cell.setTextColor(Color.WHITE);
-        table.addHeaderRow(headerRow);
-
-        // deuxieme tableau
-        BaseTable tableind = new BaseTable(yStart, yStartNewPage, bottomMargin, tableWidth, margin, document, page2, true,
-                drawContent);
-
-        Row<PDPage> headerRowind = tableind.createRow(15f);
-        Cell<PDPage> cellind = headerRowind.createCell(100, "Livrre non disponible");
-        cellind.setFillColor(Color.GRAY);
-        cellind.setTextColor(Color.WHITE);
-        tableind.addHeaderRow(headerRowind);
-
-        //creation des lignes
-        List<Bibliotheque.Livre> facts = bibliotheque.getLivre();
-        for (Bibliotheque.Livre fact : facts) {
-            Row<PDPage> row = table.createRow(10f);
-            InputStream in = new URL(fact.getImage()).openStream();
-            Files.copy(in, Path.of("./imagetemp"));
-            File imagefile = new File("./imagetemp");
-            cell = row.createImageCell((100 / 9f), ImageUtils.readImage(imagefile));
-            cell = row.createCell((35 / 3.0f), fact.getTitre() );
-            cell.setFont(HELVETICA);
-            cell = row.createCell((35 / 3.0f), fact.getStringAuteur() );
-            cell.setFont(HELVETICA);
-            cell = row.createCell((100 / 3.0f) *2, fact.getPresentation() );
-            cell.setFont(HELVETICA);
-            if(!fact.getDisponibilite()){
-                Row<PDPage> rowind = tableind.createRow(10f);
-                cellind = rowind.createImageCell((100 / 9f), ImageUtils.readImage(imagefile));
-                cellind = rowind.createCell((35 / 3.0f), fact.getTitre() );
-                cellind.setFont(HELVETICA);
-                cellind = rowind.createCell((35 / 3.0f), fact.getStringAuteur() );
-                cellind.setFont(HELVETICA);
-                cellind = rowind.createCell((100 / 3.0f) *2, fact.getPresentation() );
-                cellind.setFont(HELVETICA);
-            }
-
-            imagefile.delete();
-        }
-
-        table.draw();
-        document.addPage(page2);
-        tableind.draw();
-
-        //sauvegarder
-        document.save("./test.pdf");
-        document.close();
+      exporter.cretepdf(bibliotheque);
 
     }
 
@@ -682,7 +585,7 @@ public class FormController<DatabaseConnection> {
                         queryOutput.getInt("colonne"),
                         queryOutput.getInt("rangee"),
                         queryOutput.getString("image"),true);
-                        fileSaved = false;
+                        xmlfile.setFileSaved(false);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

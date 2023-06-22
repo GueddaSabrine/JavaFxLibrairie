@@ -165,6 +165,19 @@
             <scope>compile</scope>
         </dependency>
         <!-- end lot 2 pdf !-->
+        <!-- lot 2 word !-->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>5.2.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>3.12</version>
+        </dependency>
+        <!--end lot 2 word !-->
+
     </dependencies>
 
     <build>
