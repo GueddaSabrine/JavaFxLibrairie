@@ -197,8 +197,8 @@ public class FormController<DatabaseConnection> {
             return observableColonne;
         });
         colParution.setCellValueFactory(cellData -> {
-            String parution = cellData.getValue().getParution();
-            ObservableValue<String> observableParution = Bindings.createStringBinding(() -> parution);
+            int parution = cellData.getValue().getParution();
+            ObservableValue<Integer> observableParution = Bindings.createIntegerBinding(() -> parution).asObject();
             return observableParution;
         });
         tableau.getColumns().setAll(colTitre,colAuteur,colPresentation,colParution,colColonne,colRangee);
@@ -643,7 +643,7 @@ public class FormController<DatabaseConnection> {
                 bibliotheque.addLivre(queryOutput.getString("titre"),
                         auteur9,
                         queryOutput.getString("presentation"),
-                        String.valueOf(queryOutput.getInt("parution")),
+                        queryOutput.getInt("parution"),
                         queryOutput.getInt("colonne"),
                         queryOutput.getInt("rangee"),
                         queryOutput.getString("image"),true);

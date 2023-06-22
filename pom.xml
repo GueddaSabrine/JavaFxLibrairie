@@ -158,6 +158,12 @@
             <artifactId>boxable</artifactId>
             <version>1.7.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
         <!-- end lot 2 pdf !-->
     </dependencies>
 
