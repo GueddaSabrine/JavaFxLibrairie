@@ -23,6 +23,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 //import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
 import org.openjfx.javafxmavenarchetypes.model.Bibliotheque;
+import org.openjfx.javafxmavenarchetypes.model.XMLhandler;
 import org.xml.sax.SAXException;
 
 import javax.xml.XMLConstants;
@@ -101,6 +102,7 @@ public class FormController<DatabaseConnection> {
     //Bibliotheque
 
     public Bibliotheque bibliotheque = new Bibliotheque();
+    public XMLhandler xmlfile = new XMLhandler();
 
     //Bouton
 
@@ -364,20 +366,7 @@ public class FormController<DatabaseConnection> {
     public void handleSaveAs(ActionEvent event) throws JAXBException {
 
 
-
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Enregistrer");
-        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Fichier XML", "*.xml"));
-        selectedFile = fileChooser.showSaveDialog(tableau.getScene().getWindow());
-        if (selectedFile != null){
-            JAXBContext jaxbContext = JAXBContext.newInstance(Bibliotheque.class);
-            Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-            jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            System.out.println("ok");
-            jaxbMarshaller.marshal(bibliotheque, selectedFile);
-            fileSaved = true;
-
-        }
+        xmlfile.SaveAs(tableau.getScene().getWindow(), bibliotheque);
 
     }
 
