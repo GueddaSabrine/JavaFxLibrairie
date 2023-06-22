@@ -31,7 +31,6 @@ public class DatabaseConnexion {
                 e.printStackTrace();
             }
 
-
         }
 
         return databaseLink;
@@ -49,6 +48,16 @@ public class DatabaseConnexion {
             Statement statement = databaseLink.createStatement();
             ResultSet queryOutput = statement.executeQuery(req);
             return queryOutput;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public PreparedStatement insert(String req){
+        try {
+            PreparedStatement preparedStmt = databaseLink.prepareStatement(req);
+            return preparedStmt;
 
         } catch (SQLException e) {
             throw new RuntimeException(e);

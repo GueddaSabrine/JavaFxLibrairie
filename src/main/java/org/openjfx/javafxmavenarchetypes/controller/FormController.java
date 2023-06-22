@@ -3,10 +3,7 @@ import be.quodlibet.boxable.Cell;
 import be.quodlibet.boxable.utils.ImageUtils;
 import javafx.application.Platform;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ObservableValue;
@@ -48,6 +45,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Optional;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -80,6 +78,7 @@ public class FormController<DatabaseConnection> {
     * Déclarations des attributs de la classe FormController.
     * */
     private Connection connectDB;
+    private DatabaseConnexion connectNow = new DatabaseConnexion();
     // TextField
     @FXML
     public TextField titre;
@@ -116,7 +115,7 @@ public class FormController<DatabaseConnection> {
     public TableColumn <Bibliotheque.Livre, Integer>colRangee;
     @FXML
     public TableColumn <Bibliotheque.Livre, String> colTitre;
-
+    private boolean isConnected = false;
 
     //Tableview
     @FXML
@@ -274,7 +273,9 @@ public class FormController<DatabaseConnection> {
      * @param event
      */
     @FXML
-    public void handleNewBook(ActionEvent event){
+    public void handleNewBook(ActionEvent event) throws SQLException {
+
+
         if(checkData()) {
 
             hideErrorMsg();
@@ -292,6 +293,26 @@ public class FormController<DatabaseConnection> {
             String imageUrl = image.getText();
             boolean disponibilite = checkbox.isSelected();
 
+            if (isConnected){
+                try {
+                    String reqInsertBook = "INSERT INTO `livre`(`nom`, `prenom`, `presentation`, `parution`, `colonne`, `rangee`, `image`,`titre`) VALUES (?,?,?,?,?,?,?,?)";
+                    PreparedStatement preparedStatement = connectNow.insert(reqInsertBook);
+                    preparedStatement.setString(1,auteur1.getNom());
+                    preparedStatement.setString(2,auteur1.getPrenom());
+                    preparedStatement.setString(3,presentationText);
+                    preparedStatement.setInt(4,datapickerText);
+                    preparedStatement.setInt(5,colonneText);
+                    preparedStatement.setInt(6,rangeeText);
+                    preparedStatement.setString(7,imageUrl);
+                    preparedStatement.setString(8,titreText);
+                    preparedStatement.executeUpdate();
+                    System.out.println("Ajout des éléments : ok");
+
+                }catch (SQLException e){
+                    System.out.println("Ajout impossible à effectuer.\nErreur :" + e);
+                }
+
+            }
             //Affichage de l'image
             Image image = new Image(imageUrl);
             imageView.setImage(image);
@@ -568,12 +589,14 @@ public class FormController<DatabaseConnection> {
      * @param event L'événement de connexion.
      */
     public void handleConnexion(ActionEvent event) {
-        tableau.getItems().clear();
-        DatabaseConnexion connectNow = new DatabaseConnexion();
+        tableau.refresh();
         connectDB = connectNow.getConnection();
-        String selectAllBook = "SELECT * FROM livre";
+        if (connectDB != null){
+            isConnected = true;
+        }
+        String reqSelectAllBook = "SELECT * FROM livre";
         try {
-            ResultSet queryOutput = connectNow.selectBook(selectAllBook);
+            ResultSet queryOutput = connectNow.selectBook(reqSelectAllBook);
             while (queryOutput.next()){
                 Bibliotheque.Livre.Auteur auteur9 = new Bibliotheque.Livre.Auteur();
                 auteur9.setNom(queryOutput.getString("nom"));
@@ -591,4 +614,5 @@ public class FormController<DatabaseConnection> {
             throw new RuntimeException(e);
         }
     }
+
 }
