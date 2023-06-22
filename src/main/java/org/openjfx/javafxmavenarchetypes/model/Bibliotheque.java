@@ -69,10 +69,7 @@ import javax.xml.bind.annotation.*;
     "listlivre"
 })
 @XmlRootElement(name = "bibliotheque")
-public class
-
-
-Bibliotheque {
+public class Bibliotheque {
 
     @XmlElement(name = "livre")
     protected List<Bibliotheque.Livre> listlivre;
@@ -363,8 +360,16 @@ Bibliotheque {
             this.rangee= value;
         }
 
+        /**
+         *
+         * @return
+         */
         public boolean getDisponibilite(){return disponible;}
 
+        /**
+         *
+         * @param b
+         */
         public void setDisponibilite(boolean b){ disponible = b;}
 
         public String print(){
@@ -376,6 +381,7 @@ Bibliotheque {
             "nom",
             "prenom"
         })
+
         public static class Auteur {
 
             @XmlElement(required = true)

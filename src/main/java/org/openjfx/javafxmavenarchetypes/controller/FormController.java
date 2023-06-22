@@ -3,26 +3,19 @@ import be.quodlibet.boxable.Cell;
 import be.quodlibet.boxable.utils.ImageUtils;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.IntegerProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.print.*;
-import javafx.scene.Cursor;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
-import javafx.scene.transform.Scale;
 import javafx.stage.FileChooser;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
 //import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
 import org.openjfx.javafxmavenarchetypes.model.Bibliotheque;
 import org.xml.sax.SAXException;
@@ -34,7 +27,6 @@ import javax.xml.bind.Marshaller;
 
 import javax.xml.bind.Unmarshaller;
 
-import javax.xml.bind.Unmarshaller;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import java.awt.*;
@@ -44,7 +36,6 @@ import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -52,15 +43,12 @@ import java.util.Optional;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
-import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.font.PDFont;
-import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import be.quodlibet.boxable.*;
-import be.quodlibet.boxable.line.LineStyle;
 
 import static org.apache.pdfbox.pdmodel.font.PDType1Font.*;
 //import static org.apache.pdfbox.pdmodel.font.Standard14Fonts.FontName.COURIER;
 //import static org.apache.pdfbox.pdmodel.font.Standard14Fonts.FontName.HELVETICA_BOLD;
+
 
 
 public class FormController  {
@@ -158,6 +146,7 @@ public class FormController  {
      * Set all Visible  attribute of textviewers to false
      */
     public void hideErrorMsg(){
+
 
         msgErrorTitre.setVisible(false);
         msgErrorAuteur.setVisible(false);
@@ -264,7 +253,11 @@ public class FormController  {
                 tableau.setItems(listD);
                 tableau.refresh();
                 fileSaved = false;
-                AlerteAddModifyBookDone();
+                Alerte(Alert.AlertType.INFORMATION,
+                        "Done",
+                        null,
+                        "Bibliotheque mise a jour"
+                );
 
             } else {
 
@@ -277,12 +270,20 @@ public class FormController  {
 
 
                 // Mise a jour du tableau
-                if (AlerteModifyBook()) {
+                if (Alerte(Alert.AlertType.INFORMATION,
+                        "Modification Livre",
+                        "modifier  + selectedbook.getTitre()",
+                        "Les modifications apportées au livre " + selectedbook.getTitre() + "vont etre validée. Cliquez sur" +
+                                " OK pour continuer")) {
                     ObservableList<Bibliotheque.Livre> listD = getListData();
                     tableau.setItems(listD);
                     tableau.refresh();
                     fileSaved = false;
-                    AlerteAddModifyBookDone();
+                    Alerte(Alert.AlertType.INFORMATION,
+                            "Done",
+                            null,
+                            "Bibliotheque mise a jour"
+                            );
                 }
             }
         }
@@ -401,7 +402,7 @@ public class FormController  {
             //try
             Schema sch  = schemafactory.newSchema(xsdf);
             jaxbunMarshaller.setSchema(sch);
-            bibliotheque= (Bibliotheque) jaxbunMarshaller.unmarshal(selectedFile);
+            bibliotheque= (Bibliotheque) jaxbunMarshaller.unmarshal(openFile);
             //bibliotheque.print();
 
             /* mise a jour du tableau d'affichage */
@@ -452,7 +453,12 @@ public class FormController  {
     public void handleMoinsBouton(){
 
         if(selectedbook != null){
-            if (AlerteSuppBook()) {
+            if (Alerte(Alert.AlertType.CONFIRMATION,
+                    "Suppression Livre",
+                    "Supprimer"+selectedbook.getTitre(),
+                    "Voulez vous supprimer " + selectedbook.getTitre() + "  de la liste? Cliquez sur" +
+                            " OK pour supprimer")
+                         ) {
                 bibliotheque.getLivre().remove(selectedbook);
                 ObservableList<Bibliotheque.Livre> listD = getListData();
                 tableau.setItems(listD);
@@ -464,9 +470,14 @@ public class FormController  {
     }
 
     public void handleExit() throws JAXBException {
-
+        String name = "no file";
         if(!fileSaved){
-            if(AlerteSauvegarde()){
+            if(selectedFile != null)name = selectedFile.getName();
+            if(Alerte(Alert.AlertType.CONFIRMATION ,
+                    "Exit",
+                    "You're going to exist without saving",
+                    "Toute les modifications apportées au fichier " + name + "seront perdu. Cliquez sur" +
+                            " OK pour sauvegarder votre fichier")){
                 handleSave(new ActionEvent());
             }
 
@@ -474,40 +485,13 @@ public class FormController  {
         Platform.exit();
     }
 
-    public boolean AlerteSauvegarde(){
-        String name = "no file";
-        if(selectedFile != null){name = selectedFile.getName(); }
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Exit");
-        alert.setHeaderText("You're going to exist without saving");
-        alert.setContentText("Toute les modifications apportées au fichier " + name + "seront perdu. Cliquez sur" +
-                " OK pour sauvegarder votre fichier" );
 
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK){
-            return true;
-        } else {
-            return false ;
-        }
-    }
+    public boolean Alerte(Alert.AlertType myType, String title , String headerText, String content){
 
-    public void AlerteAddModifyBookDone(){
-
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Done");
-        alert.setHeaderText(null);
-        alert.setContentText("Bibliotheque mise a jour");
-
-        alert.showAndWait();
-    }
-
-    public boolean AlerteModifyBook(){
-
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Modification Livre");
-        alert.setHeaderText("Voulez vous modifier " + selectedbook.getTitre());
-        alert.setContentText("Les modifications apportées au livre " + selectedbook.getTitre() + "vont etre validée. Cliquez sur" +
-                " OK pour continuer" );
+        Alert alert = new Alert(myType);
+        alert.setTitle(title);
+        alert.setHeaderText(headerText);
+        alert.setContentText(content );
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
@@ -518,21 +502,6 @@ public class FormController  {
 
     }
 
-    public boolean AlerteSuppBook(){
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Suppression Livre");
-        alert.setHeaderText("Voulez vous supprimer " + selectedbook.getTitre());
-        alert.setContentText("Voulez vous supprimer " + selectedbook.getTitre() + "  de la liste? Cliquez sur" +
-                " OK pour supprimer" );
-
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK){
-            return true;
-        } else {
-            return false ;
-        }
-
-    }
     @FXML
     public void testpdf() throws IOException {
 
