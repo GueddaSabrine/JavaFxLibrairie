@@ -70,12 +70,21 @@ import javax.xml.bind.annotation.*;
 @XmlType(name = "", propOrder = {
     "listlivre"
 })
+/**
+ *
+ */
 @XmlRootElement(name = "bibliotheque")
 public class Bibliotheque {
 
+    /**
+     *
+     */
     @XmlElement(name = "livre")
     protected ObservableList<Livre> listlivre;
 
+    /**
+     *
+     */
     public Bibliotheque(){
 
         listlivre = FXCollections.observableArrayList();
@@ -125,6 +134,9 @@ public class Bibliotheque {
 
     }
 
+    /**
+     *
+     */
     public void print(){
         System.out.println(this);
         listlivre.forEach(e->System.out.println(e.print()));
@@ -182,30 +194,49 @@ public class Bibliotheque {
             "disponible"
     })
 
+    /**
+     *
+     */
     @EqualsAndHashCode
     @Getter
     @Setter
     @Builder
     @AllArgsConstructor
-//    @NoArgsConstructor
     public static class Livre {
         @XmlElement(required = true)
 
+        /**
+         *
+         */
         protected String titre;
         @XmlElement(required = true)
         protected Bibliotheque.Livre.Auteur auteur;
+        /**
+         *
+         */
         @XmlElement(required = true)
         protected String presentation;
         @XmlSchemaType(name ="unsignedShort")
-        protected String parution;
+        protected int parution;
         @XmlSchemaType(name = "unsignedByte")
         protected int colonne;
         @XmlSchemaType(name = "unsignedByte")
         protected int rangee;
         @XmlSchemaType(name = "unsignedByte")
         protected String image;
-
         protected boolean disponible; //true = non emprunte false = emprunte
+
+        /**
+         *
+         * @param titre
+         * @param auteur
+         * @param presentation
+         * @param parution
+         * @param colonne
+         * @param rangee
+         * @param image
+         */
+        public Livre(String titre, Bibliotheque.Livre.Auteur auteur,String presentation,Integer parution,Integer colonne, Integer rangee , String image){
 
         public Livre(String titre, Bibliotheque.Livre.Auteur auteur,String presentation,String parution,Integer colonne, Integer rangee , String image , boolean disp){
             this.titre = titre;
@@ -219,11 +250,15 @@ public class Bibliotheque {
             this.disponible = disp;
 
         }
+
+        /**
+         *
+         */
         public Livre(){
             this.titre= null;
             this.auteur =null;
             this.presentation= null;
-            this.parution= null;
+            this.parution= 2012;
             this.colonne= 0;
             this.rangee=0;
             this.disponible = true ;
@@ -273,6 +308,10 @@ public class Bibliotheque {
             return auteur;
         }
 
+        /**
+         *
+         * @return
+         */
         public String getStringAuteur(){
 
             return auteur.getPrenom()+ " " + auteur.getNom();
@@ -327,7 +366,7 @@ public class Bibliotheque {
          * Obtient la valeur de la propri�t� parution.
          * 
          */
-        public String getParution() {
+        public int getParution() {
             return parution;
         }
 
@@ -335,7 +374,7 @@ public class Bibliotheque {
          * D�finit la valeur de la propri�t� parution.
          * 
          */
-        public void setParution(String value) {
+        public void setParution(int value) {
             this.parution = value;
         }
 
@@ -390,6 +429,9 @@ public class Bibliotheque {
            return this.toString() + "\n" + this.getTitre() + "\n" + this.getAuteur().toString() ;
         }
 
+        /**
+         *
+         */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
             "nom",
@@ -398,16 +440,27 @@ public class Bibliotheque {
 
         public static class Auteur {
 
+            /**
+             *
+             */
             @XmlElement(required = true)
             protected String nom;
             @XmlElement(required = true)
             protected String prenom;
 
+            /**
+             *
+             * @param nom
+             * @param prenom
+             */
             public Auteur(String nom, String prenom){
                 this.nom = nom;
                 this.prenom = prenom;
             }
 
+            /**
+             *
+             */
             public Auteur(){
                 this.nom = null;
                 this.prenom = null;

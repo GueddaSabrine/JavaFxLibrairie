@@ -88,7 +88,7 @@ public class FormController<DatabaseConnection> {
     @FXML
     public TableColumn <Bibliotheque.Livre, String> colPresentation;
     @FXML
-    public TableColumn <Bibliotheque.Livre, String > colParution;
+    public TableColumn <Bibliotheque.Livre, Integer > colParution;
     @FXML
     public TableColumn <Bibliotheque.Livre, Integer> colColonne;
     @FXML
@@ -102,12 +102,13 @@ public class FormController<DatabaseConnection> {
     public TableView <Bibliotheque.Livre> tableau;
 
     //Bibliotheque
-
+    /**
+     * Il s'agit du model de la bibliotheque.java
+     */
     public Bibliotheque bibliotheque = new Bibliotheque();
     public XMLhandler xmlfile = new XMLhandler();
 
     //Bouton
-
     @FXML
     public Button btnMoins;
     @FXML
@@ -116,7 +117,7 @@ public class FormController<DatabaseConnection> {
     public Button btnPlus;
 
 
-    //error text
+
 
     @FXML
     public Text msgErrorTitre;
@@ -136,6 +137,10 @@ public class FormController<DatabaseConnection> {
     File selectedFile = null;
 
     boolean fileSaved ;
+
+    /**
+     *Permet d'initialiser
+     */
     @FXML
     public void initialize(){
 
@@ -201,10 +206,7 @@ public class FormController<DatabaseConnection> {
 
     }
 
-    /**
-     *
-     * @param event
-     */
+
     @FXML
     /**
      * Set selectedbook to the Livre object binded to the row selected
@@ -252,7 +254,7 @@ public class FormController<DatabaseConnection> {
             String titreText = titre.getText();
             int colonneText = Integer.parseInt(colonne.getText());
             int rangeeText = Integer.parseInt(rangee.getText());
-            String datapickerText = String.valueOf(calendrier.getValue().getYear());
+            int datapickerText = calendrier.getValue().getYear();
             String imageUrl = image.getText();
             boolean disponibilite = checkbox.isSelected();
 
@@ -319,7 +321,7 @@ public class FormController<DatabaseConnection> {
             msgErrorAuteur.setVisible(true);
 
         }
-        if(colonne.getText().matches("[0-9]*") && Integer.parseInt(rangee.getText()) <= 12 && Integer.parseInt(rangee.getText()) >= 1){
+        if(colonne.getText().matches("[0-9]*") && Integer.parseInt(colonne.getText()) <= 12 && Integer.parseInt(colonne.getText()) >= 1){
             col = true;
         }
         else{
@@ -483,6 +485,7 @@ public class FormController<DatabaseConnection> {
                          ) {
                 bibliotheque.getLivre().remove(selectedbook);
                 fileSaved = false;
+                handleOutsideCLick();
             }
         }
 
