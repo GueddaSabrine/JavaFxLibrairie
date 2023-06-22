@@ -2,6 +2,7 @@ package org.openjfx.javafxmavenarchetypes.controller;
 import be.quodlibet.boxable.Cell;
 import be.quodlibet.boxable.utils.ImageUtils;
 import javafx.application.Platform;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,6 +16,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
@@ -23,6 +25,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 //import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
 import org.openjfx.javafxmavenarchetypes.model.Bibliotheque;
+import org.openjfx.javafxmavenarchetypes.model.User;
 import org.openjfx.javafxmavenarchetypes.model.XMLhandler;
 import org.xml.sax.SAXException;
 
@@ -104,6 +107,8 @@ public class FormController<DatabaseConnection> {
     public Bibliotheque bibliotheque = new Bibliotheque();
     public XMLhandler xmlfile = new XMLhandler();
 
+    public User user = new User();
+
     public Exporthandler exporter = new Exporthandler();
 
     //Bouton
@@ -129,19 +134,32 @@ public class FormController<DatabaseConnection> {
     @FXML
     public Text msgErrorUrl ;
 
+    public MenuItem edition;
+
     //mmh ...
     //Livre from the current global Bibliotheque object bibliotheque 's Livre list that's currently selected in the table view
     Bibliotheque.Livre selectedbook = null ;
-    //Working Xml file (the one currently openened
+
 
     @FXML
     public void initialize(){
 
+        user.Userlogin();
         inittableau();
         btnMoins.setDisable(true);
         setDefaultTextField();
         calendrier.getEditor().setDisable(true);
         hideErrorMsg();
+    }
+
+
+    private void setUserProfile(){
+
+        btnMoins.setVisible(false);
+        btnPlus.setVisible(false);
+        btnValider.setVisible(false);
+        edition.setDisable(false);
+
     }
 
     /**
