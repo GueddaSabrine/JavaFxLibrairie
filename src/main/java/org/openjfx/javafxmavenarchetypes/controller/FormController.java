@@ -57,10 +57,25 @@ import static org.apache.pdfbox.pdmodel.font.PDType1Font.*;
 //import static org.apache.pdfbox.pdmodel.font.Standard14Fonts.FontName.COURIER;
 //import static org.apache.pdfbox.pdmodel.font.Standard14Fonts.FontName.HELVETICA_BOLD;
 
+/**
+ * @Version 1.5
+ * @author Aimée Marion Sabrine
+ */
 
+/**
+ * Classe principale avec une implementation.
+ * @author Aimée Marion Sabrine
+ */
 
-
+/**
+ *
+ * @param <DatabaseConnection>
+ */
 public class FormController<DatabaseConnection> {
+
+    /*
+    * Déclarations des attributs de la classe FormController.
+    * */
     private Connection connectDB;
     // TextField
     @FXML
@@ -83,7 +98,9 @@ public class FormController<DatabaseConnection> {
     @FXML
     public CheckBox checkbox;
 
-    //TableColumn
+    /**
+     * Déclarations des différentes colonnes du tableau ainsi que le tableau lui-même.
+     */
     @FXML
     public TableColumn <Bibliotheque.Livre, String> colAuteur;
     @FXML
@@ -102,14 +119,16 @@ public class FormController<DatabaseConnection> {
     @FXML
     public TableView <Bibliotheque.Livre> tableau;
 
-    //Bibliotheque
     /**
-     * Il s'agit du model de la bibliotheque.java
+     * Création d'une bibliothèque.
      */
     public Bibliotheque bibliotheque = new Bibliotheque();
+
     public XMLhandler xmlfile = new XMLhandler();
 
-    //Bouton
+    /**
+     * Déclaration des différents boutons de l'application.
+     */
     @FXML
     public Button btnMoins;
     @FXML
@@ -117,9 +136,9 @@ public class FormController<DatabaseConnection> {
     @FXML
     public Button btnPlus;
 
-
-
-
+    /**
+     * Déclaration des différents messages d'erreurs pour la vérification des champs..
+     */
     @FXML
     public Text msgErrorTitre;
     @FXML
@@ -137,14 +156,18 @@ public class FormController<DatabaseConnection> {
     //Working Xml file (the one currently openened
     File selectedFile = null;
 
+    /**
+     *
+     */
     boolean fileSaved ;
 
     /**
-     *Permet d'initialiser
+     * Cette méthode est appelée lors de l'initialisation de l'executable.
+     * Elle configure l'état initial des éléments
+     * graphiques tels que les boutons, les champs de texte, le calendrier.
      */
     @FXML
     public void initialize(){
-
         inittableau();
         btnMoins.setDisable(true);
         setDefaultTextField();
@@ -158,8 +181,6 @@ public class FormController<DatabaseConnection> {
      * Set all Visible  attribute of textviewers to false
      */
     public void hideErrorMsg(){
-
-
         msgErrorTitre.setVisible(false);
         msgErrorAuteur.setVisible(false);
         msgErrorColonne.setVisible(false);
@@ -171,7 +192,6 @@ public class FormController<DatabaseConnection> {
      * Bind cell of table view to getter in order to retrieve attribute from Bibliotheque class
      */
     public void inittableau(){
-
         colTitre.setCellValueFactory(cellData -> {
             String titre = cellData.getValue().titreProperty();
             ObservableValue<String> observableTitre = Bindings.createStringBinding(() -> titre);
@@ -207,7 +227,6 @@ public class FormController<DatabaseConnection> {
 
     }
 
-
     @FXML
     /**
      * Set selectedbook to the Livre object binded to the row selected
@@ -215,7 +234,6 @@ public class FormController<DatabaseConnection> {
      * Unable btnMoins (minus button)
      */
     public void handleSelectionTableView(MouseEvent event){
-
        selectedbook = tableau.getSelectionModel().getSelectedItem();
         if(selectedbook != null){
             titre.setText(selectedbook.getTitre());
@@ -235,13 +253,11 @@ public class FormController<DatabaseConnection> {
     }
 
     /**
-     *
+     * Méthode qui permet de récupérer la data entrées par l'utilisateur
      * @param event
      */
     @FXML
     public void handleNewBook(ActionEvent event){
-
-
         if(checkData()) {
 
             hideErrorMsg();
@@ -278,9 +294,7 @@ public class FormController<DatabaseConnection> {
                 selectedbook.setColonne(colonneText);
                 selectedbook.setImage(imageUrl);
 
-
                 // Mise a jour du tableau
-
                 if (Alerte(Alert.AlertType.INFORMATION,
                         "Modification Livre",
                         "modifier  + selectedbook.getTitre()",
@@ -299,7 +313,7 @@ public class FormController<DatabaseConnection> {
     }
 
     /**
-     *
+     * Cette fonction contient des regex pour le respect de l'écriture de chaque champ au moment de l'insertion des données
      * @return
      */
     public boolean checkData(){
@@ -365,10 +379,7 @@ public class FormController<DatabaseConnection> {
      */
     @FXML
     public void handleSaveAs(ActionEvent event) throws JAXBException {
-
-
         xmlfile.SaveAs(tableau.getScene().getWindow(), bibliotheque);
-
     }
 
     /**
@@ -385,7 +396,6 @@ public class FormController<DatabaseConnection> {
             System.out.println("ok");
             jaxbMarshaller.marshal(bibliotheque, selectedFile);
             fileSaved = true;
-
         }
         else{
 
@@ -629,7 +639,18 @@ public class FormController<DatabaseConnection> {
     }
 
     //public ObservableList<Bibliotheque.Livre> data = FXCollections.observableArrayList();
+    /**
+     * Méthode qui permet de détecter les changements.
+     * Elle permet de notifier les changements survenant dans la liste.
+     * Lorsque des éléments sont ajoutés, supprimés ou modifiés dans la liste,
+     * les observateurs enregistrés sont notifiés des modifications.
+     * Cela facilite la mise à jour de l'interface utilisateur en fonction des changements de données.
+     * Retourne une collection.
+     *
+     * @return data
+     */
     public ObservableList<Bibliotheque.Livre> data = FXCollections.observableArrayList();
+
     public void handleConnexion(ActionEvent event) {
         tableau.getItems().clear();
         DatabaseConnexion connectNow = new DatabaseConnexion();

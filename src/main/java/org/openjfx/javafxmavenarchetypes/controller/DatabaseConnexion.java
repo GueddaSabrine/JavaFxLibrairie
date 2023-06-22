@@ -2,6 +2,9 @@ package org.openjfx.javafxmavenarchetypes.controller;
 
 import java.sql.*;
 
+/**
+ * Connexion à la base de donnée
+ */
 public class DatabaseConnexion {
     public Connection databaseLink;
     public Connection getConnection(){
@@ -9,8 +12,8 @@ public class DatabaseConnexion {
 
             String dbName ="biblioDB";
             String dbUser ="root";
-            String dbPassword="root";
-            String url = "jdbc:mysql://localhost:8889/"+dbName;
+            String dbPassword="";
+            String url = "jdbc:mysql://localhost:3306/"+dbName;
             try {
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 databaseLink = DriverManager.getConnection(url,dbUser,dbPassword);
@@ -24,6 +27,11 @@ public class DatabaseConnexion {
         return databaseLink;
     }
 
+    /**
+     *
+     * @param req
+     * @return
+     */
     public ResultSet selectBook(String req){
         try {
             Statement statement = databaseLink.createStatement();
