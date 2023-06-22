@@ -372,10 +372,12 @@ public class FormController<DatabaseConnection> {
         return ti && aut && col && rg && img ;
     }
 
+
     /**
+     * Gère l'action de sauvegarde sous un nouveau fichier.
      *
-     * @param event
-     * @throws JAXBException
+     * @param event L'événement déclencheur de l'action.
+     * @throws JAXBException Si une exception se produit lors de la sauvegarde du fichier en utilisant JAXB.
      */
     @FXML
     public void handleSaveAs(ActionEvent event) throws JAXBException {
