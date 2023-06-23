@@ -40,7 +40,6 @@ class BibliothequeTest extends Bibliotheque {
         livre.setAuteur(new Livre.Auteur("testAuteurNom", "testAuteurPrenom"));
         Assertions.assertEquals("testAuteurNom", livre.getAuteur().getNom());
         Assertions.assertEquals("testAuteurPrenom", livre.getAuteur().getPrenom());
-
     }
 
     @Test
