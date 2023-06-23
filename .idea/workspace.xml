@@ -6,15 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="096a7edf-4f0e-4518-ad50-67a2b0321f7d" name="Changes" comment="Connexion + Deconnexion">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/openjfx/javafxmavenarchetypes/controller/FormControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/openjfx/javafxmavenarchetypes/controller/FormControllerTest.java" afterDir="false" />
-=======
       <change beforePath="$PROJECT_DIR$/src/main/java/org/openjfx/javafxmavenarchetypes/controller/DatabaseConnexion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/openjfx/javafxmavenarchetypes/controller/DatabaseConnexion.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/openjfx/javafxmavenarchetypes/controller/FormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/openjfx/javafxmavenarchetypes/controller/FormController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/openjfx/javafxmavenarchetypes/model/XMLhandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/openjfx/javafxmavenarchetypes/model/XMLhandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/org/openjfx/javafxmavenarchetypes/Biblio.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/openjfx/javafxmavenarchetypes/Biblio.fxml" afterDir="false" />
->>>>>>> 3d50c454c56d443027f4e61103c784139968344f
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/openjfx/javafxmavenarchetypes/controller/FormControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/openjfx/javafxmavenarchetypes/controller/FormControllerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,11 +84,7 @@
       <command value="mvn clean install" />
     </option>
   </component>
-<<<<<<< HEAD
   <component name="RunManager" selected="Application.HelloApplication">
-=======
-  <component name="RunManager" selected="Application.Unnamed (1)">
->>>>>>> 3d50c454c56d443027f4e61103c784139968344f
     <configuration name="FormControllerTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.openjfx.javafxmavenarchetypes.controller.FormControllerTest" />
       <module name="javafx-maven-archetypes" />
