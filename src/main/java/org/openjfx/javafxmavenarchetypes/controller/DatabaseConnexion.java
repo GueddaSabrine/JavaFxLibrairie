@@ -84,6 +84,8 @@ public class DatabaseConnexion {
 
         if (databaseLink != null) {
             databaseLink.close();
+            databaseLink= null;
         }
+
     }
 }
