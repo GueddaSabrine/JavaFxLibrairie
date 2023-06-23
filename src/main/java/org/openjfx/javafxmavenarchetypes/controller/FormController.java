@@ -187,10 +187,10 @@ public class FormController<DatabaseConnection> {
         setDefaultTextField();
         calendrier.getEditor().setDisable(true);
         hideErrorMsg();
-        if(user.isProfile())setUserProfile();
         Platform.runLater(()->{
             Stage stage = (Stage) Vbox.getScene().getWindow();
             user = (User) stage.getUserData();
+            if(!user.isProfile())setUserProfile();
         });
     }
 
