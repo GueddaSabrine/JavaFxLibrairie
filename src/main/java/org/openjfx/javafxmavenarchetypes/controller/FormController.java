@@ -293,32 +293,34 @@ public class FormController<DatabaseConnection> {
             String imageUrl = image.getText();
             boolean disponibilite = checkbox.isSelected();
 
-            // Si le User est connecté, le bouton valider ajoute le livre dans la base de données
-            if (isConnected){
-                try {
-                    String reqInsertBook = "INSERT INTO `livre`(`nom`, `prenom`, `presentation`, `parution`, `colonne`, `rangee`, `image`,`titre`,`disponibilite`) VALUES (?,?,?,?,?,?,?,?,?)";
-                    PreparedStatement preparedStatement = connectNow.insert(reqInsertBook);
-                    preparedStatement.setString(1,auteur1.getNom());
-                    preparedStatement.setString(2,auteur1.getPrenom());
-                    preparedStatement.setString(3,presentationText);
-                    preparedStatement.setInt(4,datapickerText);
-                    preparedStatement.setInt(5,colonneText);
-                    preparedStatement.setInt(6,rangeeText);
-                    preparedStatement.setString(7,imageUrl);
-                    preparedStatement.setString(8,titreText);
-                    preparedStatement.setBoolean(9,disponibilite);
-                    preparedStatement.executeUpdate();
-                    System.out.println("Ajout des éléments : ok");
 
-                }catch (SQLException e){
-                    System.out.println("Ajout impossible à effectuer.\nErreur :" + e);
-                }
-
-            }
             //Affichage de l'image
             Image image = new Image(imageUrl);
             imageView.setImage(image);
             if (selectedbook == null) {
+
+                // Si le User est connecté, le bouton valider ajoute le livre dans la base de données
+                if (isConnected){
+                    try {
+                        String reqInsertBook = "INSERT INTO `livre`(`nom`, `prenom`, `presentation`, `parution`, `colonne`, `rangee`, `image`,`titre`,`disponibilite`) VALUES (?,?,?,?,?,?,?,?,?)";
+                        PreparedStatement preparedStatement = connectNow.insert(reqInsertBook);
+                        preparedStatement.setString(1,auteur1.getNom());
+                        preparedStatement.setString(2,auteur1.getPrenom());
+                        preparedStatement.setString(3,presentationText);
+                        preparedStatement.setInt(4,datapickerText);
+                        preparedStatement.setInt(5,colonneText);
+                        preparedStatement.setInt(6,rangeeText);
+                        preparedStatement.setString(7,imageUrl);
+                        preparedStatement.setString(8,titreText);
+                        preparedStatement.setBoolean(9,disponibilite);
+                        preparedStatement.executeUpdate();
+                        System.out.println("Ajout des éléments : ok");
+
+                    }catch (SQLException e){
+                        System.out.println("Ajout impossible à effectuer.\nErreur :" + e);
+                    }
+
+                }
                 bibliotheque.addLivre(titreText, auteur1, presentationText, datapickerText, colonneText, rangeeText, imageUrl, disponibilite);
                 // Mise a jour du tableau
                 tableau.refresh();
@@ -330,7 +332,28 @@ public class FormController<DatabaseConnection> {
                 );
 
             } else {
+                if (isConnected){
+                    try {
+                        //ajouter id dans le constructeur
+                        String reqUpdateBook = "UPDATE `livre` SET `nom`=?, `prenom`=?, `presentation`=?, `parution`=?, `colonne`=?, `rangee`=?, `image`=?,`titre`=?,`disponibilite`=? WHERE id=";
+                        PreparedStatement preparedStatement = connectNow.insert(reqUpdateBook);
+                        preparedStatement.setString(1,auteur1.getNom());
+                        preparedStatement.setString(2,auteur1.getPrenom());
+                        preparedStatement.setString(3,presentationText);
+                        preparedStatement.setInt(4,datapickerText);
+                        preparedStatement.setInt(5,colonneText);
+                        preparedStatement.setInt(6,rangeeText);
+                        preparedStatement.setString(7,imageUrl);
+                        preparedStatement.setString(8,titreText);
+                        preparedStatement.setBoolean(9,disponibilite);
+                        preparedStatement.executeUpdate();
+                        System.out.println("Ajout des éléments : ok");
 
+                    }catch (SQLException e){
+                        System.out.println("Ajout impossible à effectuer.\nErreur :" + e);
+                    }
+
+                }
                 selectedbook.setTitre(titreText);
                 selectedbook.setPresentation(presentationText);
                 selectedbook.setParution(datapickerText);
