@@ -37,3 +37,4 @@ build/
 
 
 !**/src/main/java/org/openjfx/javafxmavenarchetypes/controller/DatabaseConnexion.java
+/.idea/
