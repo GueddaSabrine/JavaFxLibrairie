@@ -1,5 +1,7 @@
 package org.openjfx.javafxmavenarchetypes.controller;
 
+import javafx.util.Pair;
+
 import java.sql.*;
 
 /**
@@ -60,6 +62,20 @@ public class DatabaseConnexion {
             return preparedStmt;
 
         } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void insert(String req, Pair<Object, SQLType>[] arg){
+        try {
+            PreparedStatement preparedStmt = databaseLink.prepareStatement(req);
+            for(int i =0 ; i< arg.length ; i++){
+                preparedStmt.setObject(i,arg[i].getKey(),arg[i].getValue());
+            }
+            preparedStmt.executeUpdate();
+            System.out.println("Ajout des éléments : ok");
+        } catch (SQLException e) {
+            System.out.println("Ajout impossible à effectuer.\nErreur :" + e);
             throw new RuntimeException(e);
         }
     }

@@ -1,7 +1,10 @@
 package org.openjfx.javafxmavenarchetypes.model;
 
 import javafx.scene.control.TextInputDialog;
+import org.openjfx.javafxmavenarchetypes.controller.DatabaseConnexion;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Optional;
 
 public class User {
@@ -11,19 +14,33 @@ public class User {
     protected boolean profile; //0 == gerant 1 == userlambda
 
 
-    public void Userlogin(){
+    public void Userlogin() throws SQLException {
 
+        DatabaseConnexion db = new DatabaseConnexion();
+        db.getConnection();
         username = Dialog(
                 "username",
                 "Connexion",
                 "Please enter your username",
                 "username : ");
 
-        if(true){
+        String query = "SELECT * FROM user WHERE login ='" +username+ "'";
 
+        ResultSet queryOutput = db.selectBook(query);
+
+        if(!queryOutput.isBeforeFirst()){
+
+            password = Dialog(
+                    "password",
+                    "Connexion",
+                    "Please enter your password",
+                    "pwd : ");
+            query = "SELECT * FROM user WHERE login ='" +username+ "' AND mdp ='" + password +"'" ;
+            queryOutput = db.selectBook(query);
+            if(queryOutput.isBeforeFirst())modifyPassword(db);
         }
         else{
-            createNewUser();
+            createNewUser(db);
         }
 
     }
@@ -41,7 +58,12 @@ public class User {
         return null;
     }
 
-    public void createNewUser(){
+    public void createNewUser(DatabaseConnexion db){
+
+
+    }
+
+    public void modifyPassword(DatabaseConnexion db){
 
     }
 

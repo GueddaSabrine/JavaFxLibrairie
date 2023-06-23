@@ -4,10 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c72fcec5-180d-4823-899b-009f6ec7fd96" name="Changes" comment="">
+    <list default="true" id="a5e978bd-b1f8-428c-95b9-182f6be9b710" name="Changes" comment="test">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/openjfx/javafxmavenarchetypes/controller/AboutController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/res/ref.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/openjfx/javafxmavenarchetypes/controller/DatabaseConnexion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/openjfx/javafxmavenarchetypes/controller/DatabaseConnexion.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/openjfx/javafxmavenarchetypes/controller/FormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/openjfx/javafxmavenarchetypes/controller/FormController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/openjfx/javafxmavenarchetypes/controller/FormControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/openjfx/javafxmavenarchetypes/controller/FormControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/openjfx/javafxmavenarchetypes/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/openjfx/javafxmavenarchetypes/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/openjfx/javafxmavenarchetypes/About.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/openjfx/javafxmavenarchetypes/About.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/openjfx/javafxmavenarchetypes/Biblio.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/openjfx/javafxmavenarchetypes/Biblio.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,6 +22,13 @@
   </component>
   <component name="ComposerSettings">
     <execution />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Rebase.Settings">
     <option name="NEW_BASE" value="origin/main" />
@@ -32,7 +45,6 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -66,6 +78,11 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\2023\JAVA\JAVA project\JavaFxLibrairie\src\main\resources\res" />
+    </key>
+  </component>
   <component name="RunAnythingCache">
     <option name="myCommands">
       <command value="mvn compile -e" />
@@ -179,7 +196,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="aimee" />
+                        <option value="marionbis" />
                       </list>
                     </value>
                   </entry>

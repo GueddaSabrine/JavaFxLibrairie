@@ -73,7 +73,7 @@
                         </Menu>
                         <Menu fx:id="about" mnemonicParsing="false" text="About">
                             <items>
-                                <MenuItem fx:id="infos" mnemonicParsing="false" text="Infos" />
+                                <MenuItem fx:id="infos" mnemonicParsing="false" text="Infos" onAction="#handleAbout" />
                             </items>
                         </Menu>
                     </menus>

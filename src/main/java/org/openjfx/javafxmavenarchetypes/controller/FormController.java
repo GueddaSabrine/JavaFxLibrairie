@@ -11,6 +11,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
@@ -22,6 +24,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 //import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
+import org.openjfx.javafxmavenarchetypes.HelloApplication;
 import org.openjfx.javafxmavenarchetypes.model.Bibliotheque;
 import org.openjfx.javafxmavenarchetypes.model.User;
 import org.openjfx.javafxmavenarchetypes.model.XMLhandler;
@@ -172,7 +175,7 @@ public class FormController<DatabaseConnection> {
      */
 
     @FXML
-    public void initialize(){
+    public void initialize() throws SQLException {
 
         user.Userlogin();
         inittableau();
@@ -568,6 +571,14 @@ public class FormController<DatabaseConnection> {
     public void testpdf() throws IOException {
 
       exporter.cretepdf(bibliotheque);
+
+    }
+
+    public void handleAbout() throws IOException {
+        Parent pane = FXMLLoader.load(
+                HelloApplication.class.getResource("About.fxml"));
+
+        tableau.getScene().setRoot(pane);
 
     }
 

@@ -6,14 +6,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" fx:controller="org.openjfx.javafxmavenarchetypes.controller.AboutController" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button layoutX="534.0" layoutY="361.0" mnemonicParsing="false" text="Button" />
-      <ImageView fitHeight="154.0" fitWidth="125.0" layoutX="43.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fitHeight="154.0" fitWidth="125.0" layoutX="238.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fitHeight="154.0" fitWidth="125.0" layoutX="432.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" />
-      <Label layoutX="43.0" layoutY="226.0" prefHeight="66.0" prefWidth="125.0" text="Label" />
-      <Label layoutX="238.0" layoutY="226.0" prefHeight="66.0" prefWidth="125.0" text="Label" />
-      <Label layoutX="435.0" layoutY="226.0" prefHeight="66.0" prefWidth="125.0" text="Label" />
+      <Button fx:id="BttDone"  layoutX="534.0" layoutY="361.0" mnemonicParsing="false" text="Button" onMouseClicked="#bttDonehandle" />
+      <ImageView fx:id="imageViewAimee" fitHeight="154.0" fitWidth="125.0" layoutX="43.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="imageViewSabrine" fitHeight="154.0" fitWidth="125.0" layoutX="238.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="imageViewMarion" fitHeight="154.0" fitWidth="125.0" layoutX="432.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="labelAimee" layoutX="43.0" layoutY="226.0" prefHeight="66.0" prefWidth="125.0" text="Label" />
+      <Label fx:id="labelSabrine" layoutX="238.0" layoutY="226.0" prefHeight="66.0" prefWidth="125.0" text="Label" />
+      <Label fx:id="labelMarion" layoutX="435.0" layoutY="226.0" prefHeight="66.0" prefWidth="125.0" text="Label" />
    </children>
 </AnchorPane>
