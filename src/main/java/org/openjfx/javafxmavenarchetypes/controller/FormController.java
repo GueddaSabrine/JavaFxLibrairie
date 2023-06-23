@@ -1,6 +1,5 @@
 package org.openjfx.javafxmavenarchetypes.controller;
-import be.quodlibet.boxable.Cell;
-import be.quodlibet.boxable.utils.ImageUtils;
+
 import javafx.application.Platform;
 
 import java.sql.*;
@@ -45,10 +44,7 @@ import javax.xml.validation.SchemaFactory;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Enumeration;
@@ -66,6 +62,15 @@ import static org.apache.pdfbox.pdmodel.font.PDType1Font.*;
 
 /**
  * @Version 1.5
+ * @author Aimée Marion Sabrine
+ * <p>
+ * Classe principale avec une implementation.
+ * @author Aimée Marion Sabrine
+ * <p>
+ * Classe principale avec une implementation.
+ * @author Aimée Marion Sabrine
+ * <p>
+ * Classe principale avec une implementation.
  * @author Aimée Marion Sabrine
  * <p>
  * Classe principale avec une implementation.
@@ -94,7 +99,7 @@ public class FormController<DatabaseConnection> {
      * */
     private Connection connectDB;
     private DatabaseConnexion connectNow = new DatabaseConnexion();
-    // TextField
+
     @FXML
     public TextField titre;
     @FXML
@@ -111,7 +116,6 @@ public class FormController<DatabaseConnection> {
     public TextField image;
     @FXML
     public ImageView imageView;
-
     @FXML
     public CheckBox checkbox;
 
@@ -175,8 +179,9 @@ public class FormController<DatabaseConnection> {
 
     public MenuItem edition;
 
-    //mmh ...
-    //Livre from the current global Bibliotheque object bibliotheque 's Livre list that's currently selected in the table view
+    /**
+     * Livre from the current global Bibliotheque object bibliotheque 's Livre list that's currently selected in the table view
+     */
     Bibliotheque.Livre selectedbook = null;
 
 
@@ -187,22 +192,23 @@ public class FormController<DatabaseConnection> {
      */
     @FXML
     public void initialize() throws SQLException {
-
-
         inittableau();
         synch.setDisable(true);
         btnMoins.setDisable(true);
         setDefaultTextField();
         calendrier.getEditor().setDisable(true);
         hideErrorMsg();
-        Platform.runLater(()->{
+        Platform.runLater(() -> {
             Stage stage = (Stage) Vbox.getScene().getWindow();
             user = (User) stage.getUserData();
-            if(!user.isProfile())setUserProfile();
+            if (!user.isProfile()) setUserProfile();
         });
     }
 
 
+    /**
+     *
+     */
     private void setUserProfile() {
 
         btnMoins.setVisible(false);
@@ -295,7 +301,6 @@ public class FormController<DatabaseConnection> {
     @FXML
     public void handleNewBook(ActionEvent event) throws SQLException {
 
-
         if (checkData()) {
 
             hideErrorMsg();
@@ -320,31 +325,31 @@ public class FormController<DatabaseConnection> {
             if (selectedbook == null) {
 
                 // Si le User est connecté, le bouton valider ajoute le livre dans la base de données
-                if (isConnected){
+                if (isConnected) {
                     try {
                         String reqInsertBook = "INSERT INTO `livre`(`nom`, `prenom`, `presentation`, `parution`, `colonne`, `rangee`, `image`,`titre`,`disponibilite`) VALUES (?,?,?,?,?,?,?,?,?)";
                         PreparedStatement preparedStatement = connectNow.insert(reqInsertBook);
-                        preparedStatement.setString(1,auteur1.getNom());
-                        preparedStatement.setString(2,auteur1.getPrenom());
-                        preparedStatement.setString(3,presentationText);
-                        preparedStatement.setInt(4,datapickerText);
-                        preparedStatement.setInt(5,colonneText);
-                        preparedStatement.setInt(6,rangeeText);
-                        preparedStatement.setString(7,imageUrl);
-                        preparedStatement.setString(8,titreText);
-                        preparedStatement.setBoolean(9,disponibilite);
+                        preparedStatement.setString(1, auteur1.getNom());
+                        preparedStatement.setString(2, auteur1.getPrenom());
+                        preparedStatement.setString(3, presentationText);
+                        preparedStatement.setInt(4, datapickerText);
+                        preparedStatement.setInt(5, colonneText);
+                        preparedStatement.setInt(6, rangeeText);
+                        preparedStatement.setString(7, imageUrl);
+                        preparedStatement.setString(8, titreText);
+                        preparedStatement.setBoolean(9, disponibilite);
                         preparedStatement.executeUpdate();
                         ResultSet rs = preparedStatement.getGeneratedKeys();
                         rs.next();
                         id = rs.getInt("id");
                         System.out.println("Ajout des éléments : ok  " + id);
 
-                    }catch (SQLException e){
+                    } catch (SQLException e) {
                         System.out.println("Ajout impossible à effectuer.\nErreur :" + e);
                     }
 
                 }
-                bibliotheque.addLivre(id,titreText, auteur1, presentationText, datapickerText, colonneText, rangeeText, imageUrl, disponibilite);
+                bibliotheque.addLivre(id, titreText, auteur1, presentationText, datapickerText, colonneText, rangeeText, imageUrl, disponibilite);
                 // Mise a jour du tableau
                 tableau.refresh();
                 xmlfile.setFileSaved(false);
@@ -359,21 +364,21 @@ public class FormController<DatabaseConnection> {
                 if (isConnected && selectedbook.getId()!= 0){
                     try {
                         //ajouter id dans le constructeur
-                        String reqUpdateBook = "UPDATE `livre` SET `nom`=?, `prenom`=?, `presentation`=?, `parution`=?, `colonne`=?, `rangee`=?, `image`=?,`titre`=?,`disponibilite`=? WHERE id="+ selectedbook.getId();
+                        String reqUpdateBook = "UPDATE `livre` SET `nom`=?, `prenom`=?, `presentation`=?, `parution`=?, `colonne`=?, `rangee`=?, `image`=?,`titre`=?,`disponibilite`=? WHERE id=" + selectedbook.getId();
                         PreparedStatement preparedStatement = connectNow.insert(reqUpdateBook);
-                        preparedStatement.setString(1,auteur1.getNom());
-                        preparedStatement.setString(2,auteur1.getPrenom());
-                        preparedStatement.setString(3,presentationText);
-                        preparedStatement.setInt(4,datapickerText);
-                        preparedStatement.setInt(5,colonneText);
-                        preparedStatement.setInt(6,rangeeText);
-                        preparedStatement.setString(7,imageUrl);
-                        preparedStatement.setString(8,titreText);
-                        preparedStatement.setBoolean(9,disponibilite);
+                        preparedStatement.setString(1, auteur1.getNom());
+                        preparedStatement.setString(2, auteur1.getPrenom());
+                        preparedStatement.setString(3, presentationText);
+                        preparedStatement.setInt(4, datapickerText);
+                        preparedStatement.setInt(5, colonneText);
+                        preparedStatement.setInt(6, rangeeText);
+                        preparedStatement.setString(7, imageUrl);
+                        preparedStatement.setString(8, titreText);
+                        preparedStatement.setBoolean(9, disponibilite);
                         preparedStatement.executeUpdate();
                         System.out.println("Modification des éléments : ok  " + selectedbook.getId());
 
-                    }catch (SQLException e){
+                    } catch (SQLException e) {
                         System.out.println("Ajout impossible à effectuer.\nErreur :" + e);
                     }
 
@@ -390,7 +395,7 @@ public class FormController<DatabaseConnection> {
                 // Mise a jour du tableau
                 if (Alerte(Alert.AlertType.INFORMATION,
                         "Modification Livre",
-                        "modifier"  + selectedbook.getTitre(),
+                        "modifier" + selectedbook.getTitre(),
                         "Les modifications apportées au livre " + selectedbook.getTitre() + "vont etre validée. Cliquez sur" +
                                 " OK pour continuer")) {
 
@@ -549,7 +554,7 @@ public class FormController<DatabaseConnection> {
                             " OK pour supprimer")
             ) {
                 String req = "DELETE FROM livre WHERE id = ?";
-                Pair<Object, Integer> arg[] =new Pair[]{new Pair<>(selectedbook.getId(), Types.INTEGER)};
+                Pair<Object, Integer> arg[] = new Pair[]{new Pair<>(selectedbook.getId(), Types.INTEGER)};
                 connectNow.insert(req, arg);
                 bibliotheque.getLivre().remove(selectedbook);
                 xmlfile.setFileSaved(false);
@@ -618,15 +623,18 @@ public class FormController<DatabaseConnection> {
 
     }
 
+    /**
+     * Cette méthode gère l'action lorsque le bouton "À propos" est cliqué.
+     * et définit cette vue comme la racine de la scène courante.
+     *
+     * @throws IOException
+     */
     public void handleAbout() throws IOException {
         Parent pane = FXMLLoader.load(
                 HelloApplication.class.getResource("About.fxml"));
-
         tableau.getScene().setRoot(pane);
-
     }
 
-    //public ObservableList<Bibliotheque.Livre> data = FXCollections.observableArrayList();
     /**
      * Méthode qui permet de détecter les changements.
      * Elle permet de notifier les changements survenant dans la liste.

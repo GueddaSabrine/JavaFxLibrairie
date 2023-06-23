@@ -1,11 +1,3 @@
-//
-// Ce fichier a �t� g�n�r� par l'impl�mentation de r�f�rence JavaTM Architecture for XML Binding (JAXB), v2.2.8-b130911.1802 
-// Voir <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// Toute modification apport�e � ce fichier sera perdue lors de la recompilation du sch�ma source. 
-// G�n�r� le : 2023.03.23 � 02:30:44 PM CET 
-//
-
-
 package org.openjfx.javafxmavenarchetypes.model;
 
 import javafx.beans.property.StringProperty;
@@ -130,9 +122,9 @@ public class Bibliotheque {
      * @param image  L'image du livre.
      * @param disp   Indique si le livre est disponible.
      */
-    public void addLivre(int id,String titre, Livre.Auteur auteur, String pre, int pick, int col, int rangee, String image, boolean disp) {
+    public void addLivre(int id, String titre, Livre.Auteur auteur, String pre, int pick, int col, int rangee, String image, boolean disp) {
 
-        listlivre.add(new Livre(id ,titre, auteur, pre, pick, col, rangee, image, disp));
+        listlivre.add(new Livre(id, titre, auteur, pre, pick, col, rangee, image, disp));
 
     }
 
@@ -258,7 +250,7 @@ public class Bibliotheque {
          * @param image        L'image du livre.
          * @param disp         Indique si le livre est disponible.
          */
-        public Livre(int id,String titre, Bibliotheque.Livre.Auteur auteur, String presentation, Integer parution, Integer colonne, Integer rangee, String image,
+        public Livre(int id, String titre, Bibliotheque.Livre.Auteur auteur, String presentation, Integer parution, Integer colonne, Integer rangee, String image,
                      boolean disp) {
             this.id = id;
             this.titre = titre;

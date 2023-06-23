@@ -83,7 +83,7 @@ public class DatabaseConnexion {
 
     public void closeConnection() throws SQLException {
 
-        if(databaseLink != null){
+        if (databaseLink != null) {
             databaseLink.close();
             databaseLink= null;
         }

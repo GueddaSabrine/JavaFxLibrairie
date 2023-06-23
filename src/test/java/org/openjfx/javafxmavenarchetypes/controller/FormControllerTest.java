@@ -67,8 +67,6 @@ class FormControllerTest extends FormController {
         Assertions.assertEquals(2012, livre.getParution());
         Assertions.assertEquals("auteur", livre.getAuteur());
 
-//        assertEquals(1, formController.tableau.getItems().size());
-//        assertEquals("Livre 1", formController.tableau.getItems().get(0).getTitre());
 
     }
 }
