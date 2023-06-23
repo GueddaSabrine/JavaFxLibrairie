@@ -24,6 +24,9 @@ module org.openjfx.javafxmavenarchetypes {
 //    opens org.openjfx.javafxmavenarchetypes.view to javafx.fxml;
     exports org.openjfx.javafxmavenarchetypes;
 //    exports org.openjfx.javafxmavenarchetypes.vue;
+//    opens org.openjfx.javafxmavenarchetypes.vue to java.xml.bind, javafx.fxml;
+//    exports org.openjfx.javafxmavenarchetypes;
+//    exports org.openjfx.javafxmavenarchetypes.vue;
 //    opens org.openjfx.javafxmavenarchetypes.vue to javafx.fxml;
 //    exports org.openjfx.javafxmavenarchetypes.controller;
 //    opens org.openjfx.javafxmavenarchetypes.controller to javafx.fxml;
