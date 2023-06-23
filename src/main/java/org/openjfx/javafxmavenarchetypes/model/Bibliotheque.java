@@ -130,9 +130,9 @@ public class Bibliotheque {
      * @param image  L'image du livre.
      * @param disp   Indique si le livre est disponible.
      */
-    public void addLivre(String titre, Livre.Auteur auteur, String pre, int pick, int col, int rangee, String image, boolean disp) {
+    public void addLivre(int id,String titre, Livre.Auteur auteur, String pre, int pick, int col, int rangee, String image, boolean disp) {
 
-        listlivre.add(new Livre(titre, auteur, pre, pick, col, rangee, image, disp));
+        listlivre.add(new Livre(id ,titre, auteur, pre, pick, col, rangee, image, disp));
 
     }
 
@@ -201,6 +201,7 @@ public class Bibliotheque {
     @Builder
     @AllArgsConstructor
     public static class Livre {
+        protected int id;
         /**
          * Représente un livre.
          */
@@ -244,6 +245,7 @@ public class Bibliotheque {
         /**
          * Constructeur de la classe Livre.
          *
+         * @param id           cle bdd
          * @param titre        Le titre du livre.
          * @param auteur       L'auteur du livre.
          * @param presentation La présentation du livre.
@@ -253,8 +255,9 @@ public class Bibliotheque {
          * @param image        L'image du livre.
          * @param disp         Indique si le livre est disponible.
          */
-        public Livre(String titre, Bibliotheque.Livre.Auteur auteur, String presentation, Integer parution, Integer colonne, Integer rangee, String image,
+        public Livre(int id,String titre, Bibliotheque.Livre.Auteur auteur, String presentation, Integer parution, Integer colonne, Integer rangee, String image,
                      boolean disp) {
+            this.id = id;
             this.titre = titre;
             this.auteur = auteur;
             this.presentation = presentation;

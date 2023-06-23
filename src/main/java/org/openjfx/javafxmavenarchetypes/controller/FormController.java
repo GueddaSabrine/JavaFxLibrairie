@@ -26,6 +26,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 //import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 import org.openjfx.javafxmavenarchetypes.HelloApplication;
 import org.openjfx.javafxmavenarchetypes.model.Bibliotheque;
 import org.openjfx.javafxmavenarchetypes.model.User;
@@ -309,33 +310,39 @@ public class FormController<DatabaseConnection> {
             int datapickerText = calendrier.getValue().getYear();
             String imageUrl = image.getText();
             boolean disponibilite = checkbox.isSelected();
+            int id = -1;
 
-            if (isConnected) {
-                try {
-                    String reqInsertBook = "INSERT INTO `livre`(`nom`, `prenom`, `presentation`, `parution`, `colonne`, `rangee`, `image`,`titre`,`disponibilite`) VALUES (?,?,?,?,?,?,?,?,?)";
-                    PreparedStatement preparedStatement = connectNow.insert(reqInsertBook);
-                    preparedStatement.setString(1,auteur1.getNom());
-                    preparedStatement.setString(2,auteur1.getPrenom());
-                    preparedStatement.setString(3,presentationText);
-                    preparedStatement.setInt(4,datapickerText);
-                    preparedStatement.setInt(5,colonneText);
-                    preparedStatement.setInt(6,rangeeText);
-                    preparedStatement.setString(7,imageUrl);
-                    preparedStatement.setString(8,titreText);
-                    preparedStatement.setBoolean(9,disponibilite);
-                    preparedStatement.executeUpdate();
-                    System.out.println("Ajout des éléments : ok");
-
-                } catch (SQLException e) {
-                    System.out.println("Ajout impossible à effectuer.\nErreur :" + e);
-                }
-
-            }
             //Affichage de l'image
             Image image = new Image(imageUrl);
             imageView.setImage(image);
             if (selectedbook == null) {
-                bibliotheque.addLivre(titreText, auteur1, presentationText, datapickerText, colonneText, rangeeText, imageUrl, disponibilite);
+
+                // Si le User est connecté, le bouton valider ajoute le livre dans la base de données
+                if (isConnected){
+                    try {
+                        String reqInsertBook = "INSERT INTO `livre`(`nom`, `prenom`, `presentation`, `parution`, `colonne`, `rangee`, `image`,`titre`,`disponibilite`) VALUES (?,?,?,?,?,?,?,?,?)";
+                        PreparedStatement preparedStatement = connectNow.insert(reqInsertBook);
+                        preparedStatement.setString(1,auteur1.getNom());
+                        preparedStatement.setString(2,auteur1.getPrenom());
+                        preparedStatement.setString(3,presentationText);
+                        preparedStatement.setInt(4,datapickerText);
+                        preparedStatement.setInt(5,colonneText);
+                        preparedStatement.setInt(6,rangeeText);
+                        preparedStatement.setString(7,imageUrl);
+                        preparedStatement.setString(8,titreText);
+                        preparedStatement.setBoolean(9,disponibilite);
+                        preparedStatement.executeUpdate();
+                        ResultSet rs = preparedStatement.getGeneratedKeys();
+                        rs.next();
+                        id = rs.getInt("id");
+                        System.out.println("Ajout des éléments : ok  " + id);
+
+                    }catch (SQLException e){
+                        System.out.println("Ajout impossible à effectuer.\nErreur :" + e);
+                    }
+
+                }
+                bibliotheque.addLivre(id,titreText, auteur1, presentationText, datapickerText, colonneText, rangeeText, imageUrl, disponibilite);
                 // Mise a jour du tableau
                 tableau.refresh();
                 xmlfile.setFileSaved(false);
@@ -345,19 +352,43 @@ public class FormController<DatabaseConnection> {
                         "Bibliotheque mise a jour"
                 );
 
-            } else {
+            }
+            else {
+                if (isConnected && selectedbook.getId()!= -1){
+                    try {
+                        //ajouter id dans le constructeur
+                        String reqUpdateBook = "UPDATE `livre` SET `nom`=?, `prenom`=?, `presentation`=?, `parution`=?, `colonne`=?, `rangee`=?, `image`=?,`titre`=?,`disponibilite`=? WHERE id="+ selectedbook.getId();
+                        PreparedStatement preparedStatement = connectNow.insert(reqUpdateBook);
+                        preparedStatement.setString(1,auteur1.getNom());
+                        preparedStatement.setString(2,auteur1.getPrenom());
+                        preparedStatement.setString(3,presentationText);
+                        preparedStatement.setInt(4,datapickerText);
+                        preparedStatement.setInt(5,colonneText);
+                        preparedStatement.setInt(6,rangeeText);
+                        preparedStatement.setString(7,imageUrl);
+                        preparedStatement.setString(8,titreText);
+                        preparedStatement.setBoolean(9,disponibilite);
+                        preparedStatement.executeUpdate();
+                        System.out.println("Modification des éléments : ok  " + selectedbook.getId());
 
+                    }catch (SQLException e){
+                        System.out.println("Ajout impossible à effectuer.\nErreur :" + e);
+                    }
+
+                }
                 selectedbook.setTitre(titreText);
                 selectedbook.setPresentation(presentationText);
                 selectedbook.setParution(datapickerText);
                 selectedbook.setRangee(rangeeText);
                 selectedbook.setColonne(colonneText);
                 selectedbook.setImage(imageUrl);
+                tableau.refresh();
+
 
                 // Mise a jour du tableau
                 if (Alerte(Alert.AlertType.INFORMATION,
                         "Modification Livre",
-                        "modifier  + selectedbook.getTitre()",
+                        "modifier"  + selectedbook.getTitre(),
                         "Les modifications apportées au livre " + selectedbook.getTitre() + "vont etre validée. Cliquez sur" +
                                 " OK pour continuer")) {
 
@@ -513,6 +544,9 @@ public class FormController<DatabaseConnection> {
                     "Voulez vous supprimer " + selectedbook.getTitre() + "  de la liste? Cliquez sur" +
                             " OK pour supprimer")
             ) {
+                String req = "DELETE FROM livre WHERE id = ?";
+                Pair<Object, Integer> arg[] =new Pair[]{new Pair<>(selectedbook.getId(), Types.INTEGER)};
+                connectNow.insert(req, arg);
                 bibliotheque.getLivre().remove(selectedbook);
                 xmlfile.setFileSaved(false);
                 handleOutsideCLick();
@@ -620,7 +654,8 @@ public class FormController<DatabaseConnection> {
                 Bibliotheque.Livre.Auteur auteur9 = new Bibliotheque.Livre.Auteur();
                 auteur9.setNom(queryOutput.getString("nom"));
                 auteur9.setPrenom(queryOutput.getString("prenom"));
-                bibliotheque.addLivre(queryOutput.getString("titre"),
+                bibliotheque.addLivre(queryOutput.getInt("id"),
+                        queryOutput.getString("titre"),
                         auteur9,
                         queryOutput.getString("presentation"),
                         queryOutput.getInt("parution"),
