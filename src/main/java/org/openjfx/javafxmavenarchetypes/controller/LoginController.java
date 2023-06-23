@@ -8,6 +8,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 import org.openjfx.javafxmavenarchetypes.HelloApplication;
+import org.openjfx.javafxmavenarchetypes.model.DatabaseConnexion;
 import org.openjfx.javafxmavenarchetypes.model.User;
 
 import java.io.IOException;

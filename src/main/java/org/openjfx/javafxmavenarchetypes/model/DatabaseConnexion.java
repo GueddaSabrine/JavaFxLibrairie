@@ -1,4 +1,4 @@
-package org.openjfx.javafxmavenarchetypes.controller;
+package org.openjfx.javafxmavenarchetypes.model;
 
 import javafx.util.Pair;
 

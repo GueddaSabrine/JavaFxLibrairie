@@ -21,6 +21,6 @@ jobs:
       - name: Test with Maven
         run: mvn test
       - name: Analyze with SonarCloud
-        run: mvn -B verify sonar:sonar -Dsonar.projectKey=GueddaSabrine_JavaFxLibrairie -Dsonar.organization=gueddasabrine -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+        run: mvn -B verify sonar:sonar -Pcoverage -Dsonar.projectKey=GueddaSabrine_JavaFxLibrairie -Dsonar.organization=gueddasabrine -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }}
       - name: Génération SBOM
         run: mvn verify
