@@ -1,6 +1,5 @@
 package org.openjfx.javafxmavenarchetypes.model;
 
-import javafx.event.ActionEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 import org.xml.sax.SAXException;

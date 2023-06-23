@@ -19,11 +19,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
-import javafx.scene.control.cell.PropertyValueFactory;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-//import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
+
 import javafx.stage.Stage;
 import javafx.util.Pair;
 import org.openjfx.javafxmavenarchetypes.HelloApplication;
@@ -31,34 +30,11 @@ import org.openjfx.javafxmavenarchetypes.model.Bibliotheque;
 import org.openjfx.javafxmavenarchetypes.model.User;
 import org.openjfx.javafxmavenarchetypes.model.XMLhandler;
 import org.xml.sax.SAXException;
-
-import javax.xml.XMLConstants;
-import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-
-import javax.xml.bind.Unmarshaller;
-
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
-import java.awt.*;
-import java.io.File;
 import java.io.IOException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Enumeration;
-import java.util.List;
 import java.util.Optional;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.common.PDRectangle;
-import be.quodlibet.boxable.*;
-import java.util.ResourceBundle;
-
-import static org.apache.pdfbox.pdmodel.font.PDType1Font.*;
-//import static org.apache.pdfbox.pdmodel.font.Standard14Fonts.FontName.COURIER;
-//import static org.apache.pdfbox.pdmodel.font.Standard14Fonts.FontName.HELVETICA_BOLD;
 
 /**
  * @Version 1.5
