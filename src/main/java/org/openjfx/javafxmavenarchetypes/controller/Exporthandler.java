@@ -22,34 +22,43 @@ import org.openjfx.javafxmavenarchetypes.model.Bibliotheque;
 
 import static org.apache.pdfbox.pdmodel.font.PDType1Font.HELVETICA;
 
+/**
+ * Classe permettant d'exporter des documents Word et PDF.
+ */
 public class Exporthandler {
 
+    /**
+     * Exporte un document Word vide.
+     *
+     * @throws Exception si une erreur se produit lors de l'exportation.
+     */
+    public void exportWord() throws Exception {
+        //Blank Document
+        XWPFDocument document = new XWPFDocument();
+
+        //Write the Document in file system
+        FileOutputStream out = new FileOutputStream(new File("createdocument.docx"));
+        document.write(out);
+        out.close();
+        System.out.println("createdocument.docx written successully");
+    }
 
 
-        public void exportWord()throws Exception  {
-            //Blank Document
-            XWPFDocument document = new XWPFDocument();
-
-            //Write the Document in file system
-            FileOutputStream out = new FileOutputStream( new File("createdocument.docx"));
-            document.write(out);
-            out.close();
-            System.out.println("createdocument.docx written successully");
-        }
-
-
-
+    /**
+     *
+     * Exporte un document Word vide.
+     *
+     * @param bibliotheque
+     * @throws IOException si une erreur se produit lors de l'exportation.
+     */
     public void cretepdf(Bibliotheque bibliotheque) throws IOException {
-
         // Standard14Fonts.FontName font_name_3v= Standard14Fonts.getMappedFontName("HELVETICA_BOLD");
         //PDFont pdfFont=  new PDType1Font(font_name_3v.HELVETICA_BOLD);
-
         PDDocument document = new PDDocument();
         PDPage page = new PDPage(PDRectangle.A4);
         PDPage page2 = new PDPage(PDRectangle.A4);
         // rect can be used to get the page width and height
         document.addPage(page);
-
 
         //ajout element
         float margin = 50;
@@ -95,20 +104,20 @@ public class Exporthandler {
             Files.copy(in, Path.of("./imagetemp"));
             File imagefile = new File("./imagetemp");
             cell = row.createImageCell((100 / 9f), ImageUtils.readImage(imagefile));
-            cell = row.createCell((35 / 3.0f), fact.getTitre() );
+            cell = row.createCell((35 / 3.0f), fact.getTitre());
             cell.setFont(HELVETICA);
-            cell = row.createCell((35 / 3.0f), fact.getStringAuteur() );
+            cell = row.createCell((35 / 3.0f), fact.getStringAuteur());
             cell.setFont(HELVETICA);
-            cell = row.createCell((100 / 3.0f) *2, fact.getPresentation() );
+            cell = row.createCell((100 / 3.0f) * 2, fact.getPresentation());
             cell.setFont(HELVETICA);
-            if(!fact.getDisponibilite()){
+            if (!fact.getDisponibilite()) {
                 Row<PDPage> rowind = tableind.createRow(10f);
                 cellind = rowind.createImageCell((100 / 9f), ImageUtils.readImage(imagefile));
-                cellind = rowind.createCell((35 / 3.0f), fact.getTitre() );
+                cellind = rowind.createCell((35 / 3.0f), fact.getTitre());
                 cellind.setFont(HELVETICA);
-                cellind = rowind.createCell((35 / 3.0f), fact.getStringAuteur() );
+                cellind = rowind.createCell((35 / 3.0f), fact.getStringAuteur());
                 cellind.setFont(HELVETICA);
-                cellind = rowind.createCell((100 / 3.0f) *2, fact.getPresentation() );
+                cellind = rowind.createCell((100 / 3.0f) * 2, fact.getPresentation());
                 cellind.setFont(HELVETICA);
             }
 
@@ -124,5 +133,4 @@ public class Exporthandler {
         document.close();
 
     }
-
 }

@@ -11,7 +11,7 @@ class BibliothequeTest extends Bibliotheque {
 
     private Livre livre;
 
-//    Fixture
+    //    Fixture
     @BeforeEach
     void setUp() {
         livre = leLivre().build();
@@ -20,7 +20,6 @@ class BibliothequeTest extends Bibliotheque {
 
     @Test
     void testGetTitre() {
-
         livre.setTitre("testTitre");
         Assertions.assertEquals("testTitre", livre.getTitre());
     }
@@ -32,7 +31,6 @@ class BibliothequeTest extends Bibliotheque {
 
     @Test
     void testGetAuteur() {
-
         livre.setAuteur(new Livre.Auteur("testAuteurNom", "testAuteurPrenom"));
         Assertions.assertEquals("testAuteurNom", livre.getAuteur().getNom());
         Assertions.assertEquals("testAuteurPrenom", livre.getAuteur().getPrenom());
@@ -41,42 +39,36 @@ class BibliothequeTest extends Bibliotheque {
 
     @Test
     void testGetPresentation() {
-
         livre.setPresentation("testPresentation");
         Assertions.assertEquals("testPresentation", livre.getPresentation());
     }
 
     @Test
     void testGetParution() {
-
         livre.setParution(2012);
         Assertions.assertEquals(2012, livre.getParution());
     }
 
     @Test
     void testGetImage() {
-
         livre.setImage("url image");
         Assertions.assertEquals("url image", livre.getImage());
     }
 
     @Test
     void testGetRangee() {
-
         livre.setRangee(5);
         Assertions.assertEquals(5, livre.getRangee());
     }
 
     @Test
     void testGetColonne() {
-
         livre.setColonne(5);
         Assertions.assertEquals(5, livre.getColonne());
     }
 
     @Test
     void testGetDisponible() {
-
         livre.setDisponible(true);
         Assertions.assertEquals(true, livre.getDisponibilite());
     }

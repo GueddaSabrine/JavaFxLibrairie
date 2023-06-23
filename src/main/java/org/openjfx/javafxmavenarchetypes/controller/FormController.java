@@ -1,6 +1,5 @@
 package org.openjfx.javafxmavenarchetypes.controller;
-import be.quodlibet.boxable.Cell;
-import be.quodlibet.boxable.utils.ImageUtils;
+
 import javafx.application.Platform;
 
 import java.sql.*;
@@ -17,49 +16,32 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-//import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
 import org.openjfx.javafxmavenarchetypes.model.Bibliotheque;
 import org.openjfx.javafxmavenarchetypes.model.User;
 import org.openjfx.javafxmavenarchetypes.model.XMLhandler;
 import org.xml.sax.SAXException;
 
-import javax.xml.XMLConstants;
-import javax.xml.bind.JAXBContext;
+
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 
-import javax.xml.bind.Unmarshaller;
-
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
-import java.awt.*;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Enumeration;
-import java.util.List;
 import java.util.Optional;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.common.PDRectangle;
-import be.quodlibet.boxable.*;
-import java.util.ResourceBundle;
 
-import static org.apache.pdfbox.pdmodel.font.PDType1Font.*;
 //import static org.apache.pdfbox.pdmodel.font.Standard14Fonts.FontName.COURIER;
 //import static org.apache.pdfbox.pdmodel.font.Standard14Fonts.FontName.HELVETICA_BOLD;
 
 /**
  * @Version 1.5
+ * @author Aimée Marion Sabrine
+ * <p>
+ * Classe principale avec une implementation.
+ * @author Aimée Marion Sabrine
+ * <p>
+ * Classe principale avec une implementation.
  * @author Aimée Marion Sabrine
  */
 
@@ -75,8 +57,8 @@ import static org.apache.pdfbox.pdmodel.font.PDType1Font.*;
 public class FormController<DatabaseConnection> {
 
     /*
-    * Déclarations des attributs de la classe FormController.
-    * */
+     * Déclarations des attributs de la classe FormController.
+     * */
     private Connection connectDB;
     private DatabaseConnexion connectNow = new DatabaseConnexion();
     // TextField
@@ -104,22 +86,22 @@ public class FormController<DatabaseConnection> {
      * Déclarations des différentes colonnes du tableau ainsi que le tableau lui-même.
      */
     @FXML
-    public TableColumn <Bibliotheque.Livre, String> colAuteur;
+    public TableColumn<Bibliotheque.Livre, String> colAuteur;
     @FXML
-    public TableColumn <Bibliotheque.Livre, String> colPresentation;
+    public TableColumn<Bibliotheque.Livre, String> colPresentation;
     @FXML
-    public TableColumn <Bibliotheque.Livre, Integer > colParution;
+    public TableColumn<Bibliotheque.Livre, Integer> colParution;
     @FXML
-    public TableColumn <Bibliotheque.Livre, Integer> colColonne;
+    public TableColumn<Bibliotheque.Livre, Integer> colColonne;
     @FXML
-    public TableColumn <Bibliotheque.Livre, Integer>colRangee;
+    public TableColumn<Bibliotheque.Livre, Integer> colRangee;
     @FXML
-    public TableColumn <Bibliotheque.Livre, String> colTitre;
+    public TableColumn<Bibliotheque.Livre, String> colTitre;
     private boolean isConnected = false;
 
     //Tableview
     @FXML
-    public TableView <Bibliotheque.Livre> tableau;
+    public TableView<Bibliotheque.Livre> tableau;
 
     /**
      * Création d'une bibliothèque.
@@ -150,19 +132,19 @@ public class FormController<DatabaseConnection> {
     @FXML
     public Text msgErrorTitre;
     @FXML
-    public Text msgErrorAuteur ;
+    public Text msgErrorAuteur;
     @FXML
-    public Text msgErrorColonne ;
+    public Text msgErrorColonne;
     @FXML
-    public Text msgErrorRangee ;
+    public Text msgErrorRangee;
     @FXML
-    public Text msgErrorUrl ;
+    public Text msgErrorUrl;
 
     public MenuItem edition;
 
     //mmh ...
     //Livre from the current global Bibliotheque object bibliotheque 's Livre list that's currently selected in the table view
-    Bibliotheque.Livre selectedbook = null ;
+    Bibliotheque.Livre selectedbook = null;
 
 
     /**
@@ -170,10 +152,8 @@ public class FormController<DatabaseConnection> {
      * Elle configure l'état initial des éléments
      * graphiques tels que les boutons, les champs de texte, le calendrier.
      */
-
     @FXML
-    public void initialize(){
-
+    public void initialize() {
         user.Userlogin();
         inittableau();
         btnMoins.setDisable(true);
@@ -183,7 +163,7 @@ public class FormController<DatabaseConnection> {
     }
 
 
-    private void setUserProfile(){
+    private void setUserProfile() {
 
         btnMoins.setVisible(false);
         btnPlus.setVisible(false);
@@ -196,7 +176,7 @@ public class FormController<DatabaseConnection> {
      * Hide all the error message below the textfields in the form
      * Set all Visible  attribute of textviewers to false
      */
-    public void hideErrorMsg(){
+    public void hideErrorMsg() {
         msgErrorTitre.setVisible(false);
         msgErrorAuteur.setVisible(false);
         msgErrorColonne.setVisible(false);
@@ -207,7 +187,7 @@ public class FormController<DatabaseConnection> {
     /**
      * Bind cell of table view to getter in order to retrieve attribute from Bibliotheque class
      */
-    public void inittableau(){
+    public void inittableau() {
         colTitre.setCellValueFactory(cellData -> {
             String titre = cellData.getValue().titreProperty();
             ObservableValue<String> observableTitre = Bindings.createStringBinding(() -> titre);
@@ -238,7 +218,7 @@ public class FormController<DatabaseConnection> {
             ObservableValue<Integer> observableParution = Bindings.createIntegerBinding(() -> parution).asObject();
             return observableParution;
         });
-        tableau.getColumns().setAll(colTitre,colAuteur,colPresentation,colParution,colColonne,colRangee);
+        tableau.getColumns().setAll(colTitre, colAuteur, colPresentation, colParution, colColonne, colRangee);
         tableau.setItems(bibliotheque.getLivre());
 
     }
@@ -249,9 +229,9 @@ public class FormController<DatabaseConnection> {
      * Put attribute of the Livre object from the selected row into the textfield of the form
      * Unable btnMoins (minus button)
      */
-    public void handleSelectionTableView(MouseEvent event){
-       selectedbook = tableau.getSelectionModel().getSelectedItem();
-        if(selectedbook != null){
+    public void handleSelectionTableView(MouseEvent event) {
+        selectedbook = tableau.getSelectionModel().getSelectedItem();
+        if (selectedbook != null) {
             titre.setText(selectedbook.getTitre());
             auteur.setText(selectedbook.getStringAuteur());
             presentation.setText(selectedbook.getPresentation());
@@ -276,15 +256,15 @@ public class FormController<DatabaseConnection> {
     public void handleNewBook(ActionEvent event) throws SQLException {
 
 
-        if(checkData()) {
+        if (checkData()) {
 
             hideErrorMsg();
             //Recuperer les données entrees dans le texte fields.
-            Bibliotheque.Livre.Auteur auteur1 = new Bibliotheque.Livre.Auteur() ;
+            Bibliotheque.Livre.Auteur auteur1 = new Bibliotheque.Livre.Auteur();
             String auteurTexte = auteur.getText();
             String[] PrenomNom = auteurTexte.split(" ", 2);
-            auteur1.setPrenom(PrenomNom[0].substring(0,1).toUpperCase() + PrenomNom[0].substring(1));
-            auteur1.setNom(PrenomNom[1].substring(0,1).toUpperCase() + PrenomNom[1].substring(1));
+            auteur1.setPrenom(PrenomNom[0].substring(0, 1).toUpperCase() + PrenomNom[0].substring(1));
+            auteur1.setNom(PrenomNom[1].substring(0, 1).toUpperCase() + PrenomNom[1].substring(1));
             String presentationText = presentation.getText();
             String titreText = titre.getText();
             int colonneText = Integer.parseInt(colonne.getText());
@@ -293,22 +273,22 @@ public class FormController<DatabaseConnection> {
             String imageUrl = image.getText();
             boolean disponibilite = checkbox.isSelected();
 
-            if (isConnected){
+            if (isConnected) {
                 try {
                     String reqInsertBook = "INSERT INTO `livre`(`nom`, `prenom`, `presentation`, `parution`, `colonne`, `rangee`, `image`,`titre`) VALUES (?,?,?,?,?,?,?,?)";
                     PreparedStatement preparedStatement = connectNow.insert(reqInsertBook);
-                    preparedStatement.setString(1,auteur1.getNom());
-                    preparedStatement.setString(2,auteur1.getPrenom());
-                    preparedStatement.setString(3,presentationText);
-                    preparedStatement.setInt(4,datapickerText);
-                    preparedStatement.setInt(5,colonneText);
-                    preparedStatement.setInt(6,rangeeText);
-                    preparedStatement.setString(7,imageUrl);
-                    preparedStatement.setString(8,titreText);
+                    preparedStatement.setString(1, auteur1.getNom());
+                    preparedStatement.setString(2, auteur1.getPrenom());
+                    preparedStatement.setString(3, presentationText);
+                    preparedStatement.setInt(4, datapickerText);
+                    preparedStatement.setInt(5, colonneText);
+                    preparedStatement.setInt(6, rangeeText);
+                    preparedStatement.setString(7, imageUrl);
+                    preparedStatement.setString(8, titreText);
                     preparedStatement.executeUpdate();
                     System.out.println("Ajout des éléments : ok");
 
-                }catch (SQLException e){
+                } catch (SQLException e) {
                     System.out.println("Ajout impossible à effectuer.\nErreur :" + e);
                 }
 
@@ -348,7 +328,7 @@ public class FormController<DatabaseConnection> {
                             "Done",
                             null,
                             "Bibliotheque mise a jour"
-                            );
+                    );
                 }
             }
         }
@@ -358,39 +338,35 @@ public class FormController<DatabaseConnection> {
      * Cette fonction contient des regex pour le respect de l'écriture de chaque champ au moment de l'insertion des données
      * @return
      */
-    public boolean checkData(){
-        boolean ti , aut, col , rg , img;
-        if(titre.getText().matches("[A-Za-z0-9 _]*")){
+    public boolean checkData() {
+        boolean ti, aut, col, rg, img;
+        if (titre.getText().matches("[A-Za-z0-9 _]*")) {
             ti = true;
-        }
-        else{
+        } else {
 
             ti = false;
             msgErrorTitre.setVisible(true);
 
         }
-        if(auteur.getText().matches("[A-Za-z]*\s[A-Za-z]*")){
+        if (auteur.getText().matches("[A-Za-z]*\s[A-Za-z]*")) {
             aut = true;
-        }
-        else{
+        } else {
 
             aut = false;
             msgErrorAuteur.setVisible(true);
 
         }
-        if(colonne.getText().matches("[0-9]*") && Integer.parseInt(colonne.getText()) <= 12 && Integer.parseInt(colonne.getText()) >= 1){
+        if (colonne.getText().matches("[0-9]*") && Integer.parseInt(colonne.getText()) <= 12 && Integer.parseInt(colonne.getText()) >= 1) {
             col = true;
-        }
-        else{
+        } else {
 
             col = false;
             msgErrorColonne.setVisible(true);
 
         }
-        if(rangee.getText().matches("[1-7]")){
+        if (rangee.getText().matches("[1-7]")) {
             rg = true;
-        }
-        else{
+        } else {
 
             rg = false;
             msgErrorRangee.setVisible(true);
@@ -398,20 +374,19 @@ public class FormController<DatabaseConnection> {
 
         }
         img = true;
-        try{
+        try {
             new Image(image.getText());
 
-        }
-        catch(Exception e){
+        } catch (Exception e) {
 
-           img = false ;
-            System.out.println( e.getMessage());
+            img = false;
+            System.out.println(e.getMessage());
             msgErrorUrl.setVisible(true);
 
 
         }
 
-        return ti && aut && col && rg && img ;
+        return ti && aut && col && rg && img;
     }
 
 
@@ -451,20 +426,19 @@ public class FormController<DatabaseConnection> {
     /**
      * Gère le clic à l'extérieur d'une zone spécifique.
      */
-    public void handleOutsideCLick(){
+    public void handleOutsideCLick() {
 
-       tableau.getSelectionModel().clearSelection();
-       setDefaultTextField();
-       selectedbook = null;
-       btnMoins.setDisable(true);
-       hideErrorMsg();
-
+        tableau.getSelectionModel().clearSelection();
+        setDefaultTextField();
+        selectedbook = null;
+        btnMoins.setDisable(true);
+        hideErrorMsg();
     }
 
     /**
      * Rétablit les valeurs par défaut des champs de texte.
      */
-    public void setDefaultTextField(){
+    public void setDefaultTextField() {
 
         titre.setText("Titre");
         auteur.setText("Prenom Nom");
@@ -481,8 +455,7 @@ public class FormController<DatabaseConnection> {
     /**
      * Gère le clic sur le bouton Plus.
      */
-    public void handlePlusBouton(){
-
+    public void handlePlusBouton() {
         tableau.getSelectionModel().clearSelection();
         setDefaultTextField();
         btnMoins.setDisable(true);
@@ -493,15 +466,15 @@ public class FormController<DatabaseConnection> {
     /**
      * Gère le clic sur le bouton Moins.
      */
-    public void handleMoinsBouton(){
+    public void handleMoinsBouton() {
 
-        if(selectedbook != null){
+        if (selectedbook != null) {
             if (Alerte(Alert.AlertType.CONFIRMATION,
                     "Suppression Livre",
-                    "Supprimer"+selectedbook.getTitre(),
+                    "Supprimer" + selectedbook.getTitre(),
                     "Voulez vous supprimer " + selectedbook.getTitre() + "  de la liste? Cliquez sur" +
                             " OK pour supprimer")
-                         ) {
+            ) {
                 bibliotheque.getLivre().remove(selectedbook);
                 xmlfile.setFileSaved(false);
                 handleOutsideCLick();
@@ -517,13 +490,13 @@ public class FormController<DatabaseConnection> {
      */
     public void handleExit() throws JAXBException {
         String name = "no file";
-        if(!xmlfile.isFileSaved()){
-            if(xmlfile.getSelectedFile() != null)name = xmlfile.getSelectedFile().getName();
-            if(Alerte(Alert.AlertType.CONFIRMATION ,
+        if (!xmlfile.isFileSaved()) {
+            if (xmlfile.getSelectedFile() != null) name = xmlfile.getSelectedFile().getName();
+            if (Alerte(Alert.AlertType.CONFIRMATION,
                     "Exit",
                     "You're going to exist without saving",
                     "Toute les modifications apportées au fichier " + name + "seront perdu. Cliquez sur" +
-                            " OK pour sauvegarder votre fichier")){
+                            " OK pour sauvegarder votre fichier")) {
                 handleSave(new ActionEvent());
             }
 
@@ -541,18 +514,18 @@ public class FormController<DatabaseConnection> {
      * @param content Le contenu de l'alerte.
      * @return {@code true} si l'utilisateur a cliqué sur OK, {@code false} sinon.
      */
-    public boolean Alerte(Alert.AlertType myType, String title , String headerText, String content){
+    public boolean Alerte(Alert.AlertType myType, String title, String headerText, String content) {
 
         Alert alert = new Alert(myType);
         alert.setTitle(title);
         alert.setHeaderText(headerText);
-        alert.setContentText(content );
+        alert.setContentText(content);
 
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK){
+        if (result.get() == ButtonType.OK) {
             return true;
         } else {
-            return false ;
+            return false;
         }
 
     }
@@ -565,7 +538,7 @@ public class FormController<DatabaseConnection> {
     @FXML
     public void testpdf() throws IOException {
 
-      exporter.cretepdf(bibliotheque);
+        exporter.cretepdf(bibliotheque);
 
     }
 
@@ -591,13 +564,13 @@ public class FormController<DatabaseConnection> {
     public void handleConnexion(ActionEvent event) {
         tableau.refresh();
         connectDB = connectNow.getConnection();
-        if (connectDB != null){
+        if (connectDB != null) {
             isConnected = true;
         }
         String reqSelectAllBook = "SELECT * FROM livre";
         try {
             ResultSet queryOutput = connectNow.selectBook(reqSelectAllBook);
-            while (queryOutput.next()){
+            while (queryOutput.next()) {
                 Bibliotheque.Livre.Auteur auteur9 = new Bibliotheque.Livre.Auteur();
                 auteur9.setNom(queryOutput.getString("nom"));
                 auteur9.setPrenom(queryOutput.getString("prenom"));
@@ -607,8 +580,8 @@ public class FormController<DatabaseConnection> {
                         queryOutput.getInt("parution"),
                         queryOutput.getInt("colonne"),
                         queryOutput.getInt("rangee"),
-                        queryOutput.getString("image"),true);
-                        xmlfile.setFileSaved(false);
+                        queryOutput.getString("image"), true);
+                xmlfile.setFileSaved(false);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

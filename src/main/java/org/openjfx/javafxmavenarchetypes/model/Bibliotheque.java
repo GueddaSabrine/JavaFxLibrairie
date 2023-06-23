@@ -8,24 +8,20 @@
 
 package org.openjfx.javafxmavenarchetypes.model;
 
-
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.DatePicker;
 
 import lombok.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import javax.xml.bind.annotation.*;
 
 
 /**
  * <p>Classe Java pour anonymous complex type.
- * 
+ *
  * <p>Le fragment de sch�ma suivant indique le contenu attendu figurant dans cette classe.
- * 
+ *
  * <pre>
  * &lt;complexType>
  *   &lt;complexContent>
@@ -63,12 +59,10 @@ import javax.xml.bind.annotation.*;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "listlivre"
+        "listlivre"
 })
 
 /**
@@ -86,36 +80,35 @@ public class Bibliotheque {
      * Constructeur par défaut de la bibliothèque.
      * Initialise la liste des livres.
      */
-    public Bibliotheque(){
+    public Bibliotheque() {
 
         listlivre = FXCollections.observableArrayList();
     }
 
     /**
      * Gets the value of the livre property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the livre property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getLivre().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link Bibliotheque.Livre }
-     *
+     * <p>
      * Obtient la valeur de la propriété "livre".
      * Cette méthode retourne une référence à la liste en direct,
      * et non une copie. Toute modification apportée à la liste retournée
      * sera présente dans l'objet JAXB.
-     * 
      */
     public ObservableList<Bibliotheque.Livre> getLivre() {
         if (listlivre == null) {
@@ -124,39 +117,40 @@ public class Bibliotheque {
         return this.listlivre;
     }
     //used by jaxb to create/write book
+
     /**
      * Ajoute un livre à la bibliothèque.
      *
-     * @param titre   Le titre du livre.
-     * @param auteur  L'auteur du livre.
-     * @param pre     La présentation du livre.
-     * @param pick    L'année de parution du livre.
-     * @param col     La colonne où le livre est rangé.
-     * @param rangee  La rangée où le livre est rangé.
-     * @param image   L'image du livre.
-     * @param disp    Indique si le livre est disponible.
+     * @param titre  Le titre du livre.
+     * @param auteur L'auteur du livre.
+     * @param pre    La présentation du livre.
+     * @param pick   L'année de parution du livre.
+     * @param col    La colonne où le livre est rangé.
+     * @param rangee La rangée où le livre est rangé.
+     * @param image  L'image du livre.
+     * @param disp   Indique si le livre est disponible.
      */
-    public void addLivre(String titre, Livre.Auteur auteur, String pre , int pick , int col, int rangee ,String image, boolean disp){
+    public void addLivre(String titre, Livre.Auteur auteur, String pre, int pick, int col, int rangee, String image, boolean disp) {
 
-        listlivre.add(new Livre(titre, auteur, pre, pick ,col, rangee, image, disp));
+        listlivre.add(new Livre(titre, auteur, pre, pick, col, rangee, image, disp));
 
     }
 
     /**
      * Affiche la bibliothèque et ses livres.
      */
-    public void print(){
+    public void print() {
         System.out.println(this);
-        listlivre.forEach(e->System.out.println(e.print()));
+        listlivre.forEach(e -> System.out.println(e.print()));
 
 
     }
 
     /**
      * <p>Classe Java pour anonymous complex type.
-     * 
+     *
      * <p>Le fragment de sch�ma suivant indique le contenu attendu figurant dans cette classe.
-     * 
+     *
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -184,18 +178,16 @@ public class Bibliotheque {
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
-     * 
-     * 
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlRootElement(name = "livre")
     @XmlType(name = "", propOrder = {
-        "titre",
-        "auteur",
-        "presentation",
-        "parution",
-        "colonne",
-        "rangee",
+            "titre",
+            "auteur",
+            "presentation",
+            "parution",
+            "colonne",
+            "rangee",
             "image",
             "disponible"
     })
@@ -252,318 +244,285 @@ public class Bibliotheque {
         /**
          * Constructeur de la classe Livre.
          *
-         * @param titre         Le titre du livre.
-         * @param auteur        L'auteur du livre.
-         * @param presentation  La présentation du livre.
-         * @param parution      L'année de parution du livre.
-         * @param colonne       La colonne où le livre est rangé.
-         * @param rangee        La rangée où le livre est rangé.
-         * @param image         L'image du livre.
-         * @param disp          Indique si le livre est disponible.
+         * @param titre        Le titre du livre.
+         * @param auteur       L'auteur du livre.
+         * @param presentation La présentation du livre.
+         * @param parution     L'année de parution du livre.
+         * @param colonne      La colonne où le livre est rangé.
+         * @param rangee       La rangée où le livre est rangé.
+         * @param image        L'image du livre.
+         * @param disp         Indique si le livre est disponible.
          */
         public Livre(String titre, Bibliotheque.Livre.Auteur auteur, String presentation, Integer parution, Integer colonne, Integer rangee, String image,
-            boolean disp){
-                this.titre = titre;
-                this.auteur = auteur;
-                this.presentation = presentation;
-                this.parution = parution;
-                this.colonne = colonne;
-                this.rangee = rangee;
-                this.image = image;
-                this.disponible = disp;
+                     boolean disp) {
+            this.titre = titre;
+            this.auteur = auteur;
+            this.presentation = presentation;
+            this.parution = parution;
+            this.colonne = colonne;
+            this.rangee = rangee;
+            this.image = image;
+            this.disponible = disp;
 
-            }
+        }
 
         /**
          * Constructeur par défaut de la classe Livre.
          * Initialise les valeurs par défaut.
          */
         public Livre() {
-                this.titre = null;
-                this.auteur = null;
-                this.presentation = null;
-                this.parution = 2012;
-                this.colonne = 0;
-                this.rangee = 0;
-                this.disponible = true;
-            }
-
-            /**
-             * Obtient la valeur de la propri�t� titre.
-             *
-             * @return
-             *     possible object is
-             *     {@link StringProperty }
-             *
-             */
-            public String getTitre () {
-                return titre;
-            }
+            this.titre = null;
+            this.auteur = null;
+            this.presentation = null;
+            this.parution = 2012;
+            this.colonne = 0;
+            this.rangee = 0;
+            this.disponible = true;
+        }
 
         /**
+         * Obtient la valeur de la propri�t� titre.
          *
+         * @return possible object is
+         * {@link StringProperty }
+         */
+        public String getTitre() {
+            return titre;
+        }
+
+        /**
          * @return
          */
-        public String titreProperty () {
-                return titre;
-            }
+        public String titreProperty() {
+            return titre;
+        }
 
-            /**
-             * D�finit la valeur de la propri�t� titre.
-             *
-             * @param value
-             *     allowed object is
-             *     {@link StringProperty }
-             *
-             */
-            public void setTitre (String value){
-                this.titre = value;
-            }
+        /**
+         * D�finit la valeur de la propri�t� titre.
+         *
+         * @param value allowed object is
+         *              {@link StringProperty }
+         */
+        public void setTitre(String value) {
+            this.titre = value;
+        }
 
-            /**
-             * Obtient la valeur de la propri�t� auteur.
-             *
-             * @return
-             *     possible object is
-             *     {@link Bibliotheque.Livre.Auteur }
-             *
-             */
-            public Bibliotheque.Livre.Auteur getAuteur () {
-                return auteur;
-            }
+        /**
+         * Obtient la valeur de la propri�t� auteur.
+         *
+         * @return possible object is
+         * {@link Bibliotheque.Livre.Auteur }
+         */
+        public Bibliotheque.Livre.Auteur getAuteur() {
+            return auteur;
+        }
 
         /**
          * Obtient une représentation sous forme de chaîne de caractères de l'auteur du livre.
          *
          * @return La représentation de l'auteur sous forme de chaîne de caractères.
          */
-            public String getStringAuteur () {
+        public String getStringAuteur() {
 
-                return auteur.getPrenom() + " " + auteur.getNom();
-            }
-
-            /**
-             * D�finit la valeur de la propri�t� auteur.
-             *
-             * @param value
-             *     allowed object is
-             *     {@link Bibliotheque.Livre.Auteur }
-             *
-             */
-            public void setAuteur (Bibliotheque.Livre.Auteur value){
-                this.auteur = value;
-            }
-
-            /**
-             * Obtient la valeur de la propri�t� presentation.
-             *
-             * @return
-             *     possible object is
-             *     {@link StringProperty }
-             *
-             */
-            public String getPresentation(){
-                return presentation;
-            }
-
-            /**
-             * D�finit la valeur de la propri�t� presentation.
-             *
-             * @param value
-             *     allowed object is
-             *     {@link StringProperty }
-             *
-             */
-            public void setPresentation (String value){
-                this.presentation = value;
-            }
-            /**
-             * Obtient la valeur de l'image.
-             *
-             */
-            public String getImage () {
-                return image;
-            }
+            return auteur.getPrenom() + " " + auteur.getNom();
+        }
 
         /**
+         * D�finit la valeur de la propri�t� auteur.
          *
+         * @param value allowed object is
+         *              {@link Bibliotheque.Livre.Auteur }
+         */
+        public void setAuteur(Bibliotheque.Livre.Auteur value) {
+            this.auteur = value;
+        }
+
+        /**
+         * Obtient la valeur de la propri�t� presentation.
+         *
+         * @return possible object is
+         * {@link StringProperty }
+         */
+        public String getPresentation() {
+            return presentation;
+        }
+
+        /**
+         * D�finit la valeur de la propri�t� presentation.
+         *
+         * @param value allowed object is
+         *              {@link StringProperty }
+         */
+        public void setPresentation(String value) {
+            this.presentation = value;
+        }
+
+        /**
+         * Obtient la valeur de l'image.
+         */
+        public String getImage() {
+            return image;
+        }
+
+        /**
          * @param value
          */
-        public void setImage (String value){
-                this.presentation = value;
-            }
+        public void setImage(String value) {
+            this.presentation = value;
+        }
 
-            /**
-             * Obtient la valeur de la propri�t� parution.
-             *
-             */
-            public int getParution () {
-                return parution;
-            }
+        /**
+         * Obtient la valeur de la propri�t� parution.
+         */
+        public int getParution() {
+            return parution;
+        }
 
-            /**
-             * D�finit la valeur de la propri�t� parution.
-             *
-             */
-            public void setParution ( int value){
-                this.parution = value;
-            }
+        /**
+         * D�finit la valeur de la propri�t� parution.
+         */
+        public void setParution(int value) {
+            this.parution = value;
+        }
 
-            /**
-             * Obtient la valeur de la propri�t� colonne.
-             *
-             */
-            public int getColonne () {
-                return colonne;
-            }
+        /**
+         * Obtient la valeur de la propri�t� colonne.
+         */
+        public int getColonne() {
+            return colonne;
+        }
 
-            /**
-             * D�finit la valeur de la propri�t� colonne.
-             *
-             */
-            public void setColonne ( int value){
-                this.colonne = value;
-            }
+        /**
+         * D�finit la valeur de la propri�t� colonne.
+         */
+        public void setColonne(int value) {
+            this.colonne = value;
+        }
 
-            /**
-             * Obtient la valeur de la propri�t� rangee.
-             *
-             */
-            public int getRangee () {
-                return rangee;
-            }
+        /**
+         * Obtient la valeur de la propri�t� rangee.
+         */
+        public int getRangee() {
+            return rangee;
+        }
+
+        /**
+         * @return
+         */
+        public int rangeeProperty() {
+            return rangee;
+        }
+
+        /**
+         * D�finit la valeur de la propri�t� rangee.
+         */
+        public void setRangee(int value) {
+            this.rangee = value;
+        }
+
+        /**
+         * @return
+         */
+        public boolean getDisponibilite() {
+            return disponible;
+        }
+
+        /**
+         * @param b
+         */
+        public void setDisponibilite(boolean b) {
+            disponible = b;
+        }
+
+        /**
+         * @return
+         */
+        public String print() {
+            return this.toString() + "\n" + this.getTitre() + "\n" + this.getAuteur().toString();
+        }
 
         /**
          *
-         * @return
          */
-        public int rangeeProperty () {
-                return rangee;
-            }
+        @XmlAccessorType(XmlAccessType.FIELD)
+        @XmlType(name = "", propOrder = {
+                "nom",
+                "prenom"
+        })
 
-            /**
-             * D�finit la valeur de la propri�t� rangee.
-             *
-             */
-            public void setRangee ( int value){
-                this.rangee = value;
-            }
+        public static class Auteur {
 
             /**
              *
-             * @return
              */
-            public boolean getDisponibilite () {
-                return disponible;
-            }
-
+            @XmlElement(required = true)
+            protected String nom;
             /**
              *
-             * @param b
              */
-            public void setDisponibilite ( boolean b){
-                disponible = b;
-            }
+            @XmlElement(required = true)
+            protected String prenom;
 
-        /**
-         *
-         * @return
-         */
-        public String print () {
-                return this.toString() + "\n" + this.getTitre() + "\n" + this.getAuteur().toString();
+            /**
+             * @param nom
+             * @param prenom
+             */
+            public Auteur(String nom, String prenom) {
+                this.nom = nom;
+                this.prenom = prenom;
             }
 
             /**
              *
              */
-            @XmlAccessorType(XmlAccessType.FIELD)
-            @XmlType(name = "", propOrder = {
-                    "nom",
-                    "prenom"
-            })
+            public Auteur() {
+                this.nom = null;
+                this.prenom = null;
+            }
 
-            public static class Auteur {
+            /**
+             * Obtient la valeur de la propri�t� nom.
+             *
+             * @return possible object is
+             * {@link String }
+             */
+            public String getNom() {
+                return nom;
+            }
 
-                /**
-                 *
-                 */
-                @XmlElement(required = true)
-                protected String nom;
-                /**
-                 *
-                 */
-                @XmlElement(required = true)
-                protected String prenom;
+            /**
+             * D�finit la valeur de la propri�t� nom.
+             *
+             * @param value allowed object is
+             *              {@link String }
+             */
+            public void setNom(String value) {
+                this.nom = value;
+            }
 
-                /**
-                 *
-                 * @param nom
-                 * @param prenom
-                 */
-                public Auteur(String nom, String prenom) {
-                    this.nom = nom;
-                    this.prenom = prenom;
-                }
+            /**
+             * Obtient la valeur de la propri�t� prenom.
+             *
+             * @return possible object is
+             * {@link String }
+             */
+            public String getPrenom() {
+                return prenom;
+            }
 
-                /**
-                 *
-                 */
-                public Auteur() {
-                    this.nom = null;
-                    this.prenom = null;
-                }
-
-                /**
-                 * Obtient la valeur de la propri�t� nom.
-                 *
-                 * @return
-                 *     possible object is
-                 *     {@link String }
-                 *
-                 */
-                public String getNom() {
-                    return nom;
-                }
-
-                /**
-                 * D�finit la valeur de la propri�t� nom.
-                 *
-                 * @param value
-                 *     allowed object is
-                 *     {@link String }
-                 *
-                 */
-                public void setNom(String value) {
-                    this.nom = value;
-                }
-
-                /**
-                 * Obtient la valeur de la propri�t� prenom.
-                 *
-                 * @return
-                 *     possible object is
-                 *     {@link String }
-                 *
-                 */
-                public String getPrenom() {
-                    return prenom;
-                }
-
-                /**
-                 * D�finit la valeur de la propri�t� prenom.
-                 *
-                 * @param value
-                 *     allowed object is
-                 *     {@link String }
-                 *
-                 */
-                public void setPrenom(String value) {
-                    this.prenom = value;
-                }
-
+            /**
+             * D�finit la valeur de la propri�t� prenom.
+             *
+             * @param value allowed object is
+             *              {@link String }
+             */
+            public void setPrenom(String value) {
+                this.prenom = value;
             }
 
         }
+
+    }
 
 
 }
