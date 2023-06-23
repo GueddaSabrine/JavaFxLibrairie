@@ -29,7 +29,7 @@
 <!--    <Button text="Hello!" onAction="#onHelloButtonClick"/>-->
 <!--</VBox>-->
 
-<VBox prefHeight="565.0" prefWidth="877.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.javafxmavenarchetypes.controller.FormController">
+<VBox fx:id="Vbox" prefHeight="565.0" prefWidth="877.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.javafxmavenarchetypes.controller.FormController">
     <children>
         <AnchorPane maxHeight="-1.0" maxWidth="-1.0" onMouseClicked="#handleOutsideCLick" prefHeight="507.0" prefWidth="871.0" VBox.vgrow="ALWAYS">
             <children>

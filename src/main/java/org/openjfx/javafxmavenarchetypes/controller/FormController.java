@@ -18,12 +18,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 //import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
+import javafx.stage.Stage;
 import org.openjfx.javafxmavenarchetypes.HelloApplication;
 import org.openjfx.javafxmavenarchetypes.model.Bibliotheque;
 import org.openjfx.javafxmavenarchetypes.model.User;
@@ -77,6 +79,7 @@ import static org.apache.pdfbox.pdmodel.font.PDType1Font.*;
  */
 public class FormController<DatabaseConnection> {
 
+    public VBox Vbox;
     /*
     * Déclarations des attributs de la classe FormController.
     * */
@@ -177,12 +180,18 @@ public class FormController<DatabaseConnection> {
     @FXML
     public void initialize() throws SQLException {
 
-        user.Userlogin();
+
         inittableau();
+
         btnMoins.setDisable(true);
         setDefaultTextField();
         calendrier.getEditor().setDisable(true);
         hideErrorMsg();
+        if(user.isProfile())setUserProfile();
+        Platform.runLater(()->{
+            Stage stage = (Stage) Vbox.getScene().getWindow();
+            user = (User) stage.getUserData();
+        });
     }
 
 
@@ -191,7 +200,7 @@ public class FormController<DatabaseConnection> {
         btnMoins.setVisible(false);
         btnPlus.setVisible(false);
         btnValider.setVisible(false);
-        edition.setDisable(false);
+        edition.setDisable(true);
 
     }
 
