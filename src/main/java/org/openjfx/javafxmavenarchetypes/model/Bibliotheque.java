@@ -182,6 +182,7 @@ public class Bibliotheque {
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlRootElement(name = "livre")
     @XmlType(name = "", propOrder = {
+            "id",
             "titre",
             "auteur",
             "presentation",
@@ -201,6 +202,8 @@ public class Bibliotheque {
     @Builder
     @AllArgsConstructor
     public static class Livre {
+        @XmlElement(required = true)
+
         protected int id;
         /**
          * Représente un livre.

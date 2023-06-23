@@ -145,6 +145,7 @@ public class XMLhandler {
             fileSaved = true;
             selectedFile = openFile;
         }
+        System.out.println("pb  "+ bibliotheque.getLivre().size());
         return bibliotheque;
     }
 }
