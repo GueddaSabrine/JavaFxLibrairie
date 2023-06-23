@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c72fcec5-180d-4823-899b-009f6ec7fd96" name="Changes" comment="Connexion + Deconnexion">
+    <list default="true" id="096a7edf-4f0e-4518-ad50-67a2b0321f7d" name="Changes" comment="Connexion + Deconnexion">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/openjfx/javafxmavenarchetypes/controller/DatabaseConnexion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/openjfx/javafxmavenarchetypes/controller/DatabaseConnexion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/openjfx/javafxmavenarchetypes/controller/FormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/openjfx/javafxmavenarchetypes/controller/FormController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/openjfx/javafxmavenarchetypes/model/XMLhandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/openjfx/javafxmavenarchetypes/model/XMLhandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/org/openjfx/javafxmavenarchetypes/Biblio.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/openjfx/javafxmavenarchetypes/Biblio.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -30,7 +34,6 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />

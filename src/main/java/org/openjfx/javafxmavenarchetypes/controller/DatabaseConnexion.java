@@ -66,14 +66,15 @@ public class DatabaseConnexion {
         }
     }
 
-    public void insert(String req, Pair<Object, Integer>[] arg){
+    public PreparedStatement insert(String req, Pair<Object, Integer>[] arg){
         try {
-            PreparedStatement preparedStmt = databaseLink.prepareStatement(req);
+            PreparedStatement preparedStmt = databaseLink.prepareStatement(req,Statement.RETURN_GENERATED_KEYS);
             for(int i =0 ; i< arg.length ; i++){
                 preparedStmt.setObject(i +1 ,arg[i].getKey(),arg[i].getValue());
             }
             preparedStmt.executeUpdate();
             System.out.println("Ajout des éléments : ok");
+            return preparedStmt;
         } catch (SQLException e) {
             System.out.println("Ajout impossible à effectuer.\nErreur :" + e);
             throw new RuntimeException(e);
