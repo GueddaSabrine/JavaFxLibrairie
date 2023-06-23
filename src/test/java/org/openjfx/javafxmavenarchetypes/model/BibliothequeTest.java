@@ -7,6 +7,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.openjfx.javafxmavenarchetypes.fixture.LivreFixture.leLivre;
 
+/**
+ * Test unitaire de la class Bibliotheque
+ */
 class BibliothequeTest extends Bibliotheque {
 
     private Livre livre;

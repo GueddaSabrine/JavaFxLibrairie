@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-<<<<<<< HEAD
+
     <list default="true" id="c72fcec5-180d-4823-899b-009f6ec7fd96" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
@@ -12,9 +12,9 @@
       <change beforePath="$PROJECT_DIR$/src/test/java/org/openjfx/javafxmavenarchetypes/fixture/LivreFixture.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/openjfx/javafxmavenarchetypes/fixture/LivreFixture.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/org/openjfx/javafxmavenarchetypes/model/BibliothequeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/openjfx/javafxmavenarchetypes/model/BibliothequeTest.java" afterDir="false" />
     </list>
-=======
+
     <list default="true" id="e81baea1-b7ce-4d7d-8c11-a086e79a7ce0" name="Changes" comment="" />
->>>>>>> 61e34aa5f22dd98ff94b4721df1f79f78b9c0efa
+
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -68,7 +68,7 @@
       <command value="mvn clean install" />
     </option>
   </component>
-<<<<<<< HEAD
+
   <component name="RunManager" selected="JUnit.BibliothequeTest.testGetDisponible">
     <configuration name="FormControllerTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.openjfx.javafxmavenarchetypes.controller.FormControllerTest" />
@@ -83,9 +83,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-=======
   <component name="RunManager">
->>>>>>> 61e34aa5f22dd98ff94b4721df1f79f78b9c0efa
     <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="ALTERNATIVE_JRE_PATH" value="19" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
@@ -95,7 +93,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-<<<<<<< HEAD
+
     <configuration name="BibliothequeTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="javafx-maven-archetypes" />
       <extension name="coverage">
@@ -136,8 +134,7 @@
         <item itemvalue="Application.FormControllerTest" />
       </list>
     </recent_temporary>
-=======
->>>>>>> 61e34aa5f22dd98ff94b4721df1f79f78b9c0efa
+
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">

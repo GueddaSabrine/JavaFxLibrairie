@@ -2,6 +2,9 @@ package org.openjfx.javafxmavenarchetypes.fixture;
 
 import org.openjfx.javafxmavenarchetypes.model.Bibliotheque;
 
+/**
+ * Donnée préconfiguré
+ */
 public class LivreFixture {
     private String titre = "TitreTest";
     private Bibliotheque.Livre.Auteur auteur = new Bibliotheque.Livre.Auteur("Musso", "Guillaume");
