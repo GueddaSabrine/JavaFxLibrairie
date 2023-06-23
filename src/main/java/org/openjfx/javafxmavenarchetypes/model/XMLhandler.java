@@ -81,7 +81,7 @@ public class XMLhandler {
             JAXBContext jaxbContext = JAXBContext.newInstance(Bibliotheque.class);
             Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
             jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            System.out.println("ok");
+            System.out.println("New FileSaved");
             jaxbMarshaller.marshal(bibliotheque, selectedFile);
             fileSaved = true;
 
@@ -101,7 +101,7 @@ public class XMLhandler {
             JAXBContext jaxbContext = JAXBContext.newInstance(Bibliotheque.class);
             Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
             jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            System.out.println("ok");
+            System.out.println("FileSaved");
             jaxbMarshaller.marshal(bibliotheque, selectedFile);
             fileSaved = true;
 
@@ -144,7 +144,6 @@ public class XMLhandler {
             fileSaved = true;
             selectedFile = openFile;
         }
-        System.out.println("pb  " + bibliotheque.getLivre().size());
         return bibliotheque;
     }
 }

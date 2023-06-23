@@ -19,8 +19,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+
 import javafx.stage.Stage;
 import javafx.util.Pair;
 import org.openjfx.javafxmavenarchetypes.HelloApplication;
@@ -28,14 +30,10 @@ import org.openjfx.javafxmavenarchetypes.model.Bibliotheque;
 import org.openjfx.javafxmavenarchetypes.model.User;
 import org.openjfx.javafxmavenarchetypes.model.XMLhandler;
 import org.xml.sax.SAXException;
-
 import javax.xml.bind.JAXBException;
-
 import java.io.IOException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
 import java.util.Optional;
 
 /**
@@ -71,6 +69,7 @@ public class FormController<DatabaseConnection> {
 
     public VBox Vbox;
     public Button btnConnexion;
+    public MenuItem synch;
     /*
      * Déclarations des attributs de la classe FormController.
      * */
@@ -170,7 +169,7 @@ public class FormController<DatabaseConnection> {
     @FXML
     public void initialize() throws SQLException {
         inittableau();
-
+        synch.setDisable(true);
         btnMoins.setDisable(true);
         setDefaultTextField();
         calendrier.getEditor().setDisable(true);
@@ -294,7 +293,7 @@ public class FormController<DatabaseConnection> {
             int datapickerText = calendrier.getValue().getYear();
             String imageUrl = image.getText();
             boolean disponibilite = checkbox.isSelected();
-            int id = -1;
+            int id = 0;
 
             //Affichage de l'image
             Image image = new Image(imageUrl);
@@ -336,8 +335,9 @@ public class FormController<DatabaseConnection> {
                         "Bibliotheque mise a jour"
                 );
 
-            } else {
-                if (isConnected && selectedbook.getId() != -1) {
+            }
+            else {
+                if (isConnected && selectedbook.getId()!= 0){
                     try {
                         //ajouter id dans le constructeur
                         String reqUpdateBook = "UPDATE `livre` SET `nom`=?, `prenom`=?, `presentation`=?, `parution`=?, `colonne`=?, `rangee`=?, `image`=?,`titre`=?,`disponibilite`=? WHERE id=" + selectedbook.getId();
@@ -629,6 +629,7 @@ public class FormController<DatabaseConnection> {
      *
      */
     public void handleConnexion() {
+        synch.setDisable(false);
         tableau.getItems().clear();
         connectDB = connectNow.getConnection();
         if (connectDB != null) {
@@ -665,12 +666,44 @@ public class FormController<DatabaseConnection> {
     }
 
     private void handleDeconnexion() throws SQLException {
+        synch.setDisable(true);
         tableau.getItems().clear();
         connectNow.closeConnection();
         btnConnexion.setText("Connexion");
         btnConnexion.setOnAction(actionEvent -> {
                 handleConnexion();
         });
+    }
+
+    public void handleSynchroniser() throws JAXBException, SAXException, SQLException {
+
+        Bibliotheque bibliotheque1 = xmlfile.Open(tableau.getScene().getWindow());
+        for(Bibliotheque.Livre livre : bibliotheque1.getLivre()){
+
+            if(livre.getId()==0){
+                String req = "INSERT INTO `livre`(`nom`, `prenom`, `presentation`, `parution`, `colonne`, `rangee`, `image`,`titre`,`disponibilite`) VALUES (?,?,?,?,?,?,?,?,?)";
+                Pair<Object, Integer> arg[] =new Pair[]{new Pair<>(livre.getAuteur().getNom(), Types.VARCHAR),
+                        new Pair<>(livre.getAuteur().getPrenom(), Types.VARCHAR),
+                        new Pair<>(livre.getPresentation(), Types.VARCHAR),
+                        new Pair<>(livre.getParution(), Types.INTEGER),
+                        new Pair<>(livre.getColonne(), Types.INTEGER),
+                        new Pair<>(livre.getRangee(), Types.INTEGER),
+                        new Pair<>(livre.getImage(), Types.VARCHAR),
+                        new Pair<>(livre.getTitre(), Types.VARCHAR),
+                        new Pair<>(livre.getDisponibilite(), Types.BOOLEAN)
+                                                        };
+                /*PreparedStatement statement = connectNow.insert(req, arg);
+                ResultSet rs = statement.getGeneratedKeys();
+                rs.next();
+                livre.setId(rs.getInt("id"));
+                bibliotheque.getLivre().add(livre);*/
+
+
+            }
+        }
+        //xmlfile.Save(tableau.getScene().getWindow(), bibliotheque);
+        tableau.refresh();
+
     }
 
 }
