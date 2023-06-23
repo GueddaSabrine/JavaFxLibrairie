@@ -45,7 +45,6 @@ public class Exporthandler {
 
 
     /**
-     *
      * Exporte un document Word vide.
      *
      * @param bibliotheque

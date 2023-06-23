@@ -1,8 +1,7 @@
 package org.openjfx.javafxmavenarchetypes.controller;
 
-import javafx.fxml.FXML;
+
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
@@ -14,10 +13,12 @@ import org.openjfx.javafxmavenarchetypes.model.User;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.SQLType;
 import java.sql.Types;
 import java.util.Optional;
 
+/**
+ *
+ */
 public class LoginController {
 
 
@@ -38,7 +39,7 @@ public class LoginController {
     public Text question;
     public Button BttnValider;
 
-    public void initialize(){
+    public void initialize() {
 
         textFieldNom.setVisible(false);
         textFieldPassword.setVisible(false);
@@ -61,7 +62,6 @@ public class LoginController {
             askNewUser();
         });
         db.getConnection();
-
 
 
     }
@@ -93,12 +93,12 @@ public class LoginController {
     private void newUser() throws IOException, SQLException {
         String req = "INSERT INTO `user`(`nom`, `prenom`, `mdp`, `role`, `login`) VALUES (?,?,?,?,?)";
         Pair<Object, Integer> arg[] = new Pair[]{new Pair<>(textFieldNom.getText(), Types.VARCHAR),
-                                        new Pair<>(textFieldPrenom.getText(), Types.VARCHAR),
-                                        new Pair<>(textFieldPassword.getText(), Types.VARCHAR),
-                                        new Pair<>(checkboxRole.isSelected(), Types.BOOLEAN),
-                                        new Pair<>(textFieldLogin.getText(), Types.VARCHAR)
-                                                 } ;
-        db.insert(req,arg);
+                new Pair<>(textFieldPrenom.getText(), Types.VARCHAR),
+                new Pair<>(textFieldPassword.getText(), Types.VARCHAR),
+                new Pair<>(checkboxRole.isSelected(), Types.BOOLEAN),
+                new Pair<>(textFieldLogin.getText(), Types.VARCHAR)
+        };
+        db.insert(req, arg);
         usr.setUsername(textFieldLogin.getText());
         usr.setProfile(checkboxRole.isSelected());
         usr.setNom(textFieldNom.getText());
@@ -109,14 +109,13 @@ public class LoginController {
 
     public void checkUsername() throws SQLException {
 
-        String query = "SELECT * FROM user WHERE login ='" +textFieldLogin.getText()+ "'";
+        String query = "SELECT * FROM user WHERE login ='" + textFieldLogin.getText() + "'";
         ResultSet queryOutput = db.selectBook(query);
-        if(queryOutput.isBeforeFirst()){
+        if (queryOutput.isBeforeFirst()) {
 
             setPwdView();
             usr.setUsername(textFieldLogin.getText());
-        }
-        else{
+        } else {
             question.setText("username inconnu");
         }
     }
@@ -137,10 +136,10 @@ public class LoginController {
 
     private void checkPwd() throws SQLException, IOException {
 
-        String query = "SELECT * FROM user WHERE login ='" +usr.getUsername()+ "' AND mdp ='" + textFieldPassword.getText() +"'" ;
+        String query = "SELECT * FROM user WHERE login ='" + usr.getUsername() + "' AND mdp ='" + textFieldPassword.getText() + "'";
         ResultSet queryOutput = db.selectBook(query);
-        if(queryOutput.isBeforeFirst()){ //utilisateur trouver et pwd correcte
-            while(queryOutput.next()) {
+        if (queryOutput.isBeforeFirst()) { //utilisateur trouver et pwd correcte
+            while (queryOutput.next()) {
 
                 usr.setNom(queryOutput.getString("nom"));
                 usr.setPassword(queryOutput.getString("mdp"));
@@ -150,8 +149,7 @@ public class LoginController {
             }
             changeScene();
 
-        }
-        else{
+        } else {
 
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("ERRONED PWD");
@@ -159,10 +157,10 @@ public class LoginController {
             alert.setContentText("Voulez vous définir ce mot de passe comme nouveau mot de passe ?");
 
             Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == ButtonType.OK){
-                updatepwd(textFieldPassword.getText(),usr.getUsername());
-            } 
-            
+            if (result.get() == ButtonType.OK) {
+                updatepwd(textFieldPassword.getText(), usr.getUsername());
+            }
+
 
         }
 
@@ -193,6 +191,6 @@ public class LoginController {
 
     }
 
-    
+
 }
 

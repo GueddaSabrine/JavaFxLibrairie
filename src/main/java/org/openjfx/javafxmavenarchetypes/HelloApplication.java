@@ -12,7 +12,6 @@ import javafx.stage.Stage;
  */
 public class HelloApplication extends Application {
 
-    /** private ObservableList<Bibliotheque.Livre> listData = FXCollections.observableArrayList();**/
     /**
      * Méthode de démarrage de l'application.
      * Crée la fenêtre principale et charge le fichier FXML pour l'affichage.

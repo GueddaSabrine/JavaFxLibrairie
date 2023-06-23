@@ -66,11 +66,11 @@ public class DatabaseConnexion {
         }
     }
 
-    public void insert(String req, Pair<Object, Integer>[] arg){
+    public void insert(String req, Pair<Object, Integer>[] arg) {
         try {
             PreparedStatement preparedStmt = databaseLink.prepareStatement(req);
-            for(int i =0 ; i< arg.length ; i++){
-                preparedStmt.setObject(i +1 ,arg[i].getKey(),arg[i].getValue());
+            for (int i = 0; i < arg.length; i++) {
+                preparedStmt.setObject(i + 1, arg[i].getKey(), arg[i].getValue());
             }
             preparedStmt.executeUpdate();
             System.out.println("Ajout des éléments : ok");
@@ -82,7 +82,7 @@ public class DatabaseConnexion {
 
     public void closeConnection() throws SQLException {
 
-        if(databaseLink != null){
+        if (databaseLink != null) {
             databaseLink.close();
         }
     }
