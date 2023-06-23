@@ -490,6 +490,8 @@ public class FormController<DatabaseConnection> {
      */
     public void handleOpen(ActionEvent event) throws JAXBException, SAXException {
         bibliotheque = xmlfile.Open(tableau.getScene().getWindow());
+        tableau.setItems(bibliotheque.getLivre());
+
     }
 
     /**
