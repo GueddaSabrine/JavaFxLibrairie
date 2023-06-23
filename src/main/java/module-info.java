@@ -1,4 +1,4 @@
-module org.openjfx.javafxmavenarchetypes {
+ module org.openjfx.javafxmavenarchetypes {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.xml.bind;
@@ -23,6 +23,7 @@ module org.openjfx.javafxmavenarchetypes {
 //    exports org.openjfx.javafxmavenarchetypes.view;
 //    opens org.openjfx.javafxmavenarchetypes.view to javafx.fxml;
     exports org.openjfx.javafxmavenarchetypes;
+     exports org.openjfx.javafxmavenarchetypes.model;
 //    exports org.openjfx.javafxmavenarchetypes;
 //    exports org.openjfx.javafxmavenarchetypes.view;
 //    opens org.openjfx.javafxmavenarchetypes.view to java.xml.bind, javafx.fxml;
