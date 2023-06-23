@@ -23,7 +23,6 @@ class BibliothequeTest extends Bibliotheque {
         livre = leLivre().build();
     }
 
-
     @Test
     void testGetTitre() {
         livre.setTitre("testTitre");
