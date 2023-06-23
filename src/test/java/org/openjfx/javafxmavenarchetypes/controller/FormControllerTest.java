@@ -1,6 +1,5 @@
 package org.openjfx.javafxmavenarchetypes.controller;
 
-import javafx.application.Platform;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -9,14 +8,10 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.openjfx.javafxmavenarchetypes.HelloApplication;
 import org.openjfx.javafxmavenarchetypes.model.Bibliotheque;
 import org.testfx.framework.junit5.ApplicationExtension;
 
 import java.time.LocalDate;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.openjfx.javafxmavenarchetypes.fixture.LivreFixture.leLivre;
 
 @ExtendWith(ApplicationExtension.class)
 class FormControllerTest extends FormController {
