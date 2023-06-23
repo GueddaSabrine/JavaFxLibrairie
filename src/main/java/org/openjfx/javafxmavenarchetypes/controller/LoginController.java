@@ -17,28 +17,44 @@ import java.sql.Types;
 import java.util.Optional;
 
 /**
- *
+ * Contrôleur responsable de la gestion de la connexion et de la création d'utilisateurs.
  */
 public class LoginController {
 
-
+    /**
+     * Champ de texte pour le nom.
+     */
     public TextField textFieldNom;
     public TextField textFieldLogin;
     public TextField textFieldPassword;
     public TextField textFieldPrenom;
     public CheckBox checkboxRole;
+    /**
+     * Étiquette pour le nom.
+     */
     public Label labelNom;
     public Label labelRole;
     public Label labelPassword;
     public Label labelLogin;
     public Label labelPrenom;
 
+
+    /**
+     * Instance de l'utilisateur actuellement connecté.
+     */
     public User usr = new User();
     public Button BttnNew;
+    /**
+     * Connexion à la base de données.
+     */
     DatabaseConnexion db = new DatabaseConnexion();
     public Text question;
     public Button BttnValider;
 
+    /**
+     * Méthode d'initialisation appelée lors du chargement du contrôleur.
+     * Initialise l'interface graphique et les gestionnaires d'événements.
+     */
     public void initialize() {
 
         textFieldNom.setVisible(false);
@@ -66,6 +82,9 @@ public class LoginController {
 
     }
 
+    /**
+     * Affiche l'interface pour la création d'un nouvel utilisateur.
+     */
     private void askNewUser() {
 
         textFieldNom.setVisible(true);
@@ -90,6 +109,12 @@ public class LoginController {
 
     }
 
+    /**
+     * Crée un nouvel utilisateur en insérant les informations dans la base de données.
+     *
+     * @throws IOException  En cas d'erreur d'entrée/sortie lors de la création de l'utilisateur.
+     * @throws SQLException En cas d'erreur SQL lors de la création de l'utilisateur.
+     */
     private void newUser() throws IOException, SQLException {
         String req = "INSERT INTO `user`(`nom`, `prenom`, `mdp`, `role`, `login`) VALUES (?,?,?,?,?)";
         Pair<Object, Integer> arg[] = new Pair[]{new Pair<>(textFieldNom.getText(), Types.VARCHAR),
@@ -107,6 +132,11 @@ public class LoginController {
         changeScene();
     }
 
+    /**
+     * Vérifie si le nom d'utilisateur existe dans la base de données.
+     *
+     * @throws SQLException En cas d'erreur SQL lors de la vérification du nom d'utilisateur.
+     */
     public void checkUsername() throws SQLException {
 
         String query = "SELECT * FROM user WHERE login ='" + textFieldLogin.getText() + "'";
@@ -120,6 +150,9 @@ public class LoginController {
         }
     }
 
+    /**
+     * Affiche l'interface pour entrer le mot de passe de l'utilisateur.
+     */
     private void setPwdView() {
 
         question.setText("Entrer votre pwd");
@@ -134,6 +167,12 @@ public class LoginController {
         labelPassword.setVisible(true);
     }
 
+    /**
+     * Vérifie si le mot de passe est correct pour l'utilisateur actuel.
+     *
+     * @throws SQLException En cas d'erreur SQL lors de la vérification du mot de passe.
+     * @throws IOException  En cas d'erreur d'entrée/sortie lors de la vérification du mot de passe.
+     */
     private void checkPwd() throws SQLException, IOException {
 
         String query = "SELECT * FROM user WHERE login ='" + usr.getUsername() + "' AND mdp ='" + textFieldPassword.getText() + "'";
@@ -166,14 +205,25 @@ public class LoginController {
 
     }
 
+    /**
+     * Met à jour le mot de passe de l'utilisateur dans la base de données.
+     *
+     * @param pwd      Le nouveau mot de passe.
+     * @param username Le nom d'utilisateur.
+     * @throws IOException  En cas d'erreur d'entrée/sortie lors de la mise à jour du mot de passe.
+     * @throws SQLException En cas d'erreur SQL lors de la mise à jour du mot de passe.
+     */
     private void updatepwd(String pwd, String username) throws IOException, SQLException {
-
         changeScene();
-
     }
 
+    /**
+     * Change de scène vers la vue "Biblio.fxml" et ferme la connexion à la base de données.
+     *
+     * @throws IOException  En cas d'erreur d'entrée/sortie lors du changement de scène.
+     * @throws SQLException En cas d'erreur SQL lors de la fermeture de la connexion à la base de données.
+     */
     private void changeScene() throws IOException, SQLException {
-
         db.closeConnection();
         FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("Biblio.fxml"));
 
@@ -188,9 +238,6 @@ public class LoginController {
         } catch (IOException e) {
             System.err.println(String.format("Error: %s", e.getMessage()));
         }
-
     }
-
-
 }
 

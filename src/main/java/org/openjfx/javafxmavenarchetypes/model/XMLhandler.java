@@ -91,7 +91,7 @@ public class XMLhandler {
     /**
      * Sauvegarde la bibliothèque dans un fichier XML à l'emplacement spécifié.
      *
-     * @param jvfxwindow la fenêtre JavaFX parente.
+     * @param jvfxwindow   la fenêtre JavaFX parente.
      * @param bibliotheque la bibliothèque à sauvegarder.
      * @throws JAXBException si une exception se produit lors de la sérialisation XML.
      */
@@ -117,7 +117,7 @@ public class XMLhandler {
      * @param jvfxwindow la fenêtre JavaFX parente.
      * @return l'objet Bibliotheque correspondant au fichier XML ou null si aucun fichier n'est sélectionné.
      * @throws JAXBException si une exception se produit lors de la désérialisation XML.
-     * @throws SAXException si une exception se produit lors de la validation XML avec le schéma XSD.
+     * @throws SAXException  si une exception se produit lors de la validation XML avec le schéma XSD.
      */
     public Bibliotheque Open(Window jvfxwindow) throws JAXBException, SAXException {
         File xsdf = new File("src/main/xsd/Biblio.xsd");
@@ -144,7 +144,7 @@ public class XMLhandler {
             fileSaved = true;
             selectedFile = openFile;
         }
-        System.out.println("pb  "+ bibliotheque.getLivre().size());
+        System.out.println("pb  " + bibliotheque.getLivre().size());
         return bibliotheque;
     }
 }

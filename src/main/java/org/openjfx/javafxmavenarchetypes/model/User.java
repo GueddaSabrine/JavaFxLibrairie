@@ -1,12 +1,5 @@
 package org.openjfx.javafxmavenarchetypes.model;
 
-import javafx.scene.control.TextInputDialog;
-import org.openjfx.javafxmavenarchetypes.controller.DatabaseConnexion;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Optional;
-
 /**
  * Représente un utilisateur.
  */
@@ -25,9 +18,6 @@ public class User {
     protected String nom;
 
     protected String prenom;
-
-
-
 
 
     public void setUsername(String username) {
