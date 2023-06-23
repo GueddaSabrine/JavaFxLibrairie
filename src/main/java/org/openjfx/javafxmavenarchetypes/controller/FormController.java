@@ -87,6 +87,7 @@ import static org.apache.pdfbox.pdmodel.font.PDType1Font.*;
 public class FormController<DatabaseConnection> {
 
     public VBox Vbox;
+    public Button btnConnexion;
     /*
      * Déclarations des attributs de la classe FormController.
      * */
@@ -641,9 +642,8 @@ public class FormController<DatabaseConnection> {
     /**
      * Gère l'événement de connexion.
      *
-     * @param event L'événement de connexion.
      */
-    public void handleConnexion(ActionEvent event) {
+    public void handleConnexion() {
         tableau.getItems().clear();
         connectDB = connectNow.getConnection();
         if (connectDB != null) {
@@ -669,6 +669,23 @@ public class FormController<DatabaseConnection> {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        btnConnexion.setText("Deconnexion");
+        btnConnexion.setOnAction(actionEvent -> {
+            try {
+                handleDeconnexion();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
+
+    private void handleDeconnexion() throws SQLException {
+        tableau.getItems().clear();
+        connectNow.closeConnection();
+        btnConnexion.setText("Connexion");
+        btnConnexion.setOnAction(actionEvent -> {
+                handleConnexion();
+        });
     }
 
 }
