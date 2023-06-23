@@ -5,10 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c72fcec5-180d-4823-899b-009f6ec7fd96" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/org/openjfx/javafxmavenarchetypes/controller/FormControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/openjfx/javafxmavenarchetypes/controller/FormControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/openjfx/javafxmavenarchetypes/fixture/LivreFixture.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/openjfx/javafxmavenarchetypes/fixture/LivreFixture.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/openjfx/javafxmavenarchetypes/model/BibliothequeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/openjfx/javafxmavenarchetypes/model/BibliothequeTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +67,7 @@
       <command value="mvn clean install" />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.FormControllerTest.handleNewBook">
+  <component name="RunManager" selected="JUnit.BibliothequeTest">
     <configuration name="FormControllerTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.openjfx.javafxmavenarchetypes.controller.FormControllerTest" />
       <module name="javafx-maven-archetypes" />
@@ -154,10 +154,10 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.FormControllerTest.handleNewBook" />
-        <item itemvalue="JUnit.FormControllerTest" />
-        <item itemvalue="Application.FormControllerTest" />
         <item itemvalue="JUnit.BibliothequeTest" />
+        <item itemvalue="JUnit.FormControllerTest" />
+        <item itemvalue="JUnit.FormControllerTest.handleNewBook" />
+        <item itemvalue="Application.FormControllerTest" />
         <item itemvalue="JUnit.BibliothequeTest.testGetDisponible" />
       </list>
     </recent_temporary>

@@ -15,6 +15,9 @@ class BibliothequeTest extends Bibliotheque {
     private Livre livre;
 
     //    Fixture
+    /**
+     * Méthode exécutée avant chaque test pour initialiser les données nécessaires.
+     */
     @BeforeEach
     void setUp() {
         livre = leLivre().build();
@@ -66,8 +69,8 @@ class BibliothequeTest extends Bibliotheque {
 
     @Test
     void testGetColonne() {
-        livre.setColonne(5);
-        Assertions.assertEquals(5, livre.getColonne());
+        livre.setColonne(3);
+        Assertions.assertEquals(3, livre.getColonne());
     }
 
     @Test
