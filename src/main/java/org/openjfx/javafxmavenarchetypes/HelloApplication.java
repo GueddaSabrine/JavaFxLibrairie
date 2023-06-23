@@ -1,17 +1,8 @@
 package org.openjfx.javafxmavenarchetypes;
-import javafx.fxml.FXML;
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import org.openjfx.javafxmavenarchetypes.model.Bibliotheque;
-import org.openjfx.javafxmavenarchetypes.controller.FormController;
-
-import java.io.IOException;
 
 /**
  * Classe principale de l'application.
