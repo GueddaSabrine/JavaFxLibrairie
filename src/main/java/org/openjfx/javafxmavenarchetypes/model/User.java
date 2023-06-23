@@ -11,7 +11,11 @@ public class User {
 
     protected String username;
     protected String password;
-    protected boolean profile; //0 == gerant 1 == userlambda
+    protected boolean profile;
+
+    protected String nom;
+
+    protected String prenom;
 
 
     public void Userlogin() throws SQLException {
@@ -58,13 +62,43 @@ public class User {
         return null;
     }
 
-    public void createNewUser(DatabaseConnexion db){
-
-
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public void modifyPassword(DatabaseConnexion db){
-
+    public void setPassword(String password) {
+        this.password = password;
     }
 
+    public void setProfile(boolean profile) {
+        this.profile = profile;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public boolean isProfile() {
+        return profile;
+    }
 }

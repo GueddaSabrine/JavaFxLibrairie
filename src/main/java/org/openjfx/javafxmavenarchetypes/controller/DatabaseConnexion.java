@@ -79,4 +79,11 @@ public class DatabaseConnexion {
             throw new RuntimeException(e);
         }
     }
+
+    public void closeConnection() throws SQLException {
+
+        if(databaseLink != null){
+            databaseLink.close();
+        }
+    }
 }
