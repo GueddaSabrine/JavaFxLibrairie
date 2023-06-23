@@ -67,6 +67,8 @@
                         </Menu>
                         <Menu fx:id="edition" mnemonicParsing="false" text="Edition">
                             <items>
+                                <MenuItem fx:id="synch" mnemonicParsing="false" onAction="#handleSave" text="Synchroniser" />
+
                                 <MenuItem fx:id="sauv" mnemonicParsing="false" onAction="#handleSave" text="Sauvegarder" />
                                 <MenuItem fx:id="sauvSous" mnemonicParsing="false" onAction="#handleSaveAs" text="Sauvegarder sous ..." />
                             </items>
