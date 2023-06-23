@@ -1,5 +1,6 @@
 package org.openjfx.javafxmavenarchetypes.controller;
-
+import be.quodlibet.boxable.Cell;
+import be.quodlibet.boxable.utils.ImageUtils;
 import javafx.application.Platform;
 
 import java.sql.*;
@@ -10,27 +11,55 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+//import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
+import javafx.stage.Stage;
+import org.openjfx.javafxmavenarchetypes.HelloApplication;
 import org.openjfx.javafxmavenarchetypes.model.Bibliotheque;
 import org.openjfx.javafxmavenarchetypes.model.User;
 import org.openjfx.javafxmavenarchetypes.model.XMLhandler;
 import org.xml.sax.SAXException;
 
-
+import javax.xml.XMLConstants;
+import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 
+import javax.xml.bind.Unmarshaller;
+
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+import java.awt.*;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Enumeration;
+import java.util.List;
 import java.util.Optional;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.common.PDRectangle;
+import be.quodlibet.boxable.*;
+import java.util.ResourceBundle;
 
+import static org.apache.pdfbox.pdmodel.font.PDType1Font.*;
 //import static org.apache.pdfbox.pdmodel.font.Standard14Fonts.FontName.COURIER;
 //import static org.apache.pdfbox.pdmodel.font.Standard14Fonts.FontName.HELVETICA_BOLD;
 
@@ -56,6 +85,7 @@ import java.util.Optional;
  */
 public class FormController<DatabaseConnection> {
 
+    public VBox Vbox;
     /*
      * Déclarations des attributs de la classe FormController.
      * */
@@ -153,13 +183,20 @@ public class FormController<DatabaseConnection> {
      * graphiques tels que les boutons, les champs de texte, le calendrier.
      */
     @FXML
-    public void initialize() {
-        user.Userlogin();
+    public void initialize() throws SQLException {
+
+
         inittableau();
+
         btnMoins.setDisable(true);
         setDefaultTextField();
         calendrier.getEditor().setDisable(true);
         hideErrorMsg();
+        Platform.runLater(()->{
+            Stage stage = (Stage) Vbox.getScene().getWindow();
+            user = (User) stage.getUserData();
+            if(!user.isProfile())setUserProfile();
+        });
     }
 
 
@@ -168,7 +205,7 @@ public class FormController<DatabaseConnection> {
         btnMoins.setVisible(false);
         btnPlus.setVisible(false);
         btnValider.setVisible(false);
-        edition.setDisable(false);
+        edition.setDisable(true);
 
     }
 
@@ -275,16 +312,17 @@ public class FormController<DatabaseConnection> {
 
             if (isConnected) {
                 try {
-                    String reqInsertBook = "INSERT INTO `livre`(`nom`, `prenom`, `presentation`, `parution`, `colonne`, `rangee`, `image`,`titre`) VALUES (?,?,?,?,?,?,?,?)";
+                    String reqInsertBook = "INSERT INTO `livre`(`nom`, `prenom`, `presentation`, `parution`, `colonne`, `rangee`, `image`,`titre`,`disponibilite`) VALUES (?,?,?,?,?,?,?,?,?)";
                     PreparedStatement preparedStatement = connectNow.insert(reqInsertBook);
-                    preparedStatement.setString(1, auteur1.getNom());
-                    preparedStatement.setString(2, auteur1.getPrenom());
-                    preparedStatement.setString(3, presentationText);
-                    preparedStatement.setInt(4, datapickerText);
-                    preparedStatement.setInt(5, colonneText);
-                    preparedStatement.setInt(6, rangeeText);
-                    preparedStatement.setString(7, imageUrl);
-                    preparedStatement.setString(8, titreText);
+                    preparedStatement.setString(1,auteur1.getNom());
+                    preparedStatement.setString(2,auteur1.getPrenom());
+                    preparedStatement.setString(3,presentationText);
+                    preparedStatement.setInt(4,datapickerText);
+                    preparedStatement.setInt(5,colonneText);
+                    preparedStatement.setInt(6,rangeeText);
+                    preparedStatement.setString(7,imageUrl);
+                    preparedStatement.setString(8,titreText);
+                    preparedStatement.setBoolean(9,disponibilite);
                     preparedStatement.executeUpdate();
                     System.out.println("Ajout des éléments : ok");
 
@@ -542,6 +580,14 @@ public class FormController<DatabaseConnection> {
 
     }
 
+    public void handleAbout() throws IOException {
+        Parent pane = FXMLLoader.load(
+                HelloApplication.class.getResource("About.fxml"));
+
+        tableau.getScene().setRoot(pane);
+
+    }
+
     //public ObservableList<Bibliotheque.Livre> data = FXCollections.observableArrayList();
     /**
      * Méthode qui permet de détecter les changements.
@@ -562,7 +608,7 @@ public class FormController<DatabaseConnection> {
      * @param event L'événement de connexion.
      */
     public void handleConnexion(ActionEvent event) {
-        tableau.refresh();
+        tableau.getItems().clear();
         connectDB = connectNow.getConnection();
         if (connectDB != null) {
             isConnected = true;
